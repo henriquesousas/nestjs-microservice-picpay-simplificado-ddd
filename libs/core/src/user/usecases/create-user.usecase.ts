@@ -6,8 +6,8 @@ import {
   USER_REPOSITORY,
   UserRepository,
 } from '../repositories/user.repository';
-import { Document } from '../domain/document';
-import { User } from '../domain/user';
+import { Document } from '../entities/document';
+import { User } from '../entities/user';
 
 @Injectable()
 export class CreateUserUseCase

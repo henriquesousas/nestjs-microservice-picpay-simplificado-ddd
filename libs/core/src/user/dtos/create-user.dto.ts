@@ -1,5 +1,5 @@
 import { IsEnum, IsString, MinLength } from 'class-validator';
-import { UserType } from '../domain/user.type';
+import { UserType } from '../entities/user.type';
 
 export class CreateUserDto {
   @MinLength(3, { message: 'Nome dever ter pelo menos três caracteres' })
