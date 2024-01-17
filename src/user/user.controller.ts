@@ -2,9 +2,9 @@ import { Body, Controller, Inject, Post } from '@nestjs/common';
 import {
   CREATE_USER_USECASE_TOKEN,
   CreateUserUseCase,
-} from '@app/core/user/usecases/create-user.usecase';
-import { CreateUserDto } from '@app/core/user/dtos/create-user.dto';
-import { isError } from '../../libs/core/common/types/types';
+} from '@app/core/feature/user/usecases/create-user.usecase';
+import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
+import { isError } from '@app/core/common/types/types';
 import { CreateUserResponse } from './dtos/create-user-response.dto';
 
 @Controller('/user')
