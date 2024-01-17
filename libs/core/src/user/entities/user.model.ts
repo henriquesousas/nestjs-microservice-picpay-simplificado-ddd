@@ -5,11 +5,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserType } from './user.type';
-import { Document } from './document';
 
-@Entity()
-export class User {
+@Entity({ name: 'users' })
+export class UserModel {
   @PrimaryGeneratedColumn()
   id: string;
 
@@ -19,21 +17,20 @@ export class User {
   @Column()
   secondName: string;
 
+  @Column({ unique: true })
+  document: string;
+
   @Column()
-  document: Document;
+  documentType: string;
+
+  @Column({ unique: true })
+  email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column('decimal', { precision: 6, scale: 2, default: 0 })
   amount: number;
-
-  @Column({
-    type: 'enum',
-    enum: UserType,
-    default: UserType.COMMON,
-  })
-  userType: UserType;
 
   @CreateDateColumn({ type: 'timestamp' })
   createAt: Date;
@@ -41,7 +38,7 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  constructor(entity: Partial<User>) {
+  constructor(entity: Partial<UserModel>) {
     Object.assign(this, entity);
   }
 }
