@@ -1,5 +1,11 @@
-import { IsEnum, IsString, MinLength } from 'class-validator';
-import { UserType } from '../entities/user.type';
+import {
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { DocumentType } from '../entities/document_type';
 
 export class CreateUserDto {
   @MinLength(3, { message: 'Nome dever ter pelo menos três caracteres' })
@@ -11,10 +17,15 @@ export class CreateUserDto {
   @IsString({ message: 'Documento inválido' })
   document: string;
 
-  @IsEnum(UserType, { message: 'Tipo de usuário desconhecido' })
-  userType: UserType;
+  @IsEmail({}, { message: 'Email invalido' })
+  email: string;
 
-  //@MinLength(6, { message: 'Senha deve ter entre 6 e 10 caracteres' })
-  //@MaxLength(10, { message: 'Senha deve ter entre 6 e 10 caracteres' })
+  @IsEnum(DocumentType, { message: 'Tipo de usuário desconhecido' })
+  documentType: DocumentType;
+
+  @IsString()
   password: string;
+
+  @IsNumber()
+  amount: number;
 }

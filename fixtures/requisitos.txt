@@ -1,8 +1,8 @@
 
 ✅ Criar projeto transaction-payment-desafio-nestjs
-[] Identificar os tipo de usuario cadastrado sendo usuários comuns e lojista
-[] Precisa salvar Nome Completo, CPF, e-mail e Senha
-[] CPF/CNPJ e e-mails devem ser únicos no sistema
+✅ Identificar os tipo de usuario cadastrado sendo usuários comuns e lojista
+✅ Precisa salvar Nome Completo, CPF, e-mail e Senha
+✅ CPF/CNPJ e e-mails devem ser únicos no sistema
 [] Usuários podem enviar dinheiro (efetuar transferência) para lojistas e entre usuários.
 [] Lojistas só recebem transferências, não enviam dinheiro para ninguém.
 [] Validar se o usuário tem saldo antes da transferência.
