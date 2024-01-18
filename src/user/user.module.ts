@@ -3,11 +3,11 @@ import { UserController } from './user.controller';
 import {
   CREATE_USER_USECASE_TOKEN,
   CreateUserUseCase,
-} from '../../libs/core/src/feature/user/usecases/create-user.usecase';
+} from '@app/core/feature/user/usecases/create-user.usecase';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '../../libs/core/src/feature/user/repositories/user.repository';
+} from '@app/core/feature/user/repositories/user.repository';
 import { MysqlUserRepository } from './mysql-user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CPFValidator } from './validators/cpf.validator';
