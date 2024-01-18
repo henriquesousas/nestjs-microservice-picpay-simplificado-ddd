@@ -1,8 +1,8 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import {
   CREATE_USER_USECASE_TOKEN,
-  CreateUserUseCase,
-} from '@app/core/feature/user/usecases/create-user.usecase';
+  CreateUser,
+} from '@app/core/feature/user/usecases/interfaces/create-user';
 import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
 import { isError } from '@app/core/common/types/types';
 import { CreateUserResponse } from './dtos/create-user-response.dto';
@@ -11,7 +11,7 @@ import { CreateUserResponse } from './dtos/create-user-response.dto';
 export class UserController {
   constructor(
     @Inject(CREATE_USER_USECASE_TOKEN)
-    private readonly usecase: CreateUserUseCase,
+    private readonly usecase: CreateUser,
   ) {}
 
   @Post()
