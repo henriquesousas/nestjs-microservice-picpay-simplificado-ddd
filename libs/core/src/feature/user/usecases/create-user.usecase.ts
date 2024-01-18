@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Result, isError } from '@app/core/common/types/types';
-import { UseCaseWithParam } from '@app/core/common/usecases/usecase';
 import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
 import {
   USER_REPOSITORY_TOKEN,
@@ -10,13 +9,10 @@ import { Document } from '@app/core/feature/user/entities/document';
 import { DocumentValidator } from '@app/core/feature/user/document.validator';
 import { UserModel } from '@app/core/feature/user/entities/user.model';
 import { UserAlreadyExistException } from '@app/core/feature/user/exceptions/user-already-exist.exception';
-
-export const CREATE_USER_USECASE_TOKEN = 'CreateUserUseCase';
+import { CreateUser } from '@app/core/feature/user/usecases/interfaces/create-user';
 
 @Injectable()
-export class CreateUserUseCase
-  implements UseCaseWithParam<CreateUserDto, UserModel>
-{
+export class CreateUserUseCase implements CreateUser {
   constructor(
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: UserRepository,
