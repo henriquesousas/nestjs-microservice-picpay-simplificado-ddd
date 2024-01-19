@@ -2,7 +2,7 @@ import { CreateUserDto } from '../../../libs/core/src/feature/user/dtos/create-u
 import { UserController } from '../../../src/user/user.controller';
 import { DocumentType } from '../../../libs/core/src/feature/user/entities/document_type';
 import { BadRequestException } from '@nestjs/common';
-import { CreateUserUseCaseStub } from './mocks/create-user.usecase.spec';
+import { CreateUserUseCaseStub } from './mocks/create-user-usecase.stub';
 
 const makeDto = (
   documentType: DocumentType = DocumentType.CPF,
