@@ -1,6 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Result } from '../../../common/types/types';
-import { DocumentValidator } from '../document.validator';
+import { DocumentValidator } from '../../../common/validator/document.validator';
 import { DocumentType } from './document_type';
 
 export class Document {

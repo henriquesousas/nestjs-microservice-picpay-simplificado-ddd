@@ -5,7 +5,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { DocumentType } from '../entities/document_type';
+import { DocumentType } from '../models/document_type';
 
 export class CreateUserDto {
   @MinLength(3, { message: 'Nome dever ter pelo menos três caracteres' })
