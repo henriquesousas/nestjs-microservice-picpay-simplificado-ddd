@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm/repository/Repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserModel } from '@app/core/feature/user/entities/user.model';
-import { UserRepository } from '@app/core/feature/user/repositories/user.repository';
+import { UserModel } from '@app/core/feature/user/models/user.model';
+import { UserRepository } from '@app/core/feature/user/user.repository';
 
 @Injectable()
 export class MysqlUserRepository implements UserRepository {
@@ -13,6 +13,10 @@ export class MysqlUserRepository implements UserRepository {
 
   async create(user: UserModel): Promise<UserModel> {
     return await this.repository.save(user);
+  }
+
+  async findById(userId: string): Promise<UserModel> {
+    return await this.repository.findOne({ where: { id: userId } });
   }
 
   async findByDocumentOrEmail(
