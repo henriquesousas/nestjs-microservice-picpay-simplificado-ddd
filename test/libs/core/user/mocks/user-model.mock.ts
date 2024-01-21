@@ -1,4 +1,6 @@
-import { UserModel } from '../../../../../libs/core/src/feature/user/entities/user.model';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
 
 export const userModelMock: UserModel = {
   id: 'any_id',
@@ -11,4 +13,8 @@ export const userModelMock: UserModel = {
   documentType: 'any_document_type',
   createAt: new Date('2024-01-18T16:38:41.183Z'),
   updatedAt: new Date('2024-01-18T16:38:41.183Z'),
+  transactions: [],
+
+  add: function (value: number): void {},
+  subtract: function (value: number): void {},
 };
