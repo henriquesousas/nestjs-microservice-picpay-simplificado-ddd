@@ -3,9 +3,9 @@
 ✅ Identificar os tipo de usuario cadastrado sendo usuários comuns e lojista
 ✅ Precisa salvar Nome Completo, CPF, e-mail e Senha
 ✅ CPF/CNPJ e e-mails devem ser únicos no sistema
-[] Usuários podem enviar dinheiro (efetuar transferência) para lojistas e entre usuários.
-[] Lojistas só recebem transferências, não enviam dinheiro para ninguém.
-[] Validar se o usuário tem saldo antes da transferência.
+✅ Usuários podem enviar dinheiro (efetuar transferência) para lojistas e entre usuários.
+✅ Lojistas só recebem transferências, não enviam dinheiro para ninguém.
+✅ Validar se o usuário tem saldo antes da transferência.
 [] Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo, use este
     mock para simular (https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc), finalizar transação
     apenas se for autorizado
