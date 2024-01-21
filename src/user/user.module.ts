@@ -4,7 +4,7 @@ import { CreateUserUseCase } from '@app/core/feature/user/usecases/create-user.u
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '@app/core/feature/user/repositories/user.repository';
+} from '@app/core/feature/user/user.repository';
 import { MysqlUserRepository } from './mysql-user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CPFValidator } from './validators/cpf.validator';
@@ -30,5 +30,6 @@ import { CREATE_USER_USECASE_TOKEN } from '@app/core/feature/user/usecases/inter
       useClass: MysqlUserRepository,
     },
   ],
+  exports: [USER_REPOSITORY_TOKEN],
 })
 export class UserModule {}

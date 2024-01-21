@@ -1,6 +1,6 @@
 import { CreateUserDto } from '../../../libs/core/src/feature/user/dtos/create-user.dto';
 import { UserController } from '../../../src/user/user.controller';
-import { DocumentType } from '../../../libs/core/src/feature/user/entities/document_type';
+import { DocumentType } from '../../../libs/core/src/feature/user/models/document_type';
 import { BadRequestException } from '@nestjs/common';
 import { CreateUserUseCaseStub } from './mocks/create-user-usecase.stub';
 

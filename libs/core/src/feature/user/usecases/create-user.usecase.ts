@@ -4,10 +4,10 @@ import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '@app/core/feature/user/repositories/user.repository';
-import { Document } from '@app/core/feature/user/entities/document';
-import { DocumentValidator } from '@app/core/feature/user/document.validator';
-import { UserModel } from '@app/core/feature/user/entities/user.model';
+} from '@app/core/feature/user/user.repository';
+import { Document } from '@app/core/feature/user/models/document';
+import { DocumentValidator } from '@app/core/common/validator/document.validator';
+import { UserModel } from '@app/core/feature/user/models/user.model';
 import { UserAlreadyExistException } from '@app/core/feature/user/exceptions/user-already-exist.exception';
 import { CreateUser } from '@app/core/feature/user/usecases/interfaces/create-user';
 
