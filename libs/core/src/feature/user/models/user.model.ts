@@ -31,7 +31,7 @@ export class UserModel extends AbstractEntity<UserModel> {
   @OneToMany(() => TransactionModel, (transaction) => transaction.sender)
   transactions: TransactionModel[];
 
-  add(value: number): void {
+  deposit(value: number): void {
     this.amount = Number(this.amount) + Number(value);
   }
 

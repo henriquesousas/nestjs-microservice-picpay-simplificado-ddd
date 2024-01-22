@@ -1,5 +1,5 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Result, isError } from '@app/core/common/types/types';
+import { Result } from '@app/core/common/types/types';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
@@ -58,6 +58,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
       return new UnauthorizedException();
     }
 
+    sender.subtract(value);
+    receiver.deposit(value);
     await this.transactionReposytory.transfer(sender, receiver, value);
   }
 }

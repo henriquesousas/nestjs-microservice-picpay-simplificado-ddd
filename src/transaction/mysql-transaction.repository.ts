@@ -18,8 +18,6 @@ export class MysqlTransactionRepository implements TransactionReposytory {
       receiver: receiver.id,
       value: value,
     });
-    sender.subtract(value);
-    receiver.add(value);
     await this.entityManager.transaction(async (transactionalEntityManager) => {
       await transactionalEntityManager.save(transaction);
       await transactionalEntityManager.save(sender);

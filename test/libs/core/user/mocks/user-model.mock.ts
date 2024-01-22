@@ -15,6 +15,6 @@ export const userModelMock: UserModel = {
   updatedAt: new Date('2024-01-18T16:38:41.183Z'),
   transactions: [],
 
-  add: function (value: number): void {},
+  deposit: function (value: number): void {},
   subtract: function (value: number): void {},
 };
