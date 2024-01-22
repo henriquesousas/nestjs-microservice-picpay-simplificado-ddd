@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Result } from '@app/core/common/types/types';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Result, isError } from '@app/core/common/types/types';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
@@ -14,6 +14,10 @@ import { TransactionPayment } from '@app/core/feature/transaction/usecases/inter
 import { UserNotfoundException } from '@app/core/feature/user/exceptions/user-not-found.exception';
 import { TransferNotAllowedException } from '@app/core/feature/transaction/exceptions/transfer-payment-not-allowed.exception';
 import { InsulficientBalanceException } from '@app/core/feature/transaction/exceptions/insulficient-balance.exception';
+import {
+  TRANSACTION_AUTHORIZE_SERVICE_TOKEN,
+  TransactionAuthorizeService,
+} from '@app/core/feature/transaction/services/transaction-authorize.service';
 
 @Injectable()
 export class TransactionPaymentUseCase implements TransactionPayment {
@@ -22,6 +26,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     private readonly transactionReposytory: TransactionReposytory,
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: UserRepository,
+    @Inject(TRANSACTION_AUTHORIZE_SERVICE_TOKEN)
+    private readonly transactionAuthorizeService: TransactionAuthorizeService,
   ) {}
 
   async execute({
@@ -45,6 +51,11 @@ export class TransactionPaymentUseCase implements TransactionPayment {
 
     if (sender.amount < value) {
       return new InsulficientBalanceException();
+    }
+
+    const authorized = await this.transactionAuthorizeService.authorize();
+    if (!authorized) {
+      return new UnauthorizedException();
     }
 
     await this.transactionReposytory.transfer(sender, receiver, value);
