@@ -18,6 +18,10 @@ import {
   TRANSACTION_AUTHORIZE_SERVICE_TOKEN,
   TransactionAuthorizeService,
 } from '@app/core/feature/transaction/services/transaction-authorize.service';
+import {
+  NOTIFICATION_SERVICE,
+  NotificationServie,
+} from '@app/core/feature/notification/notification.service';
 
 @Injectable()
 export class TransactionPaymentUseCase implements TransactionPayment {
@@ -28,6 +32,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     private readonly userRepository: UserRepository,
     @Inject(TRANSACTION_AUTHORIZE_SERVICE_TOKEN)
     private readonly transactionAuthorizeService: TransactionAuthorizeService,
+    @Inject(NOTIFICATION_SERVICE)
+    private readonly notificationService: NotificationServie,
   ) {}
 
   async execute({
@@ -61,5 +67,7 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     sender.subtract(value);
     receiver.deposit(value);
     await this.transactionReposytory.transfer(sender, receiver, value);
+
+    await this.notificationService.send();
   }
 }
