@@ -7,7 +7,7 @@ import { MysqlTransactionRepository } from './mysql-transaction.repository';
 import { HttpModule } from '@app/core/common/http/http.module';
 import { TRANSACTION_REPOSITORY_TOKEN } from '@app/core/feature/transaction/transaction.repository';
 import { CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN } from '@app/core/feature/transaction/services/check-transaction-payment.service';
-import { AxiosTransactionAuhorizeService } from './http/axios-transaction-authorize.service';
+import { AxiosCheckTransactionPaymentService } from './http/axios-check-transaction-payment.service';
 import { NotificationModule } from '../notification/notification.module';
 import { UserModule } from '../user/user.module';
 
@@ -25,7 +25,7 @@ import { UserModule } from '../user/user.module';
     },
     {
       provide: CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN,
-      useClass: AxiosTransactionAuhorizeService,
+      useClass: AxiosCheckTransactionPaymentService,
     },
   ],
 })

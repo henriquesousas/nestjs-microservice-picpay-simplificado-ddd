@@ -5,7 +5,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';
 
 @Injectable()
-export class AxiosTransactionAuhorizeService
+export class AxiosCheckTransactionPaymentService
   implements CheckTransactionPaymentService
 {
   constructor(
