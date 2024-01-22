@@ -7,7 +7,7 @@ import { MysqlTransactionRepository } from './mysql-transaction.repository';
 import { HttpModule as AxiosHttpModule } from '@nestjs/axios';
 import { TRANSACTION_REPOSITORY_TOKEN } from '@app/core/feature/transaction/transaction.repository';
 import { TRANSACTION_AUTHORIZE_SERVICE_TOKEN } from '@app/core/feature/transaction/services/transaction-authorize.service';
-import { AxiosTransactionAuhorizeService } from './axios-transaction-authorize.service';
+import { AxiosTransactionAuhorizeService } from './http/axios-transaction-authorize.service';
 import { UserModule } from '../user/user.module';
 
 @Module({

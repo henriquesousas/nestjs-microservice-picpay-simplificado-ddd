@@ -53,7 +53,7 @@ export class TransactionPaymentUseCase implements TransactionPayment {
       return new InsulficientBalanceException();
     }
 
-    const authorized = await this.transactionAuthorizeService.authorize();
+    const authorized = await this.transactionAuthorizeService.isAuthorize();
     if (!authorized) {
       return new UnauthorizedException();
     }

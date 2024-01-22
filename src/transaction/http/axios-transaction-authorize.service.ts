@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { TransactionAuthorizeService } from '../../libs/core/src/feature/transaction/services/transaction-authorize.service';
+import { TransactionAuthorizeService } from '../../../libs/core/src/feature/transaction/services/transaction-authorize.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';
@@ -13,7 +13,7 @@ export class AxiosTransactionAuhorizeService
     private readonly http: HttpService,
   ) {}
 
-  async authorize(): Promise<boolean> {
+  async isAuthorize(): Promise<boolean> {
     const request = this.http
       .get(this.configService.get('PAYMENT_CHECK_URL'))
       .pipe(
