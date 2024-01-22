@@ -4,14 +4,15 @@ import { TransactionController } from './transaction.controller';
 import { TransactionPaymentUseCase } from '../../libs/core/src/feature/transaction/usecases/transaction-payment.usecase';
 import { TRANSACTION_PAYMENT_USECASE_TOKEN } from '../../libs/core/src/feature/transaction/usecases/interfaces/transaction-payment';
 import { MysqlTransactionRepository } from './mysql-transaction.repository';
-import { HttpModule as AxiosHttpModule } from '@nestjs/axios';
+import { HttpModule } from '@app/core/common/http/http.module';
 import { TRANSACTION_REPOSITORY_TOKEN } from '@app/core/feature/transaction/transaction.repository';
-import { TRANSACTION_AUTHORIZE_SERVICE_TOKEN } from '@app/core/feature/transaction/services/transaction-authorize.service';
+import { CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN } from '@app/core/feature/transaction/services/check-transaction-payment.service';
 import { AxiosTransactionAuhorizeService } from './http/axios-transaction-authorize.service';
+import { NotificationModule } from '../notification/notification.module';
 import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [TypeOrmModule, UserModule, AxiosHttpModule],
+  imports: [TypeOrmModule, UserModule, HttpModule, NotificationModule],
   controllers: [TransactionController],
   providers: [
     {
@@ -23,7 +24,7 @@ import { UserModule } from '../user/user.module';
       useClass: MysqlTransactionRepository,
     },
     {
-      provide: TRANSACTION_AUTHORIZE_SERVICE_TOKEN,
+      provide: CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN,
       useClass: AxiosTransactionAuhorizeService,
     },
   ],

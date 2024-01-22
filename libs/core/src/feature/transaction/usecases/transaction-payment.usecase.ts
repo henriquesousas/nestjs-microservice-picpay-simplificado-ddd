@@ -15,9 +15,9 @@ import { UserNotfoundException } from '@app/core/feature/user/exceptions/user-no
 import { TransferNotAllowedException } from '@app/core/feature/transaction/exceptions/transfer-payment-not-allowed.exception';
 import { InsulficientBalanceException } from '@app/core/feature/transaction/exceptions/insulficient-balance.exception';
 import {
-  TRANSACTION_AUTHORIZE_SERVICE_TOKEN,
-  TransactionAuthorizeService,
-} from '@app/core/feature/transaction/services/transaction-authorize.service';
+  CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN,
+  CheckTransactionPaymentService,
+} from '@app/core/feature/transaction/services/check-transaction-payment.service';
 import {
   NOTIFICATION_SERVICE,
   NotificationServie,
@@ -30,8 +30,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     private readonly transactionReposytory: TransactionReposytory,
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: UserRepository,
-    @Inject(TRANSACTION_AUTHORIZE_SERVICE_TOKEN)
-    private readonly transactionAuthorizeService: TransactionAuthorizeService,
+    @Inject(CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN)
+    private readonly checkTransactionPaymentService: CheckTransactionPaymentService,
     @Inject(NOTIFICATION_SERVICE)
     private readonly notificationService: NotificationServie,
   ) {}
@@ -59,7 +59,7 @@ export class TransactionPaymentUseCase implements TransactionPayment {
       return new InsulficientBalanceException();
     }
 
-    const authorized = await this.transactionAuthorizeService.isAuthorize();
+    const authorized = await this.checkTransactionPaymentService.isAuthorize();
     if (!authorized) {
       return new UnauthorizedException();
     }
