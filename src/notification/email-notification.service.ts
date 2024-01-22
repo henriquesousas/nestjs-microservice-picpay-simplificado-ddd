@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { NotificationServie } from '../../libs/core/src/feature/notification/notification.service';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { catchError, lastValueFrom, map } from 'rxjs';
+import { NotificationServie } from '@app/core/feature/notification/notification.service';
 
 @Injectable()
 export class EmailNotificationService implements NotificationServie {
