@@ -1,6 +1,6 @@
 import { NotificationServie } from '../../../../../libs/core/src/feature/notification/notification.service';
 import { TransactionPaymentDto } from '../../../../../libs/core/src/feature/transaction/dtos/transaction-payment.dto';
-import { CheckTransactionPaymentService } from '../../../../../libs/core/src/feature/transaction/services/check-transaction-payment.service';
+import { TransactionPaymentGateway } from '../../../../../libs/core/src/feature/transaction/transaction-payment.gateway';
 import { TransactionPayment } from '../../../../../libs/core/src/feature/transaction/usecases/interfaces/transaction-payment';
 import { TransactionPaymentUseCase } from '../../../../../libs/core/src/feature/transaction/usecases/transaction-payment.usecase';
 import { UserNotfoundException } from '../../../../../libs/core/src/feature/user/exceptions/user-not-found.exception';
@@ -19,7 +19,7 @@ type SutTypes = {
   sut: TransactionPayment;
   transactionReposytoryStub: TransactionRepositoryStub;
   userReposytoryStub: UserRepository;
-  checkTransationServiceStub: CheckTransactionPaymentService;
+  checkTransationServiceStub: TransactionPaymentGateway;
   notificationServiceStub: NotificationServie;
 };
 

@@ -1,12 +1,12 @@
 import { HttpService } from '@nestjs/axios';
-import { CheckTransactionPaymentService } from '@app/core/feature/transaction/services/check-transaction-payment.service';
+import { TransactionPaymentGateway } from '@app/core/feature/transaction/transaction-payment.gateway';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';
 
 @Injectable()
-export class AxiosCheckTransactionPaymentService
-  implements CheckTransactionPaymentService
+export class AxiosTransactionPaymentGateway
+  implements TransactionPaymentGateway
 {
   constructor(
     private readonly configService: ConfigService,

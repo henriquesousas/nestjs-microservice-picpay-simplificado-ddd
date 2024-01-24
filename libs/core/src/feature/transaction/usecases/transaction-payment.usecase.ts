@@ -15,9 +15,9 @@ import { UserNotfoundException } from '@app/core/feature/user/exceptions/user-no
 import { TransferNotAllowedException } from '@app/core/feature/transaction/exceptions/transfer-payment-not-allowed.exception';
 import { InsulficientBalanceException } from '@app/core/feature/transaction/exceptions/insulficient-balance.exception';
 import {
-  CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN,
-  CheckTransactionPaymentService,
-} from '@app/core/feature/transaction/services/check-transaction-payment.service';
+  TRANSACTION_PAYMENT_GATEWAY_TOKEN,
+  TransactionPaymentGateway,
+} from '@app/core/feature/transaction/transaction-payment.gateway';
 import {
   NOTIFICATION_SERVICE,
   NotificationServie,
@@ -30,8 +30,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     private readonly transactionReposytory: TransactionReposytory,
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: UserRepository,
-    @Inject(CHECK_TRANSACTION_PAYMENT_SERVICE_TOKEN)
-    private readonly checkTransactionPaymentService: CheckTransactionPaymentService,
+    @Inject(TRANSACTION_PAYMENT_GATEWAY_TOKEN)
+    private readonly checkTransactionPaymentService: TransactionPaymentGateway,
     @Inject(NOTIFICATION_SERVICE)
     private readonly notificationService: NotificationServie,
   ) {}
