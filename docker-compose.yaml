@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8
+    container_name: transaction
+    volumes:
+      - dbTransaction:/var/lib/mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - MYSQL_DATABASE=${transaction}
+      - MYSQL_HOST=${transaction}
+      - MYSQL_PASSWORD=${prm260110}
+      - MYSQL_ROOT_PASSWORD=${prm260110}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+  app:
+    container_name: api-transaction
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./src:/home/node/app/src
+      - ./libs:/home/node/app/libs
+    env_file:
+      - .env
+    ports:
+      - ${HTTP_PORT}:${HTTP_PORT}
+    expose:
+      - ${HTTP_PORT}
+    depends_on:
+      - mysql
+    command: npm run start:dev
+
+volumes:
+  dbTransaction:
