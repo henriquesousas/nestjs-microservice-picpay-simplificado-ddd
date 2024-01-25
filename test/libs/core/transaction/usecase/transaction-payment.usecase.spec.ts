@@ -11,7 +11,7 @@ import { NotificationServieStub } from '../mocks/notification.service.stub';
 import { TransactionRepositoryStub } from '../mocks/transaction.repository.stub';
 import { userModelMock } from '../../user/mocks/user-model.mock';
 import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
-import { TransferNotAllowedException } from '../../../../../libs/core/src/feature/transaction/exceptions/transfer-payment-not-allowed.exception';
+import { PaymentNotAllowedException } from '../../../../../libs/core/src/feature/transaction/exceptions/payment-not-allowed.exception';
 import { InsulficientBalanceException } from '../../../../../libs/core/src/feature/transaction/exceptions/insulficient-balance.exception';
 import { UnauthorizedException } from '@nestjs/common';
 
@@ -68,7 +68,7 @@ describe('TransactionPaymentUseCase', () => {
     shouldValidaSenderAndReceiver();
   });
 
-  it('should return TransferNotAllowedException if DocumentType is CNPJ  ', async () => {
+  it('should not able to make payment if DocumentType is CNPJ  ', async () => {
     const { sut, userReposytoryStub } = makeSut();
 
     jest.spyOn(userReposytoryStub, 'findById').mockImplementationOnce(() => {
@@ -80,7 +80,7 @@ describe('TransactionPaymentUseCase', () => {
     });
 
     const data = await sut.execute(makeDto);
-    expect(data).toBeInstanceOf(TransferNotAllowedException);
+    expect(data).toBeInstanceOf(PaymentNotAllowedException);
   });
 
   it('should return InsulficientBalanceException', async () => {

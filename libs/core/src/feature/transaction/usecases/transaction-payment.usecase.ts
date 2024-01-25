@@ -12,7 +12,7 @@ import { TransactionPaymentDto } from '@app/core/feature/transaction/dtos/transa
 import { DocumentType } from '@app/core/feature/user/models/document_type';
 import { TransactionPayment } from '@app/core/feature/transaction/usecases/interfaces/transaction-payment';
 import { UserNotfoundException } from '@app/core/feature/user/exceptions/user-not-found.exception';
-import { TransferNotAllowedException } from '@app/core/feature/transaction/exceptions/transfer-payment-not-allowed.exception';
+import { PaymentNotAllowedException } from '@app/core/feature/transaction/exceptions/payment-not-allowed.exception';
 import { InsulficientBalanceException } from '@app/core/feature/transaction/exceptions/insulficient-balance.exception';
 import {
   TRANSACTION_PAYMENT_GATEWAY_TOKEN,
@@ -52,7 +52,7 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     }
 
     if (sender.documentType == DocumentType.CNPJ) {
-      return new TransferNotAllowedException();
+      return new PaymentNotAllowedException();
     }
 
     if (sender.amount < value) {
