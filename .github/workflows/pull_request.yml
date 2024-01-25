@@ -1,0 +1,25 @@
+name: 'Continuos Integration'
+
+on: [pull_request]
+
+jobs:
+  install:
+    name: 'Installing depedencies'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-vesion: 16
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{runner.os}}-${{hashFiles('**/package-lock.json')}}
+
+      - name: Install depedencies
+        run: npm ci
