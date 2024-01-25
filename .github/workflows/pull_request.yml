@@ -39,4 +39,4 @@ jobs:
           key: ${{runner.os}}-${{hashFiles('**/package-lock.json')}}
 
       - name: Run ts-prune
-        run: npm run ts-prune --error
+        run: npm run find-deadcode
