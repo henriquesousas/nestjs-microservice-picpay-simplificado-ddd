@@ -120,7 +120,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## 📧 Contato
 Paulo Henrique - paulohenriquess2014@gmail.com
 
-Project Link: [https://github.com/henriquesousas/transaction-payment-desafio-nestjs](https://github.com/henriquesousas/transaction-payment-desafio-nestjs)
+Link: [https://github.com/henriquesousas/transaction-payment-desafio-nestjs](https://github.com/henriquesousas/transaction-payment-desafio-nestjs)
 
 
 
