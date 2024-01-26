@@ -1,7 +1,7 @@
 import { BadRequestException, HttpException } from '@nestjs/common';
 import { TransactionPaymentDto } from '../../../libs/core/src/feature/transaction/dtos/transaction-payment.dto';
 import { TransactionController } from '../../../src/transaction/transaction.controller';
-import { TransactionPaymentUseCaseStub } from './transaction-payment.usecase..stub';
+import { TransactionPaymentUseCaseStub } from './transaction-payment.usecase.stub';
 
 const makeDto = (): TransactionPaymentDto => {
   return {
@@ -16,7 +16,8 @@ describe('TransactionController', () => {
     const useCase = new TransactionPaymentUseCaseStub();
     const sut = new TransactionController(useCase);
     const data = await sut.payment(makeDto());
-    expect(data).not.toBeInstanceOf(HttpException);
+    //expect(data).not.toBeInstanceOf(HttpException);
+    expect(true).toBe(false);
   });
 
   it('should retutn an error if usecase fails', async () => {
