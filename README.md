@@ -78,6 +78,7 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
    npm run test
 
    # roda os testes de integracao
+   # Para executar os testes de integração é necessário configurar o aquivo .env para NODE_ENV='test'
    npm run test:e2e
 
    # roda os testes com coverage
