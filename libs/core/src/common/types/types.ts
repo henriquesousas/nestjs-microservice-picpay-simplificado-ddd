@@ -6,6 +6,6 @@ export function isError<T>(result: Result<T>): result is HttpException {
   return result instanceof Error;
 }
 
-// export function isSuccess<T>(result: Result<T>): result is T {
-//   return !isError(result);
-// }
+export function isSuccess<T>(result: Result<T>): result is T {
+  return !isError(result);
+}
