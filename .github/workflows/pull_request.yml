@@ -1,6 +1,6 @@
 name: 'Continuos Integration'
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   install:
@@ -76,3 +76,33 @@ jobs:
 
       - name: Run unit test
         run: npm run test
+
+  coveralls:
+    name: 'Run Unit Test Coverage'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{runner.os}}-${{hashFiles('**/package-lock.json')}}
+
+      - name: Run unit test:cov
+        run: npm run test:cov
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
