@@ -16,8 +16,7 @@ describe('TransactionController', () => {
     const useCase = new TransactionPaymentUseCaseStub();
     const sut = new TransactionController(useCase);
     const data = await sut.payment(makeDto());
-    //expect(data).not.toBeInstanceOf(HttpException);
-    expect(true).toBe(false);
+    expect(data).not.toBeInstanceOf(HttpException);
   });
 
   it('should retutn an error if usecase fails', async () => {
