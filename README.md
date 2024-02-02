@@ -90,10 +90,10 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
 #### 🐳 Docker
    ```sh
    # sobe o container
-   npm docker compose up
+   docker compose up
 
    # interrompe a execução do container
-   npm docker compose down
+   docker compose down
    ```
 
 
