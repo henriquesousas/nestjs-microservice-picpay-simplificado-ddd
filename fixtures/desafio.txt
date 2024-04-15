@@ -52,11 +52,3 @@ Testes unitários
 Uso de Design Patterns
 Documentação
 Proposta de melhoria na arquitetura
-
-
-
-O que NÃO será avaliado ⚠️
-====================================================
-Fluxo de cadastro de usuários e lojistas
-Frontend (só avaliaremos a (API Restful)[https://www.devmedia.com.br/rest-tutorial/28912])
-Autenticação
