@@ -1,15 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Result, isError } from '@app/core/common/types/types';
-import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
+import { CreateUserDto } from 'src/user/domain/dtos/create-user.dto';
+
+import { DocumentValidator } from '@app/core/common/validator/document.validator';
+
+import { CreateUser } from './interfaces/create-user';
+import { UserAlreadyExistException } from '../exceptions/user-already-exist.exception';
+import { UserModel } from '../models/user.model';
+import { Document } from '../models/document';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '@app/core/feature/user/user.repository';
-import { Document } from '@app/core/feature/user/models/document';
-import { DocumentValidator } from '@app/core/common/validator/document.validator';
-import { UserModel } from '@app/core/feature/user/models/user.model';
-import { UserAlreadyExistException } from '@app/core/feature/user/exceptions/user-already-exist.exception';
-import { CreateUser } from '@app/core/feature/user/usecases/interfaces/create-user';
+} from '../../repositories/interfaces/user.repository';
 
 @Injectable()
 export class CreateUserUseCase implements CreateUser {

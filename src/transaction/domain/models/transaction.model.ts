@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { UserModel } from '../../user/models/user.model';
-import { AbstractEntity } from '../../../common/database/abstract-entity';
+import { UserModel } from '../../../user/domain/models/user.model';
+import { AbstractEntity } from '../../../../libs/core/src/common/database/abstract-entity';
 
 @Entity({ name: 'transactions' })
 export class TransactionModel extends AbstractEntity<TransactionModel> {

@@ -1,7 +1,7 @@
 import { Result } from '@app/core/common/types/types';
-import { Document } from '@app/core/feature/user/models/document';
-import { DocumentType } from '@app/core/feature/user/models/document_type';
 import { DocumentValidator } from '@app/core/common/validator/document.validator';
+import { Document } from '../models/document';
+import { DocumentType } from '../models/document_type';
 
 export class CNPJValidator extends DocumentValidator {
   documentType = DocumentType.CNPJ;

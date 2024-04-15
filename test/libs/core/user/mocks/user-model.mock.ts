@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
+import { UserModel } from '../../../../../src/user/domain/models/user.model';
 
 export const userModelMock: UserModel = {
   id: 'any_id',

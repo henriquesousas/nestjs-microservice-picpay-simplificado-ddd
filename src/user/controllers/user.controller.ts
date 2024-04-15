@@ -1,10 +1,10 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { isError } from '@app/core/common/types/types';
 import {
   CREATE_USER_USECASE_TOKEN,
   CreateUser,
-} from '@app/core/feature/user/usecases/interfaces/create-user';
-import { CreateUserDto } from '@app/core/feature/user/dtos/create-user.dto';
-import { isError } from '@app/core/common/types/types';
+} from '../domain/usecases/interfaces/create-user';
+import { CreateUserDto } from '../domain/dtos/create-user.dto';
 import { CreateUserResponse } from './dtos/create-user-response.dto';
 
 @Controller('/user')

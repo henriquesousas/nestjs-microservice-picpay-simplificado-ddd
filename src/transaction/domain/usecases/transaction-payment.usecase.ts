@@ -1,27 +1,28 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Result } from '@app/core/common/types/types';
+import { TransactionPaymentDto } from 'src/transaction/domain/dtos/transaction-payment.dto';
+
+import { UserNotfoundException } from '../../../user/domain/exceptions/user-not-found.exception';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '@app/core/feature/user/user.repository';
+} from '../../../user/repositories/interfaces/user.repository';
 import {
   TRANSACTION_REPOSITORY_TOKEN,
   TransactionReposytory,
-} from '@app/core/feature/transaction/transaction.repository';
-import { TransactionPaymentDto } from '@app/core/feature/transaction/dtos/transaction-payment.dto';
-import { DocumentType } from '@app/core/feature/user/models/document_type';
-import { TransactionPayment } from '@app/core/feature/transaction/usecases/interfaces/transaction-payment';
-import { UserNotfoundException } from '@app/core/feature/user/exceptions/user-not-found.exception';
-import { PaymentNotAllowedException } from '@app/core/feature/transaction/exceptions/payment-not-allowed.exception';
-import { InsulficientBalanceException } from '@app/core/feature/transaction/exceptions/insulficient-balance.exception';
+} from '../../repositories/interfaces/transaction.repository';
+import { DocumentType } from '../../../user/domain/models/document_type';
+import { TransactionPayment } from './interfaces/transaction-payment';
 import {
+  PaymentGateway,
   TRANSACTION_PAYMENT_GATEWAY_TOKEN,
-  TransactionPaymentGateway,
-} from '@app/core/feature/transaction/transaction-payment.gateway';
+} from '../../../../libs/core/src/common/payment/interfaces/payment-gateway';
+import { PaymentNotAllowedException } from '../exceptions/payment-not-allowed.exception';
+import { InsulficientBalanceException } from '../exceptions/insulficient-balance.exception';
 import {
   NOTIFICATION_SERVICE,
   NotificationServie,
-} from '@app/core/feature/notification/notification.service';
+} from '../../../notification/services/interfaces/notification.service';
 
 @Injectable()
 export class TransactionPaymentUseCase implements TransactionPayment {
@@ -31,7 +32,7 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: UserRepository,
     @Inject(TRANSACTION_PAYMENT_GATEWAY_TOKEN)
-    private readonly checkTransactionPaymentService: TransactionPaymentGateway,
+    private readonly paymentGateway: PaymentGateway,
     @Inject(NOTIFICATION_SERVICE)
     private readonly notificationService: NotificationServie,
   ) {}
@@ -58,8 +59,8 @@ export class TransactionPaymentUseCase implements TransactionPayment {
     if (sender.amount < value) {
       return new InsulficientBalanceException();
     }
-
-    const authorized = await this.checkTransactionPaymentService.isAuthorize();
+    //TODO: Lançar uma exceção ao chamar o gateway
+    const authorized = await this.paymentGateway.isAuthorize();
     if (!authorized) {
       return new UnauthorizedException();
     }

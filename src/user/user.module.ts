@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { CreateUserUseCase } from '@app/core/feature/user/usecases/create-user.usecase';
+import { UserController } from './controllers/user.controller';
 import {
   USER_REPOSITORY_TOKEN,
   UserRepository,
-} from '@app/core/feature/user/user.repository';
-import { MysqlUserRepository } from './mysql-user.repository';
+} from 'src/user/repositories/interfaces/user.repository';
+import { MysqlUserRepository } from './repositories/mysql-user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CPFValidator } from './validators/cpf.validator';
-import { CNPJValidator } from './validators/cnpj.validator';
-import { CREATE_USER_USECASE_TOKEN } from '@app/core/feature/user/usecases/interfaces/create-user';
+import { CPFValidator } from './domain/validators/cpf.validator';
+import { CNPJValidator } from './domain/validators/cnpj.validator';
+import { CREATE_USER_USECASE_TOKEN } from './domain/usecases/interfaces/create-user';
+import { CreateUserUseCase } from './domain/usecases/create-user.usecase';
 
 @Module({
   imports: [TypeOrmModule],

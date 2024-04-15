@@ -1,5 +1,5 @@
 import { BadRequestException, HttpException } from '@nestjs/common';
-import { TransactionPaymentDto } from '../../../libs/core/src/feature/transaction/dtos/transaction-payment.dto';
+import { TransactionPaymentDto } from '../../../src/transaction/domain/dtos/transaction-payment.dto';
 import { TransactionController } from '../../../src/transaction/transaction.controller';
 import { TransactionPaymentUseCaseStub } from './transaction-payment.usecase.stub';
 

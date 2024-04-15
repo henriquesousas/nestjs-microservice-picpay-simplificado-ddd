@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { NOTIFICATION_SERVICE } from '@app/core/feature/notification/notification.service';
-import { EmailNotificationService } from './email-notification.service';
+import { NOTIFICATION_SERVICE } from 'src/notification/services/interfaces/notification.service';
+import { EmailNotificationService } from './services/email-notification.service';
 import { HttpModule } from '@app/core/common/http/http.module';
 
 @Module({

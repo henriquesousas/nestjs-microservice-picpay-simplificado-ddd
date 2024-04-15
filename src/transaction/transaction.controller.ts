@@ -3,8 +3,8 @@ import { isError } from '@app/core/common/types/types';
 import {
   TRANSACTION_PAYMENT_USECASE_TOKEN,
   TransactionPayment,
-} from '@app/core/feature/transaction/usecases/interfaces/transaction-payment';
-import { TransactionPaymentDto } from '@app/core/feature/transaction/dtos/transaction-payment.dto';
+} from './domain/usecases/interfaces/transaction-payment';
+import { TransactionPaymentDto } from './domain/dtos/transaction-payment.dto';
 
 @Controller('/transaction')
 export class TransactionController {

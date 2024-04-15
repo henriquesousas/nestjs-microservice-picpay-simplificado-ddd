@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DocumentValidator } from '../../../../../libs/core/src/common/validator/document.validator';
-import { CreateUserDto } from '../../../../../libs/core/src/feature/user/dtos/create-user.dto';
-import { DocumentType } from '../../../../../libs/core/src/feature/user/models/document_type';
-import { UserAlreadyExistException } from '../../../../../libs/core/src/feature/user/exceptions/user-already-exist.exception';
-import { UserRepository } from '../../../../../libs/core/src/feature/user/user.repository';
-import { CreateUserUseCase } from '../../../../../libs/core/src/feature/user/usecases/create-user.usecase';
+import { CreateUserDto } from '../../../../../src/user/domain/dtos/create-user.dto';
+import { UserRepository } from '../../../../../src/user/repositories/interfaces/user.repository';
 import { UserRepositoryStub } from '../mocks/user-repository.stub';
 import { ValidatorStub } from '../mocks/validator.stub';
 import { userModelMock } from '../mocks/user-model.mock';
-import { Document } from '../../../../../libs/core/src/feature/user/models/document';
-import { DocumentInvalidException } from '../../../../../libs/core/src/feature/user/exceptions/document-invalid.exception';
-import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
+import { Document } from '../../../../../src/user/domain/models/document';
+import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { DocumentInvalidException } from '../../../../../src/user/domain/exceptions/document-invalid.exception';
+import { CreateUserUseCase } from '../../../../../src/user/domain/usecases/create-user.usecase';
+import { UserAlreadyExistException } from '../../../../../src/user/domain/exceptions/user-already-exist.exception';
+import { DocumentType } from '../../../../../src/user/domain/models/document_type';
 
 type SutTypes = {
   sut: CreateUserUseCase;

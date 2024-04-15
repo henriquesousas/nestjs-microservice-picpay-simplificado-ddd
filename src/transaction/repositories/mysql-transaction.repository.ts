@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
-import { TransactionReposytory } from '@app/core/feature/transaction/transaction.repository';
-import { TransactionModel } from '@app/core/feature/transaction/models/transaction.model';
-import { UserModel } from '@app/core/feature/user/models/user.model';
-
+import { TransactionReposytory } from './interfaces/transaction.repository';
+import { UserModel } from '../../user/domain/models/user.model';
+import { TransactionModel } from '../domain/models/transaction.model';
 @Injectable()
 export class MysqlTransactionRepository implements TransactionReposytory {
   constructor(private readonly entityManager: EntityManager) {}

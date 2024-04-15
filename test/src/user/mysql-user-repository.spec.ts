@@ -1,8 +1,8 @@
-import { MysqlUserRepository } from '../../../src/user/mysql-user.repository';
+import { MysqlUserRepository } from '../../../src/user/repositories/mysql-user.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UserModel } from '../../../libs/core/src/feature/user/models/user.model';
-import { UserRepository } from '../../../libs/core/src/feature/user/user.repository';
+import { UserModel } from '../../../src/user/domain/models/user.model';
+import { UserRepository } from '../../../src/user/repositories/interfaces/user.repository';
 import { Repository } from 'typeorm';
 import { userModelMock } from '../../libs/core/user/mocks/user-model.mock';
 import { throwError } from '../../test.helper';

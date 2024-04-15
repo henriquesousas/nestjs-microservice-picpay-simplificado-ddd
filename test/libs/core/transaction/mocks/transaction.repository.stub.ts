@@ -1,5 +1,5 @@
-import { TransactionReposytory } from '../../../../../libs/core/src/feature/transaction/transaction.repository';
-import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
+import { TransactionReposytory } from '../../../../../src/transaction/repositories/interfaces/transaction.repository';
+import { UserModel } from '../../../../../src/user/domain/models/user.model';
 
 export class TransactionRepositoryStub implements TransactionReposytory {
   async transfer(

@@ -1,4 +1,4 @@
-import { UserModel } from './models/user.model';
+import { UserModel } from '../../domain/models/user.model';
 
 export const USER_REPOSITORY_TOKEN = 'UserRepository';
 

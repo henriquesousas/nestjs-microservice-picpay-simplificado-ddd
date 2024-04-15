@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Result } from '../types/types';
-import { Document } from '../../feature/user/models/document';
-import { DocumentType } from '../../feature/user/models/document_type';
+import { Document } from '../../../../../src/user/domain/models/document';
+import { DocumentType } from '../../../../../src/user/domain/models/document_type';
 import { Validator } from './validator';
 
 @Injectable()

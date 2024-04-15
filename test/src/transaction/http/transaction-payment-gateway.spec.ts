@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
-import { AxiosTransactionPaymentGateway } from '../../../../src/transaction/http/axios-transaction-payment-gateway';
-import { TransactionPaymentGateway } from '../../../../libs/core/src/feature/transaction/transaction-payment.gateway';
+import { AxiosPaymentGateway } from '../../../../libs/core/src/common/payment/axios-payment-gateway';
+import { PaymentGateway } from '../../../../libs/core/src/common/payment/interfaces/payment-gateway';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { of } from 'rxjs';
 
 type SutTypes = {
-  sut: TransactionPaymentGateway;
+  sut: PaymentGateway;
   configService: ConfigService;
   httpService: HttpService;
 };
@@ -33,7 +33,7 @@ const makeHttpResponse = (
 const createModule = async (): Promise<SutTypes> => {
   const module: TestingModule = await Test.createTestingModule({
     providers: [
-      AxiosTransactionPaymentGateway,
+      AxiosPaymentGateway,
       {
         provide: ConfigService,
         useValue: {
@@ -49,9 +49,7 @@ const createModule = async (): Promise<SutTypes> => {
     ],
   }).compile();
 
-  const sut = module.get<TransactionPaymentGateway>(
-    AxiosTransactionPaymentGateway,
-  );
+  const sut = module.get<PaymentGateway>(AxiosPaymentGateway);
   const configService = module.get<ConfigService>(ConfigService);
   const httpService = module.get<HttpService>(HttpService);
 

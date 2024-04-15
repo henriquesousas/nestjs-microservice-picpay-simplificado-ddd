@@ -1,24 +1,21 @@
-import { HttpService } from '@nestjs/axios';
-import { TransactionPaymentGateway } from '@app/core/feature/transaction/transaction-payment.gateway';
-import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import { catchError, lastValueFrom, map } from 'rxjs';
+import { NotificationServie } from 'src/notification/services/interfaces/notification.service';
 
 @Injectable()
-export class AxiosTransactionPaymentGateway
-  implements TransactionPaymentGateway
-{
+export class EmailNotificationService implements NotificationServie {
   constructor(
     private readonly configService: ConfigService,
     private readonly http: HttpService,
   ) {}
-
-  async isAuthorize(): Promise<boolean> {
+  async send(): Promise<boolean> {
     const request = this.http
-      .get(this.configService.get('PAYMENT_CHECK_URL'))
+      .get(this.configService.get('NOTIFICATION_URL'))
       .pipe(
         map((res) => {
-          return res.data.message === 'Autorizado';
+          return res.data.message;
         }),
       )
       .pipe(

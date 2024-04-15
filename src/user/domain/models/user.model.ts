@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { TransactionModel } from '../../transaction/models/transaction.model';
-import { AbstractEntity } from '../../../common/database/abstract-entity';
+import { TransactionModel } from '../../../transaction/domain/models/transaction.model';
+import { AbstractEntity } from '../../../../libs/core/src/common/database/abstract-entity';
 
 @Entity({ name: 'users' })
 export class UserModel extends AbstractEntity<UserModel> {

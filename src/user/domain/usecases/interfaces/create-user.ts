@@ -1,4 +1,4 @@
-import { Result } from '../../../../common/types/types';
+import { Result } from '../../../../../libs/core/src/common/types/types';
 import { CreateUserDto } from '../../dtos/create-user.dto';
 import { UserModel } from '../../models/user.model';
 

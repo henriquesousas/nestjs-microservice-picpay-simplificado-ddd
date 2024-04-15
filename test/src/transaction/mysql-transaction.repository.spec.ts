@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getEntityManagerToken } from '@nestjs/typeorm';
-import { TransactionReposytory } from '../../../libs/core/src/feature/transaction/transaction.repository';
+import { TransactionReposytory } from '../../../src/transaction/repositories/interfaces/transaction.repository';
 import { EntityManager } from 'typeorm';
-import { MysqlTransactionRepository } from '../../../src/transaction/mysql-transaction.repository';
+import { MysqlTransactionRepository } from '../../../src/transaction/repositories/mysql-transaction.repository';
 import { userModelMock } from '../../libs/core/user/mocks/user-model.mock';
 import { throwError } from '../../test.helper';
 

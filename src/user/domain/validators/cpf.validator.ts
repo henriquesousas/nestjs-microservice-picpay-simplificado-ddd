@@ -1,9 +1,9 @@
 import { BadRequestException } from '@nestjs/common';
 import { Result } from '@app/core/common/types/types';
-import { Document } from '@app/core/feature/user/models/document';
 import { DocumentValidator } from '@app/core/common/validator/document.validator';
-import { DocumentType } from '@app/core/feature/user/models/document_type';
-import { DocumentInvalidException } from '@app/core/feature/user/exceptions/document-invalid.exception';
+import { DocumentInvalidException } from '../exceptions/document-invalid.exception';
+import { DocumentType } from '../models/document_type';
+import { Document } from '../models/document';
 
 export class CPFValidator extends DocumentValidator {
   documentType = DocumentType.CPF;

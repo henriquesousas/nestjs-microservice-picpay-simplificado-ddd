@@ -1,25 +1,25 @@
-import { NotificationServie } from '../../../../../libs/core/src/feature/notification/notification.service';
-import { TransactionPaymentDto } from '../../../../../libs/core/src/feature/transaction/dtos/transaction-payment.dto';
-import { TransactionPaymentGateway } from '../../../../../libs/core/src/feature/transaction/transaction-payment.gateway';
-import { TransactionPayment } from '../../../../../libs/core/src/feature/transaction/usecases/interfaces/transaction-payment';
-import { TransactionPaymentUseCase } from '../../../../../libs/core/src/feature/transaction/usecases/transaction-payment.usecase';
-import { UserNotfoundException } from '../../../../../libs/core/src/feature/user/exceptions/user-not-found.exception';
-import { UserRepository } from '../../../../../libs/core/src/feature/user/user.repository';
+import { NotificationServie } from '../../../../../src/notification/services/interfaces/notification.service';
+import { TransactionPaymentDto } from '../../../../../src/transaction/domain/dtos/transaction-payment.dto';
+import { PaymentGateway } from '../../../../../libs/core/src/common/payment/interfaces/payment-gateway';
+import { TransactionPayment } from '../../../../../src/transaction/domain/usecases/interfaces/transaction-payment';
+import { TransactionPaymentUseCase } from '../../../../../src/transaction/domain/usecases/transaction-payment.usecase';
+import { UserRepository } from '../../../../../src/user/repositories/interfaces/user.repository';
 import { UserRepositoryStub } from '../../user/mocks/user-repository.stub';
 import { CheckTransactionPaymentServiceStub } from '../mocks/check-transaction-payment.service.stub';
 import { NotificationServieStub } from '../mocks/notification.service.stub';
 import { TransactionRepositoryStub } from '../mocks/transaction.repository.stub';
 import { userModelMock } from '../../user/mocks/user-model.mock';
-import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
-import { PaymentNotAllowedException } from '../../../../../libs/core/src/feature/transaction/exceptions/payment-not-allowed.exception';
-import { InsulficientBalanceException } from '../../../../../libs/core/src/feature/transaction/exceptions/insulficient-balance.exception';
+import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { PaymentNotAllowedException } from '../../../../../src/transaction/domain/exceptions/payment-not-allowed.exception';
+import { InsulficientBalanceException } from '../../../../../src/transaction/domain/exceptions/insulficient-balance.exception';
 import { UnauthorizedException } from '@nestjs/common';
+import { UserNotfoundException } from '../../../../../src/user/domain/exceptions/user-not-found.exception';
 
 type SutTypes = {
   sut: TransactionPayment;
   transactionReposytoryStub: TransactionRepositoryStub;
   userReposytoryStub: UserRepository;
-  checkTransationServiceStub: TransactionPaymentGateway;
+  checkTransationServiceStub: PaymentGateway;
   notificationServiceStub: NotificationServie;
 };
 

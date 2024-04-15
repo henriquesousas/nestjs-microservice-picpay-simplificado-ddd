@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserModel } from '../../../../../libs/core/src/feature/user/models/user.model';
-import { UserRepository } from '../../../../../libs/core/src/feature/user/user.repository';
+import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { UserRepository } from '../../../../../src/user/repositories/interfaces/user.repository';
 import { userModelMock } from './user-model.mock';
 
 export class UserRepositoryStub implements UserRepository {

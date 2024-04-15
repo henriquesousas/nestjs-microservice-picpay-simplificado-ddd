@@ -1,7 +1,7 @@
-import { DocumentInvalidException } from '../../../../libs/core/src/feature/user/exceptions/document-invalid.exception';
-import { Document } from '../../../../libs/core/src/feature/user/models/document';
-import { DocumentType } from '../../../../libs/core/src/feature/user/models/document_type';
-import { CPFValidator } from '../../../../src/user/validators/cpf.validator';
+import { Document } from '../../../../src/user/domain/models/document';
+import { DocumentType } from '../../../../src/user/domain/models/document_type';
+import { DocumentInvalidException } from '../../../../src/user/domain/exceptions/document-invalid.exception';
+import { CPFValidator } from '../../../../src/user/domain/validators/cpf.validator';
 
 describe('CPFValidator', () => {
   it('should return Document (CPF) if valid cpf', () => {

@@ -1,6 +1,6 @@
-import { Document } from '../../../../libs/core/src/feature/user/models/document';
-import { DocumentType } from '../../../../libs/core/src/feature/user/models/document_type';
-import { CNPJValidator } from '../../../../src/user/validators/cnpj.validator';
+import { Document } from '../../../../src/user/domain/models/document';
+import { DocumentType } from '../../../../src/user/domain/models/document_type';
+import { CNPJValidator } from '../../../../src/user/domain/validators/cnpj.validator';
 
 describe('CNPJValidator', () => {
   it('should return Document (CNPJ) if valid cnpj', () => {
