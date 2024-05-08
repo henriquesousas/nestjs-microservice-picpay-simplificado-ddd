@@ -1,24 +1,7 @@
 version: '3.9'
 services:
-  mysql:
-    image: mysql:8
-    container_name: transaction
-    volumes:
-      - dbTransaction:/var/lib/mysql
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      - MYSQL_DATABASE=${transaction}
-      - MYSQL_HOST=${transaction}
-      - MYSQL_PASSWORD=${prm260110}
-      - MYSQL_ROOT_PASSWORD=${prm260110}
-    ports:
-      - ${DB_PORT}:${DB_PORT}
-    expose:
-      - ${DB_PORT}
   app:
-    container_name: api-transaction
+    container_name: picpay-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -36,5 +19,23 @@ services:
       - mysql
     command: npm run start:dev
 
+  mysql:
+    image: mysql:8
+    container_name: picpay-db
+    volumes:
+      - db:/var/lib/mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_HOST=${DB_HOST}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+
 volumes:
-  dbTransaction:
+  db:
