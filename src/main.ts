@@ -15,6 +15,9 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
-  await app.listen(configService.get('HTTP_PORT'));
+  const port = configService.get('HTTP_PORT');
+  await app.listen(port, () => {
+    console.log(`App running at port ${port}`);
+  });
 }
 bootstrap();
