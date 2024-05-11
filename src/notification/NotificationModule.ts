@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { NOTIFICATION_SERVICE } from 'src/notification/services/interfaces/notification.service';
-import { EmailNotificationService } from './services/email-notification.service';
 import { HttpModule } from '@app/core/common/http/http.module';
+import { EmailNotification } from './EmailNotification';
+import { NOTIFICATION_SERVICE } from './Notification';
 
 @Module({
   imports: [HttpModule],
   providers: [
     {
       provide: NOTIFICATION_SERVICE,
-      useClass: EmailNotificationService,
+      useClass: EmailNotification,
     },
   ],
   exports: [NOTIFICATION_SERVICE],
