@@ -2,12 +2,10 @@ import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@app/core/common/http/http.module';
-import { UserModel } from 'src/user/domain/models/user.model';
-import { TransactionModel } from 'src/transaction/domain/models/transaction.model';
 import { DatabaseModule } from '@app/core/common/database/database.module';
-import { UserModule } from './user/user.module';
-import { TransactionModule } from './transaction/transaction.module';
-import { NotificationModule } from './notification/notification.module';
+import { CustomerEntity } from './customer/infrastructure/db/typeorm/CustomerEntity';
+import { CustomerModule } from './customer/CustomerModule';
+import { WalletEntity } from './customer/infrastructure/db/typeorm/WalletEntity';
 
 @Global()
 @Module({
@@ -15,11 +13,12 @@ import { NotificationModule } from './notification/notification.module';
     ConfigModule.forRoot({ isGlobal: true }),
     HttpModule,
     DatabaseModule,
-    DatabaseModule.forFeature([UserModel, TransactionModel]),
-    UserModule,
-    TransactionModule,
-    NotificationModule,
+    DatabaseModule.forFeature([CustomerEntity, WalletEntity]),
+    CustomerModule,
+    // TransactionModule,
+    // NotificationModule,
   ],
-  exports: [TypeOrmModule, UserModule, HttpModule, NotificationModule],
+  exports: [TypeOrmModule, CustomerModule, HttpModule],
+  // exports: [TypeOrmModule, CustomerModule, HttpModule, NotificationModule],
 })
 export class AppModule {}

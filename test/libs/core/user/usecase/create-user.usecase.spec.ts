@@ -6,11 +6,11 @@ import { UserRepositoryStub } from '../mocks/user-repository.stub';
 import { ValidatorStub } from '../mocks/validator.stub';
 import { userModelMock } from '../mocks/user-model.mock';
 import { Document } from '../../../../../src/user/domain/models/document';
-import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 import { DocumentInvalidException } from '../../../../../src/user/domain/exceptions/document-invalid.exception';
 import { CreateUserUseCase } from '../../../../../src/user/domain/usecases/create-user.usecase';
-import { UserAlreadyExistException } from '../../../../../src/user/domain/exceptions/user-already-exist.exception';
-import { DocumentType } from '../../../../../src/user/domain/models/document_type';
+import { CustomerAlreadyExistException } from '../../../../../src/customer/domain/exception/CustomerAlreadyExistException';
+import { DocumentType } from '../../../../../src/customer/domain/enum/DocumentType';
 
 type SutTypes = {
   sut: CreateUserUseCase;
@@ -64,7 +64,7 @@ describe('CreateUserUseCase', () => {
       });
 
     const data = await sut.execute(makeDto());
-    expect(data).toBeInstanceOf(UserAlreadyExistException);
+    expect(data).toBeInstanceOf(CustomerAlreadyExistException);
   });
 
   it('should return DocumentInvalidException if invalid document(CPF)', async () => {
@@ -108,7 +108,7 @@ describe('CreateUserUseCase', () => {
       .fn()
       .mockReturnValue(new Document(document.getValue, dto.documentType));
 
-    const userModel = new UserModel({
+    const userModel = new CustomerEntity({
       ...dto,
       document: document.getValue,
       documentType: document.getType,

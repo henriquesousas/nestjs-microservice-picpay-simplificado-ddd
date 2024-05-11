@@ -1,8 +1,8 @@
 import { BadRequestException } from '@nestjs/common';
 import { CreateUserUseCaseStub } from './mocks/create-user-usecase.stub';
 import { CreateUserDto } from '../../../src/user/domain/dtos/create-user.dto';
-import { DocumentType } from '../../../src/user/domain/models/document_type';
-import { UserController } from '../../../src/user/controllers/user.controller';
+import { DocumentType } from '../../../src/customer/domain/enum/DocumentType';
+import { CustomerController } from '../../../src/user/controllers/CustomerController';
 
 const makeDto = (
   documentType: DocumentType = DocumentType.CPF,
@@ -21,7 +21,7 @@ const makeDto = (
 describe('UserController', () => {
   it('should create a new user', async () => {
     const useCase = new CreateUserUseCaseStub();
-    const sut = new UserController(useCase);
+    const sut = new CustomerController(useCase);
     const userModel = await sut.create(makeDto());
     expect(userModel).toBeTruthy();
     expect(userModel.firstName).toEqual(userModel.firstName);
@@ -35,7 +35,7 @@ describe('UserController', () => {
     jest.spyOn(useCase, 'execute').mockImplementationOnce(() => {
       return Promise.resolve(new BadRequestException('any_error'));
     });
-    const sut = new UserController(useCase);
+    const sut = new CustomerController(useCase);
     const data = sut.create(makeDto());
     expect(data).rejects.toThrow(BadRequestException);
   });
@@ -43,7 +43,7 @@ describe('UserController', () => {
   it('should call usecase with correct values', async () => {
     const useCase = new CreateUserUseCaseStub();
     const usecaseSpy = jest.spyOn(useCase, 'execute');
-    const sut = new UserController(useCase);
+    const sut = new CustomerController(useCase);
     const dto = makeDto();
     await sut.create(dto);
     expect(usecaseSpy).toHaveBeenCalledWith(dto);

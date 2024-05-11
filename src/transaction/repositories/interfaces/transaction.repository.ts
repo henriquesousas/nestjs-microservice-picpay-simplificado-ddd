@@ -1,11 +1,11 @@
-import { UserModel } from '../../../user/domain/models/user.model';
+import { CustomerEntity } from '../../../customer/infrastructure/db/typeorm/CustomerEntity';
 
 export const TRANSACTION_REPOSITORY_TOKEN = 'TransactionReposytory';
 
 export interface TransactionReposytory {
   transfer(
-    sender: UserModel,
-    receiver: UserModel,
+    sender: CustomerEntity,
+    receiver: CustomerEntity,
     value: number,
   ): Promise<void>;
 }

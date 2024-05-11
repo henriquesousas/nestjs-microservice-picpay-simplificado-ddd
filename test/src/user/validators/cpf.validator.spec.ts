@@ -1,5 +1,5 @@
 import { Document } from '../../../../src/user/domain/models/document';
-import { DocumentType } from '../../../../src/user/domain/models/document_type';
+import { DocumentType } from '../../../../src/customer/domain/enum/DocumentType';
 import { DocumentInvalidException } from '../../../../src/user/domain/exceptions/document-invalid.exception';
 import { CPFValidator } from '../../../../src/user/domain/validators/cpf.validator';
 

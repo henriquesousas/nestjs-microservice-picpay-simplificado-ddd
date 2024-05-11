@@ -1,10 +1,10 @@
 import { TransactionReposytory } from '../../../../../src/transaction/repositories/interfaces/transaction.repository';
-import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 
 export class TransactionRepositoryStub implements TransactionReposytory {
   async transfer(
-    sender: UserModel,
-    receiver: UserModel,
+    sender: CustomerEntity,
+    receiver: CustomerEntity,
     value: number,
   ): Promise<void> {
     return Promise.resolve();

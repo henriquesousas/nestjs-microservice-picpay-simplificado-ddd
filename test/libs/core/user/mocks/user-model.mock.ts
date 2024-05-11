@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 
-export const userModelMock: UserModel = {
+export const userModelMock: CustomerEntity = {
   id: 'any_id',
   firstName: 'any_firstName',
   secondName: 'any_secondName',

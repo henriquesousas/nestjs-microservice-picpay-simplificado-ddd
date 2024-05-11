@@ -1,4 +1,4 @@
-import { NotificationServie } from '../../../../../src/notification/services/interfaces/notification.service';
+import { Notification } from '../../../../../src/domain/notification/Notification';
 import { TransactionPaymentDto } from '../../../../../src/transaction/domain/dtos/transaction-payment.dto';
 import { PaymentGateway } from '../../../../../libs/core/src/common/payment/interfaces/payment-gateway';
 import { TransactionPayment } from '../../../../../src/transaction/domain/usecases/interfaces/transaction-payment';
@@ -9,18 +9,18 @@ import { CheckTransactionPaymentServiceStub } from '../mocks/check-transaction-p
 import { NotificationServieStub } from '../mocks/notification.service.stub';
 import { TransactionRepositoryStub } from '../mocks/transaction.repository.stub';
 import { userModelMock } from '../../user/mocks/user-model.mock';
-import { UserModel } from '../../../../../src/user/domain/models/user.model';
+import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 import { PaymentNotAllowedException } from '../../../../../src/transaction/domain/exceptions/payment-not-allowed.exception';
 import { InsulficientBalanceException } from '../../../../../src/transaction/domain/exceptions/insulficient-balance.exception';
 import { UnauthorizedException } from '@nestjs/common';
-import { UserNotfoundException } from '../../../../../src/user/domain/exceptions/user-not-found.exception';
+import { CustomerNotFoundException } from '../../../../../src/customer/domain/exception/CustomerNotFoundException';
 
 type SutTypes = {
   sut: TransactionPayment;
   transactionReposytoryStub: TransactionRepositoryStub;
   userReposytoryStub: UserRepository;
   checkTransationServiceStub: PaymentGateway;
-  notificationServiceStub: NotificationServie;
+  notificationServiceStub: Notification;
 };
 
 const makeSut = (): SutTypes => {
@@ -56,7 +56,7 @@ const shouldValidaSenderAndReceiver = async () => {
     return Promise.resolve(undefined);
   });
   const data = await sut.execute(makeDto);
-  expect(data).toBeInstanceOf(UserNotfoundException);
+  expect(data).toBeInstanceOf(CustomerNotFoundException);
 };
 
 describe('TransactionPaymentUseCase', () => {
@@ -75,7 +75,7 @@ describe('TransactionPaymentUseCase', () => {
       const user = {
         ...userModelMock,
         documentType: 'Cnpj',
-      } as UserModel;
+      } as CustomerEntity;
       return Promise.resolve(user);
     });
 
@@ -90,7 +90,7 @@ describe('TransactionPaymentUseCase', () => {
       const user = {
         ...userModelMock,
         amount: 10,
-      } as UserModel;
+      } as CustomerEntity;
       return Promise.resolve(user);
     });
 

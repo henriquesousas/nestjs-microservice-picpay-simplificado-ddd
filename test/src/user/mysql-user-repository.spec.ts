@@ -1,7 +1,7 @@
-import { MysqlUserRepository } from '../../../src/user/repositories/mysql-user.repository';
+import { CustomerRepositoryTypeOrm } from '../../../src/customer/infrastructure/db/typeorm/CustomerRepositoryTypeOrm';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UserModel } from '../../../src/user/domain/models/user.model';
+import { CustomerEntity } from '../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 import { UserRepository } from '../../../src/user/repositories/interfaces/user.repository';
 import { Repository } from 'typeorm';
 import { userModelMock } from '../../libs/core/user/mocks/user-model.mock';
@@ -10,9 +10,9 @@ import { throwError } from '../../test.helper';
 const createTestingModule = async (): Promise<TestingModule> => {
   const module: TestingModule = await Test.createTestingModule({
     providers: [
-      MysqlUserRepository,
+      CustomerRepositoryTypeOrm,
       {
-        provide: getRepositoryToken(UserModel),
+        provide: getRepositoryToken(CustomerEntity),
         useValue: {
           save: jest.fn(),
           findOne: jest.fn(),
@@ -25,13 +25,13 @@ const createTestingModule = async (): Promise<TestingModule> => {
 
 type SutTypes = {
   sut: UserRepository;
-  typeOrmRepository: Repository<UserModel>;
+  typeOrmRepository: Repository<CustomerEntity>;
 };
 
 const makeSut = (module: TestingModule): SutTypes => {
-  const sut = module.get<UserRepository>(MysqlUserRepository);
-  const typeOrmRepository = module.get<Repository<UserModel>>(
-    getRepositoryToken(UserModel),
+  const sut = module.get<UserRepository>(CustomerRepositoryTypeOrm);
+  const typeOrmRepository = module.get<Repository<CustomerEntity>>(
+    getRepositoryToken(CustomerEntity),
   );
   return {
     sut,

@@ -1,7 +1,7 @@
 import { Result } from '../../../../../libs/core/src/common/types/types';
 import { DocumentValidator } from '../../../../../libs/core/src/common/validator/document.validator';
 import { Document } from '../../../../../src/user/domain/models/document';
-import { DocumentType } from '../../../../../src/user/domain/models/document_type';
+import { DocumentType } from '../../../../../src/customer/domain/enum/DocumentType';
 
 export class ValidatorStub extends DocumentValidator {
   documentType: DocumentType;

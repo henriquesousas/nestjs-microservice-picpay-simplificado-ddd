@@ -1,5 +1,5 @@
 import { Document } from '../../../../src/user/domain/models/document';
-import { DocumentType } from '../../../../src/user/domain/models/document_type';
+import { DocumentType } from '../../../../src/customer/domain/enum/DocumentType';
 import { CNPJValidator } from '../../../../src/user/domain/validators/cnpj.validator';
 
 describe('CNPJValidator', () => {
