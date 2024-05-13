@@ -1,51 +1,42 @@
+import { from } from 'rxjs';
 import { DocumentType } from '../../../customer/domain/enum/DocumentType';
 import { Document } from '../../../customer/domain/interface/Document';
+import { PaymentNotAllowedException } from '../../../transaction/domain/exceptions/payment-not-allowed.exception';
 import { Email } from '../value-object/Email';
 import { Password } from '../value-object/Password';
 import { Wallet } from '../value-object/Wallet';
+import { InsuficientBalanceException } from '../exception/InsuficientBalanceException';
 
 export abstract class Customer {
   abstract documentType: DocumentType;
+  abstract canTransfer: boolean;
 
   constructor(
-    private readonly firstName: string,
-    private readonly surName: string,
-    private readonly email: Email,
-    private readonly password: Password,
-    private readonly document: Document,
-    private readonly wallet = new Wallet(),
-    private readonly id?: string,
+    readonly firstName: string,
+    readonly surName: string,
+    readonly email: Email,
+    readonly password: Password,
+    readonly document: Document,
+    readonly wallet = new Wallet(),
+    readonly id?: string,
   ) {}
 
-  getId(): string {
-    return this.id;
+  credit(amount: number): void {
+    if (this.wallet) this.wallet.credit(amount);
   }
 
-  getFistName(): string {
-    return this.firstName;
+  debit(amount: number): void {
+    if (this.wallet) this.wallet.debit(amount);
   }
 
-  getSurName(): string {
-    return this.surName;
-  }
-
-  getPassword(): string {
-    return this.password.getValue();
-  }
-
-  getDocument(): string {
-    return this.document.getValue();
-  }
-
-  getDocumentType(): string {
-    return this.documentType;
-  }
-
-  getEmail(): string {
-    return this.email.getValue();
-  }
-
-  getWallet(): Wallet {
-    return this.wallet;
+  transfer(amount: number, to: Customer): void {
+    if (!this.canTransfer) {
+      throw new PaymentNotAllowedException();
+    }
+    if (this.wallet.getBalance() < amount) {
+      throw new InsuficientBalanceException();
+    }
+    this.debit(amount);
+    to.credit(amount);
   }
 }
