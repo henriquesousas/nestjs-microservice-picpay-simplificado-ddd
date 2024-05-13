@@ -5,7 +5,7 @@ export class Cnpj implements Document {
 
   constructor(value: string) {
     if (!this.validate(value)) {
-      throw new Error('Invalid CNPJ');
+      throw new Error('CNPJ inválido.');
     }
     this._value = value;
   }

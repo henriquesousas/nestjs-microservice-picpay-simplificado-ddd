@@ -1,12 +1,17 @@
 export class Password {
-  constructor(private readonly value: string) {}
+  private _value: string;
 
-  build(): string {
-    //TODO: validate password if need
-    return this.value;
+  constructor(value: string) {
+    if (!this.validate(value)) {
+      throw new Error('Senha inválida.');
+    }
+  }
+
+  private validate(cpf: string): boolean {
+    return /^\d{11}$/.test(cpf);
   }
 
   getValue(): string {
-    return this.value;
+    return this._value;
   }
 }

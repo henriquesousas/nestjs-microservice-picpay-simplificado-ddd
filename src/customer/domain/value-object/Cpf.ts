@@ -5,7 +5,7 @@ export class Cpf implements Document {
 
   constructor(value: string) {
     if (!this.validate(value)) {
-      throw new Error('Invalid CPF');
+      throw new Error('CPF inválido');
     }
     this._value = value;
   }
