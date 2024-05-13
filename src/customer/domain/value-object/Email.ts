@@ -8,8 +8,8 @@ export class Email {
     this._value = value;
   }
 
-  private validate(cpf: string): boolean {
-    return /^\d{11}$/.test(cpf);
+  private validate(value: string): boolean {
+    return true;
   }
 
   getValue(): string {

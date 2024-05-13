@@ -7,8 +7,8 @@ export class Password {
     }
   }
 
-  private validate(cpf: string): boolean {
-    return /^\d{11}$/.test(cpf);
+  private validate(value: string): boolean {
+    return true;
   }
 
   getValue(): string {
