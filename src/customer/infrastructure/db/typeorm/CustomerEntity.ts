@@ -44,12 +44,12 @@ export class CustomerEntity extends AbstractEntity<CustomerEntity> {
 
   static toEntity(customer: Customer, wallet: WalletEntity): CustomerEntity {
     const customerModel = {
-      firstName: customer.getFistName(),
-      surName: customer.getSurName(),
-      document: customer.getDocument(),
-      documentType: customer.getDocumentType(),
-      email: customer.getEmail(),
-      password: customer.getPassword(),
+      firstName: customer.firstName,
+      surName: customer.surName,
+      documentType: customer.documentType,
+      document: customer.document.getValue(),
+      email: customer.email.getValue(),
+      password: customer.password.getValue(),
       wallet,
     };
     return new CustomerEntity(customerModel);
