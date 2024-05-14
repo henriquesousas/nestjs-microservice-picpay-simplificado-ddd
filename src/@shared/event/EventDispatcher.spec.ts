@@ -1,7 +1,7 @@
-import { CustomerCreatedEvent } from '../../../customer/events/CustomerCreatedEvent';
-import { EventDispatcher } from '../EventDispatcher';
 import { SendMessageToRabbitMQEventHandler } from '../../customer/domain/events/handler/SendMessageToRabbitMQEventHandler';
 import { SendEmailEventHandler } from '../../customer/domain/events/handler/SendEmailEventHandler';
+import { EventDispatcher } from './EventDispatcher';
+import { CustomerCreatedEvent } from '../../customer/domain/events/CustomerCreatedEvent';
 
 describe('Domain events unit test', () => {
   it('should register an event', () => {
