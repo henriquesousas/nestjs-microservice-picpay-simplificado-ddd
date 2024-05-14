@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { PaymentGateway } from '@app/core/common/payment/interfaces/payment-gateway';
+import { PaymentGateway } from 'src/@shared/payment/payment-gateway';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@app/core/common/http/http.module';
+import { HttpModule } from 'src/@shared/http/http.module';
 import { EmailNotificationNodeMailer } from './EmailNotificationNodeMailer';
 import { NOTIFICATION_SERVICE } from './Notification';
 

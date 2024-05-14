@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
-import { isError } from '@app/core/common/types/types';
+import { isError } from 'src/@shared/types/types';
 import { TransactionDto } from '../../../domain/dto/TransactionDto';
 import {
   TRANSACTION_USECASE_TOKEN,

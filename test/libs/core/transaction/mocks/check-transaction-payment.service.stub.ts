@@ -1,4 +1,4 @@
-import { PaymentGateway } from '../../../../../libs/core/src/common/payment/interfaces/payment-gateway';
+import { PaymentGateway } from '../../../../../src/@shared/payment/payment-gateway';
 
 export class CheckTransactionPaymentServiceStub implements PaymentGateway {
   async isAuthorize(): Promise<boolean> {

@@ -5,7 +5,7 @@ import {
   TRANSACTION_USECASE_TOKEN,
   TransferUseCase,
 } from './domain/usecases/TransferUseCase';
-import { HttpModule } from '@app/core/common/http/http.module';
+import { HttpModule } from 'src/@shared/http/http.module';
 import { CustomerModule } from '../customer/CustomerModule';
 import { NotificationModule } from '../notification/NotificationModule';
 import { TransactionRepositoryTypeOrm } from './infrastructure/db/typeorm/TransactionRepositoryTypeOrm';

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Result } from '@app/core/common/types/types';
+import { Result } from 'src/@shared/types/types';
 
 import {
   CUSTOMER_REPOSITORY_TOKEN,

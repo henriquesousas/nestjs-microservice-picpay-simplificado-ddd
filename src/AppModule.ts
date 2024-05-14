@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HttpModule } from '@app/core/common/http/http.module';
-import { DatabaseModule } from '@app/core/common/database/database.module';
+import { HttpModule } from 'src/@shared/http/http.module';
+import { DatabaseModule } from 'src/@shared/database/database.module';
 import { CustomerEntity } from './customer/infrastructure/db/typeorm/CustomerEntity';
 import { CustomerModule } from './customer/CustomerModule';
 import { WalletEntity } from './customer/infrastructure/db/typeorm/WalletEntity';

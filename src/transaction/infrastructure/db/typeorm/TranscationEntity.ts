@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractEntity } from '../../../../../libs/core/src/common/database/abstract-entity';
+import { AbstractEntity } from '../../../../@shared/database/abstract-entity';
 import { CustomerEntity } from '../../../../customer/infrastructure/db/typeorm/CustomerEntity';
 
 @Entity({ name: 'transactions' })

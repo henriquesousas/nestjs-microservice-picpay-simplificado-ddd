@@ -6,7 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AbstractEntity } from '../../../../../libs/core/src/common/database/abstract-entity';
+import { AbstractEntity } from '../../../../@shared/database/abstract-entity';
 
 import { DocumentType } from '../../../domain/enum/DocumentType';
 import { Customer } from '../../../domain/model/Customer';

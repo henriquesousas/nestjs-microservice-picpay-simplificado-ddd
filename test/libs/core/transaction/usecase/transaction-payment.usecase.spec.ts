@@ -1,6 +1,6 @@
 import { Notification } from '../../../../../src/domain/notification/Notification';
 import { TransactionDto } from '../../../../../src/transaction/domain/dtos/TransactionDto';
-import { PaymentGateway } from '../../../../../libs/core/src/common/payment/interfaces/payment-gateway';
+import { PaymentGateway } from '../../../../../src/@shared/payment/payment-gateway';
 import { TransactionPayment } from '../../../../../src/transaction/domain/usecases/interfaces/transaction-payment';
 import { TransferUseCase } from '../../../../../src/transaction/domain/usecases/TransferUseCase';
 import { UserRepository } from '../../../../../src/user/repositories/interfaces/user.repository';

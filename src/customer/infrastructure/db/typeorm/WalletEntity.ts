@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractEntity } from '../../../../../libs/core/src/common/database/abstract-entity';
+import { AbstractEntity } from '../../../../@shared/database/abstract-entity';
 
 @Entity({ name: 'wallet' })
 export class WalletEntity extends AbstractEntity<WalletEntity> {
