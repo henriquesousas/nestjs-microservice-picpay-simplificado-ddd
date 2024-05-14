@@ -1,5 +1,6 @@
+import { Document } from '../../../@shared/interfaces/Document';
 import { DocumentType } from '../../../customer/domain/enum/DocumentType';
-import { Document } from '../interface/Document';
+
 import { Cnpj } from '../value-object/Cnpj';
 import { Cpf } from '../value-object/Cpf';
 

@@ -1,5 +1,5 @@
 import { DocumentType } from '../../../customer/domain/enum/DocumentType';
-import { Document } from '../../../customer/domain/interface/Document';
+import { Document } from '../../../@shared/interfaces/Document';
 import { InsuficientBalanceException } from '../../../transaction/domain/exception/InsuficientBalanceException';
 import { TransactionNotAllowed } from '../../../transaction/domain/exception/TransactionNotAllowedException';
 import { Email } from '../value-object/Email';

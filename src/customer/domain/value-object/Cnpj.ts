@@ -1,4 +1,4 @@
-import { Document } from '../../../customer/domain/interface/Document';
+import { Document } from '../../../@shared/interfaces/Document';
 import { DocumentType } from '../enum/DocumentType';
 import { DocumentInvalidException } from '../exception/DocumentInvalidException';
 
