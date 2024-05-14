@@ -1,15 +1,19 @@
 export class Wallet {
-  private _balance = 0;
+  constructor(private balance: number = 0, private readonly id?: string) {}
+
+  getId(): string {
+    return this.id;
+  }
 
   getBalance(): number {
-    return this._balance;
+    return this.balance;
   }
 
   credit(amount: number): void {
-    this._balance += Number(amount);
+    this.balance = Number(this.balance) + Number(amount);
   }
 
   debit(amount: number): void {
-    this._balance -= Number(amount);
+    this.balance -= Number(amount);
   }
 }

@@ -21,7 +21,7 @@ export class CustomerRepositoryTypeOrm implements CustomerRepository {
    * realizar o roolback e interromper a operação
    */
   async save(customer: Customer): Promise<void> {
-    const amount = customer.getWallet().getBalance();
+    const amount = customer.wallet.getBalance();
     const walletEntity = await this.wallet.save(new WalletEntity({ amount }));
     const customerEntity = CustomerEntity.toEntity(customer, walletEntity);
     await this.customer.save(customerEntity);
@@ -42,7 +42,12 @@ export class CustomerRepositoryTypeOrm implements CustomerRepository {
   }
 
   async getById(id: string): Promise<Customer> {
-    const model = await this.customer.findOne({ where: { id } });
+    const model = await this.customer.findOne({
+      where: { id },
+      relations: {
+        wallet: true,
+      },
+    });
     return CustomerEntity.toModel(model);
   }
 }

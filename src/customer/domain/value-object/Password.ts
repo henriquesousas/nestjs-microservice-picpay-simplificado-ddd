@@ -5,6 +5,7 @@ export class Password {
     if (!this.validate(value)) {
       throw new Error('Senha inválida.');
     }
+    this._value = value;
   }
 
   private validate(value: string): boolean {

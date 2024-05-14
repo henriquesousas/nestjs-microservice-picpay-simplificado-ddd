@@ -14,11 +14,12 @@ export class CustomerRepositoryInMemory implements CustomerRepository {
   ): Promise<Customer> {
     return this.customers.find(
       (customer) =>
-        customer.getEmail() === email || customer.getDocument() === document,
+        customer.email.getValue() === email ||
+        customer.document.getValue() === document,
     );
   }
 
   async getById(id: string): Promise<Customer> {
-    return this.customers.find((customer) => customer.getId() === id);
+    return this.customers.find((customer) => customer.id === id);
   }
 }

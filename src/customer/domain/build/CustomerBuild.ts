@@ -11,7 +11,7 @@ export class CustomerBuild {
     readonly password: string,
     readonly document: string,
     readonly documentType: DocumentType,
-    readonly wallet = new Wallet(),
+    private wallet = new Wallet(),
     private id?: string,
   ) {}
 
@@ -20,8 +20,9 @@ export class CustomerBuild {
     return this;
   }
 
-  withWallet(amount: number): CustomerBuild {
-    this.wallet.credit(amount);
+  withWallet(wallet: Wallet): CustomerBuild {
+    //this.wallet.credit(amount);
+    this.wallet = wallet;
     return this;
   }
 

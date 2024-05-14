@@ -6,6 +6,7 @@ import {
   Logger,
   HttpStatus,
 } from '@nestjs/common';
+import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { Response } from 'express';
 
 type HttpResponse = {
@@ -18,13 +19,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
 
   catch(httpException: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
+    const ctx = host.switchToHttp() as HttpArgumentsHost;
     const response = ctx.getResponse<Response>();
-    const { status, data } = this.prepareResponse(httpException);
+    const request = ctx.getRequest<Request>();
+    const { status, data } = this.prepareResponse(httpException, request);
     return response.status(status).json(data);
   }
 
-  private prepareResponse(httpException: HttpException): HttpResponse {
+  private prepareResponse(
+    httpException: HttpException,
+    request: Request,
+  ): HttpResponse {
     const status =
       httpException instanceof HttpException
         ? httpException.getStatus()
@@ -37,8 +42,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     this.logger.error(`Exception  => ${JSON.stringify(exception)}`);
     const response = exception['message'] ?? exception;
-    return Array.isArray(response)
-      ? { status, data: { messages: response } }
-      : { status, data: { message: response } };
+    const erros = Array.isArray(response) ? response : [response];
+    return { status, data: { url: request.url, messages: erros } };
+    // return Array.isArray(response)
+    //   ? { status, data: { messages: response } }
+    //   : { status, data: { message: [response] } };
   }
 }

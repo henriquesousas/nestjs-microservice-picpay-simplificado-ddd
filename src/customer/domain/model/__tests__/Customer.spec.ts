@@ -3,9 +3,9 @@ import { Individual } from '../Individual';
 import { CreateCustomerDto } from '../../dto/CreateCustomerDto';
 import { CreateCustomerUseCase } from '../../usecase/CreateCustomerUseCase';
 import { GetCustomerByEmailUseCase } from '../../usecase/GetCustomerByEmailUseCase';
-import { EventDispatcher } from '../../../../domain/@shared/event/EventDispatcher';
-import { SendSmsEventHandler } from '../../events/handler/SendSmsEventHandler';
+import { SendEmailEventHandler } from '../../events/handler/SendEmailEventHandler';
 import { CustomerRepositoryInMemory } from '../../../infrastructure/db/in-memory/CustomerRepositoryInMemory';
+import { CustomerBuild } from '../../build/CustomerBuild';
 
 // type SutTypes = {
 //   sut: Customer;
@@ -29,30 +29,52 @@ import { CustomerRepositoryInMemory } from '../../../infrastructure/db/in-memory
 
 describe('Customer unit tests', () => {
   it.only('should ', async () => {
-    const dto: CreateCustomerDto = {
-      firstName: 'any name',
-      surName: 'any surname',
-      email: 'any@gmail.com',
-      password: '123',
-      document: '11111111111',
-      amount: 0,
-      documentType: DocumentType.CPF,
-    };
-    const eventDispatcher = new EventDispatcher();
-    const handle = new SendSmsEventHandler();
-    eventDispatcher.register('CustomerCreatedEvent', handle);
-    const repository = new CustomerRepositoryInMemory();
-    const createCustomerUseCase = new CreateCustomerUseCase(
-      repository,
-      eventDispatcher,
-      'CustomerCreatedEvent',
-    );
-    const getCustomerUseCase = new GetCustomerByEmailUseCase(repository);
-
-    await createCustomerUseCase.execute(dto);
-    (await getCustomerUseCase.execute(dto.email)) as Individual;
-
+    // const dto: CreateCustomerDto = {
+    //   firstName: 'any name',
+    //   surName: 'any surname',
+    //   email: 'any@gmail.com',
+    //   password: '123',
+    //   document: '11111111111',
+    //   amount: 0,
+    //   documentType: DocumentType.CPF,
+    // };
+    // const eventDispatcher = new EventDispatcher();
+    // const handle = new SendSmsEventHandler();
+    // eventDispatcher.register('CustomerCreatedEvent', handle);
+    // const repository = new CustomerRepositoryInMemory();
+    // const createCustomerUseCase = new CreateCustomerUseCase(
+    //   repository,
+    //   eventDispatcher,
+    //   'CustomerCreatedEvent',
+    // );
+    // const getCustomerUseCase = new GetCustomerByEmailUseCase(repository);
+    // await createCustomerUseCase.execute(dto);
+    // (await getCustomerUseCase.execute(dto.email)) as Individual;
     //console.log(customer);
+
+    const from = new CustomerBuild(
+      'fist name',
+      'sur name',
+      'asas@gmail.com',
+      '123456',
+      '11111111111',
+      DocumentType.CPF,
+    )
+      .withWallet(1000)
+      .build();
+
+    const to = new CustomerBuild(
+      'fist name',
+      'sur name',
+      'asas@gmail.com',
+      '123456',
+      '11111111111',
+      DocumentType.CPF,
+    ).build();
+
+    from.transfer(500, to);
+    expect(from.wallet.getBalance()).toBe(500);
+    expect(to.wallet.getBalance()).toBe(500);
   });
 
   // it('should create customer', () => {

@@ -1,7 +1,7 @@
 import { CustomerCreatedEvent } from '../../../customer/events/CustomerCreatedEvent';
 import { EventDispatcher } from '../EventDispatcher';
 import { SendMessageToRabbitMQEventHandler } from '../../customer/domain/events/handler/SendMessageToRabbitMQEventHandler';
-import { SendSmsEventHandler } from '../../customer/domain/events/handler/SendSmsEventHandler';
+import { SendEmailEventHandler } from '../../customer/domain/events/handler/SendEmailEventHandler';
 
 describe('Domain events unit test', () => {
   it('should register an event', () => {
@@ -18,7 +18,7 @@ describe('Domain events unit test', () => {
     const eventDispatcher = new EventDispatcher();
     const sendMessageToRMQEventHandler =
       new SendMessageToRabbitMQEventHandler();
-    const sendSmsSeventHandler = new SendSmsEventHandler();
+    const sendSmsSeventHandler = new SendEmailEventHandler();
     eventDispatcher.register(eventName, sendMessageToRMQEventHandler);
     eventDispatcher.register(eventName, sendSmsSeventHandler);
     expect(eventDispatcher.getEventHandlers[eventName]).toBeDefined();
@@ -43,7 +43,7 @@ describe('Domain events unit test', () => {
     const eventName = 'CustomerCreatedEvent';
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new SendMessageToRabbitMQEventHandler();
-    const sendSmsEventHandler = new SendSmsEventHandler();
+    const sendSmsEventHandler = new SendEmailEventHandler();
 
     const handleSpy = jest.spyOn(eventHandler, 'handle');
     const sendSmsEventHandlerSpy = jest.spyOn(sendSmsEventHandler, 'handle');

@@ -23,7 +23,7 @@ export class CreateCustomerDto {
   @IsString({ message: 'Documento inválido' })
   document: string;
 
-  @IsEnum(DocumentType, { message: 'Tipo de usuário desconhecido' })
+  @IsEnum(DocumentType, { message: 'Tipo de documento desconhecido' })
   documentType: DocumentType;
 
   @IsNumber()

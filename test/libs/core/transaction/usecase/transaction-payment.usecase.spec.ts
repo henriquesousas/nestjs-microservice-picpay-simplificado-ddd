@@ -1,8 +1,8 @@
 import { Notification } from '../../../../../src/domain/notification/Notification';
-import { TransactionPaymentDto } from '../../../../../src/transaction/domain/dtos/transaction-payment.dto';
+import { TransactionDto } from '../../../../../src/transaction/domain/dtos/TransactionDto';
 import { PaymentGateway } from '../../../../../libs/core/src/common/payment/interfaces/payment-gateway';
 import { TransactionPayment } from '../../../../../src/transaction/domain/usecases/interfaces/transaction-payment';
-import { TransactionPaymentUseCase } from '../../../../../src/transaction/domain/usecases/transaction-payment.usecase';
+import { TransferUseCase } from '../../../../../src/transaction/domain/usecases/TransferUseCase';
 import { UserRepository } from '../../../../../src/user/repositories/interfaces/user.repository';
 import { UserRepositoryStub } from '../../user/mocks/user-repository.stub';
 import { CheckTransactionPaymentServiceStub } from '../mocks/check-transaction-payment.service.stub';
@@ -10,7 +10,7 @@ import { NotificationServieStub } from '../mocks/notification.service.stub';
 import { TransactionRepositoryStub } from '../mocks/transaction.repository.stub';
 import { userModelMock } from '../../user/mocks/user-model.mock';
 import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
-import { PaymentNotAllowedException } from '../../../../../src/transaction/domain/exceptions/payment-not-allowed.exception';
+import { TransactionNotAllowed } from '../../../../../src/transaction/domain/exceptions/TransactionNotAllowedException';
 import { InsulficientBalanceException } from '../../../../../src/transaction/domain/exceptions/insulficient-balance.exception';
 import { UnauthorizedException } from '@nestjs/common';
 import { CustomerNotFoundException } from '../../../../../src/customer/domain/exception/CustomerNotFoundException';
@@ -28,7 +28,7 @@ const makeSut = (): SutTypes => {
   const userReposytoryStub = new UserRepositoryStub();
   const checkTransationServiceStub = new CheckTransactionPaymentServiceStub();
   const notificationServiceStub = new NotificationServieStub();
-  const sut = new TransactionPaymentUseCase(
+  const sut = new TransferUseCase(
     transactionReposytoryStub,
     userReposytoryStub,
     checkTransationServiceStub,
@@ -43,7 +43,7 @@ const makeSut = (): SutTypes => {
   };
 };
 
-const makeDto: TransactionPaymentDto = {
+const makeDto: TransactionDto = {
   senderId: 'any',
   receiverId: 'any',
   value: 1000,
@@ -80,7 +80,7 @@ describe('TransactionPaymentUseCase', () => {
     });
 
     const data = await sut.execute(makeDto);
-    expect(data).toBeInstanceOf(PaymentNotAllowedException);
+    expect(data).toBeInstanceOf(TransactionNotAllowed);
   });
 
   it('should return InsulficientBalanceException', async () => {

@@ -1,9 +1,9 @@
 import { BadRequestException, HttpException } from '@nestjs/common';
-import { TransactionPaymentDto } from '../../../src/transaction/domain/dtos/transaction-payment.dto';
-import { TransactionController } from '../../../src/transaction/transaction.controller';
+import { TransactionDto } from '../../../src/transaction/domain/dtos/TransactionDto';
+import { TransactionController } from '../../../src/transaction/infrastructure/http/nestjs/TransactionController';
 import { TransactionPaymentUseCaseStub } from './transaction-payment.usecase.stub';
 
-const makeDto = (): TransactionPaymentDto => {
+const makeDto = (): TransactionDto => {
   return {
     senderId: 'any_name',
     receiverId: 'any_second_name',

@@ -1,11 +1,10 @@
-import { from } from 'rxjs';
 import { DocumentType } from '../../../customer/domain/enum/DocumentType';
 import { Document } from '../../../customer/domain/interface/Document';
-import { PaymentNotAllowedException } from '../../../transaction/domain/exceptions/payment-not-allowed.exception';
+import { InsuficientBalanceException } from '../../../transaction/domain/exception/InsuficientBalanceException';
+import { TransactionNotAllowed } from '../../../transaction/domain/exception/TransactionNotAllowedException';
 import { Email } from '../value-object/Email';
 import { Password } from '../value-object/Password';
 import { Wallet } from '../value-object/Wallet';
-import { InsuficientBalanceException } from '../exception/InsuficientBalanceException';
 
 export abstract class Customer {
   abstract documentType: DocumentType;
@@ -29,9 +28,9 @@ export abstract class Customer {
     if (this.wallet) this.wallet.debit(amount);
   }
 
-  transfer(amount: number, to: Customer): void {
+  transfer(to: Customer, amount: number): void {
     if (!this.canTransfer) {
-      throw new PaymentNotAllowedException();
+      throw new TransactionNotAllowed();
     }
     if (this.wallet.getBalance() < amount) {
       throw new InsuficientBalanceException();

@@ -14,31 +14,56 @@ import {
   EVENT_DISPATCHER_TOKERN,
 } from '../@shared/event/Dispatcher';
 import { CustomerRepositoryTypeOrm } from './infrastructure/db/typeorm/CustomerRepositoryTypeOrm';
+import { SendMessageToRabbitMQEventHandler } from './domain/events/handler/SendMessageToRabbitMQEventHandler';
 import { EventDispatcher } from '../@shared/event/EventDispatcher';
+import { SendEmailEventHandler } from './domain/events/handler/SendEmailEventHandler';
+
+const useCaseProvider = {
+  provide: CREATE_CUSTOMER_USECASE,
+  useFactory(repository: CustomerRepository, eventDispatcher: Dispatcher) {
+    const eventName = 'CustomerCreatedEvent';
+    return new CreateCustomerUseCase(repository, eventDispatcher, eventName);
+  },
+  inject: [
+    CUSTOMER_REPOSITORY_TOKEN,
+    EVENT_DISPATCHER_TOKERN,
+    SendMessageToRabbitMQEventHandler,
+  ],
+};
+
+const eventsProvider = {
+  provide: EVENT_DISPATCHER_TOKERN,
+  useFactory(
+    event: SendMessageToRabbitMQEventHandler,
+    eventSendEmail: SendEmailEventHandler,
+    eventDispatcher: EventDispatcher,
+  ) {
+    eventDispatcher.register('CustomerCreatedEvent', event);
+    eventDispatcher.register('CustomerCreatedEvent', eventSendEmail);
+    return eventDispatcher;
+  },
+  inject: [
+    SendMessageToRabbitMQEventHandler,
+    SendEmailEventHandler,
+    EventDispatcher,
+  ],
+};
+
+const repositoryProvider = {
+  provide: CUSTOMER_REPOSITORY_TOKEN,
+  useClass: CustomerRepositoryTypeOrm,
+};
 
 @Module({
   imports: [TypeOrmModule],
   controllers: [CustomerController],
   providers: [
-    {
-      provide: CREATE_CUSTOMER_USECASE,
-      useFactory(repository: CustomerRepository, eventDispatcher: Dispatcher) {
-        return new CreateCustomerUseCase(
-          repository,
-          eventDispatcher,
-          'CustomerCreatedEvent',
-        );
-      },
-      inject: [CUSTOMER_REPOSITORY_TOKEN, EVENT_DISPATCHER_TOKERN],
-    },
-    {
-      provide: CUSTOMER_REPOSITORY_TOKEN,
-      useClass: CustomerRepositoryTypeOrm,
-    },
-    {
-      provide: EVENT_DISPATCHER_TOKERN,
-      useClass: EventDispatcher,
-    },
+    EventDispatcher,
+    SendMessageToRabbitMQEventHandler,
+    SendEmailEventHandler,
+    repositoryProvider,
+    eventsProvider,
+    useCaseProvider,
   ],
   exports: [CUSTOMER_REPOSITORY_TOKEN],
 })

@@ -20,7 +20,6 @@ export class EventDispatcher implements Dispatcher {
 
   notify(event: Event): void {
     // const eventName = event.constructor.name;
-    console.log(event.eventName);
     if (this.eventHandlers[event.eventName]) {
       this.eventHandlers[event.eventName].forEach((handler) =>
         handler.handle(event),

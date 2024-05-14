@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@app/core/common/http/http.module';
-import { EmailNotification } from './EmailNotification';
+import { EmailNotificationNodeMailer } from './EmailNotificationNodeMailer';
 import { NOTIFICATION_SERVICE } from './Notification';
 
 @Module({
@@ -8,7 +8,7 @@ import { NOTIFICATION_SERVICE } from './Notification';
   providers: [
     {
       provide: NOTIFICATION_SERVICE,
-      useClass: EmailNotification,
+      useClass: EmailNotificationNodeMailer,
     },
   ],
   exports: [NOTIFICATION_SERVICE],

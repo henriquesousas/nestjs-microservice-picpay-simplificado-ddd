@@ -1,23 +1,21 @@
 import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
 import { isError } from '@app/core/common/types/types';
+import { TransactionDto } from '../../../domain/dto/TransactionDto';
 import {
-  TRANSACTION_PAYMENT_USECASE_TOKEN,
-  TransactionPayment,
-} from './domain/usecases/interfaces/transaction-payment';
-import { TransactionPaymentDto } from './domain/dtos/transaction-payment.dto';
+  TRANSACTION_USECASE_TOKEN,
+  Transfer,
+} from '../../../domain/usecases/TransferUseCase';
 
 @Controller('/transaction')
 export class TransactionController {
   constructor(
-    @Inject(TRANSACTION_PAYMENT_USECASE_TOKEN)
-    private readonly useCase: TransactionPayment,
+    @Inject(TRANSACTION_USECASE_TOKEN)
+    private readonly useCase: Transfer,
   ) {}
 
   @Post()
   @HttpCode(201)
-  async payment(
-    @Body() dto: TransactionPaymentDto,
-  ): Promise<{ message: string }> {
+  async payment(@Body() dto: TransactionDto): Promise<{ message: string }> {
     const transactionOrError = await this.useCase.execute(dto);
     if (isError(transactionOrError)) {
       throw transactionOrError;

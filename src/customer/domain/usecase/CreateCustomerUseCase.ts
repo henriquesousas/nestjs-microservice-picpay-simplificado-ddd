@@ -13,6 +13,7 @@ import {
   EVENT_DISPATCHER_TOKERN,
 } from '../../../@shared/event/Dispatcher';
 import { CustomerAlreadyExistException } from '../exception/CustomerAlreadyExistException';
+import { Wallet } from '../value-object/Wallet';
 
 export const CREATE_CUSTOMER_USECASE = 'CreateCustomer';
 
@@ -46,7 +47,7 @@ export class CreateCustomerUseCase implements CreateCustomer {
       dto.document,
       dto.documentType,
     )
-      .withWallet(dto.amount)
+      .withWallet(new Wallet(dto.amount))
       .build();
     await this.customerRepository.save(customer);
     this.eventDispatcher.notify(new CustomerCreatedEvent(this.eventName, dto));

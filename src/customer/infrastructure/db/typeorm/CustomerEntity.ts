@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -11,6 +12,8 @@ import { DocumentType } from '../../../domain/enum/DocumentType';
 import { Customer } from '../../../domain/model/Customer';
 import { CustomerBuild } from '../../../domain/build/CustomerBuild';
 import { WalletEntity } from './WalletEntity';
+import { TransactionEntity } from '../../../../transaction/infrastructure/db/typeorm/TranscationEntity';
+import { Wallet } from '../../../domain/value-object/Wallet';
 
 @Entity({ name: 'customers' })
 export class CustomerEntity extends AbstractEntity<CustomerEntity> {
@@ -39,8 +42,8 @@ export class CustomerEntity extends AbstractEntity<CustomerEntity> {
   @JoinColumn()
   wallet: WalletEntity;
 
-  // @OneToMany(() => TransactionModel, (transaction) => transaction.sender)
-  // transactions: TransactionModel[];
+  @OneToMany(() => TransactionEntity, (transaction) => transaction.sender)
+  transactions: TransactionEntity[];
 
   static toEntity(customer: Customer, wallet: WalletEntity): CustomerEntity {
     const customerModel = {
@@ -65,7 +68,7 @@ export class CustomerEntity extends AbstractEntity<CustomerEntity> {
       model.documentType === 'CPF' ? DocumentType.CPF : DocumentType.CNPJ,
     )
       .withId(model.id)
-      .withWallet(model.wallet.amount)
+      .withWallet(new Wallet(model.wallet.amount, model.wallet.id))
       .build();
   }
 }

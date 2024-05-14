@@ -1,4 +1,4 @@
-import { TransactionReposytory } from '../../../../../src/transaction/repositories/interfaces/transaction.repository';
+import { TransactionReposytory } from '../../../../../src/transaction/domain/repository/TransactionRepository';
 import { CustomerEntity } from '../../../../../src/customer/infrastructure/db/typeorm/CustomerEntity';
 
 export class TransactionRepositoryStub implements TransactionReposytory {
