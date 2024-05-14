@@ -58,8 +58,12 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
   1. Necessário ter a variavel de ambiente configurada no projeto (.env)<br />
   2. Na raiz do projeto se tem um .env.example que mostra quais são as KEYs necessárias para configurar corretamente o projeto.<br />
   2. Se preferir rodar o projeto com docker necessário usar na propriedade DB_HOST a configuração abaixo, pois é o nome do container que servirá como host da aplicação. 
-   ```js
-    DB_HOST=transaction
+   ```sh
+    # Host caso rode o projeto com docker, picpay-db é o nome do container do database no arquido docker-compose.yaml
+    DB_HOST=picpay-db
+    # Host caso rode roda o projeto fora do docker
+    DB_HOST=localhost 
+
    ```   
 
 #### ⚙️ Instalação
@@ -69,6 +73,15 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
 
    # Instalando NPM packages
     npm install
+   ```
+
+#### ⚙️ Executar
+  ```sh
+   # Usando docker
+    docker-compose up
+
+   # Roda o projeto sem o docker
+    npm run start:dev
    ```
 
 <!-- Test-->
