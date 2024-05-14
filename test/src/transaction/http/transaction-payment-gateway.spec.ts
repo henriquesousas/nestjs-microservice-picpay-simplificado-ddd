@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
-import { AxiosPaymentGateway } from '../../../../src/@shared/payment/axios-payment-gateway';
-import { PaymentGateway } from '../../../../src/@shared/payment/payment-gateway';
+import { AxiosPaymentGateway } from '../../../../src/@shared/payment/AxiosPaymentGatewaty';
+import { PaymentGateway } from '../../../../src/@shared/payment/PaymentGateway';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';

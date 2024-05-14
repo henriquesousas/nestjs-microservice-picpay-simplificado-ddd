@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
-import { Notification } from './Notification';
+import { Notification } from './domain/Notification';
 
 @Injectable()
 export class EmailNotificationNodeMailer implements Notification {

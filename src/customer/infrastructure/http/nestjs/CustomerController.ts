@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
-import { isError } from 'src/@shared/types/types';
+import { isError } from 'src/@shared/types/Types';
 import {
   CREATE_CUSTOMER_USECASE,
   CreateCustomerUseCase,

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Notification } from './Notification';
+import { Notification } from './domain/Notification';
 
 @Injectable()
 export class SmsNotification implements Notification {

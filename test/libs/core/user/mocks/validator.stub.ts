@@ -1,4 +1,4 @@
-import { Result } from '../../../../../src/@shared/types/types';
+import { Result } from '../../../../../src/@shared/types/Types';
 import { DocumentValidator } from '../../../../../libs/core/src/common/validator/document.validator';
 import { Document } from '../../../../../src/user/domain/models/document';
 import { DocumentType } from '../../../../../src/customer/domain/enum/DocumentType';

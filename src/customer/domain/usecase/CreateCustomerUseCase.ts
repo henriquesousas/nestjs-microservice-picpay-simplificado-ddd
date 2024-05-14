@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Result } from '../../../@shared/types/types';
+import { Result } from '../../../@shared/types/Types';
 
 import { CustomerBuild } from '../build/CustomerBuild';
 import { CreateCustomerDto } from '../dto/CreateCustomerDto';
