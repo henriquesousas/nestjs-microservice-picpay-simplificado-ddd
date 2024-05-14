@@ -30,6 +30,7 @@
     "axios": "^1.6.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "eventemitter2": "^6.4.9",
     "mysql2": "^3.7.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
@@ -77,8 +78,7 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/test",
-      "<rootDir>/libs/"
+      "<rootDir>/src"
     ],
     "moduleNameMapper": {
       "^@app/core(|/.*)$": "<rootDir>/libs/core/src/$1"
