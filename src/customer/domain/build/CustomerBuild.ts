@@ -55,15 +55,5 @@ export class CustomerBuild {
       default:
         throw Error('Document not supported!!!');
     }
-    // return CustomerFactory.create(
-    //   this.firstName,
-    //   this.surName,
-    //   this.email,
-    //   this.password,
-    //   this.document,
-    //   this.documentType,
-    //   this.wallet,
-    //   this.id,
-    // );
   }
 }
