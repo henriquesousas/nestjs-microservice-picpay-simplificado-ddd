@@ -37,5 +37,19 @@ services:
     expose:
       - ${DB_PORT}
 
+  rabbit:
+    image: 'rabbitmq:3-management'
+    hostname: my-rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'SWQOKODSQALRPCLNMEQG'
+      RABBITMQ_DEFAULT_PASS: 'admin'
+      RABBITMQ_DEFAULT_USER: 'admin'
+
+    volumes:
+      - ./rabbitmq-data:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+
 volumes:
   db:
