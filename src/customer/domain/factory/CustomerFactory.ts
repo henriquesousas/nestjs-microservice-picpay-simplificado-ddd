@@ -1,13 +1,14 @@
 import { DocumentType } from '../../../customer/domain/enum/DocumentType';
 import { Customer } from '../model/Customer';
-import { Individual } from '../model/Individual';
-import { Merchant } from '../model/Merchant';
+import { RegularCustomer } from '../model/RegularCustomer';
+import { CorporateCustomer } from '../model/CorporateCustomer';
 import { Cnpj } from '../value-object/Cnpj';
 import { Cpf } from '../value-object/Cpf';
 import { Email } from '../value-object/Email';
 import { Password } from '../value-object/Password';
 import { Wallet } from '../value-object/Wallet';
 
+//TODO: Remover
 export class CustomerFactory {
   public static create(
     firstName: string,
@@ -21,7 +22,7 @@ export class CustomerFactory {
   ): Customer {
     switch (documentType) {
       case DocumentType.CPF:
-        return new Individual(
+        return new RegularCustomer(
           firstName,
           surName,
           new Email(email),
@@ -31,7 +32,7 @@ export class CustomerFactory {
           id,
         );
       case DocumentType.CNPJ:
-        return new Merchant(
+        return new CorporateCustomer(
           firstName,
           surName,
           new Email(email),
