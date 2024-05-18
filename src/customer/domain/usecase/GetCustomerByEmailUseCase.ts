@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Customer } from '../model/Customer';
 import { CustomerRepository } from '../repository/CustomerRepository';
 

@@ -17,7 +17,6 @@ import {
   EVENT_DISPATCHER_TOKERN,
 } from '../../../@shared/event/Dispatcher';
 import { TransactionCompleted } from '../event/TransactionCompleted';
-import { send } from 'process';
 
 export const TRANSACTION_USECASE_TOKEN = 'Transfer';
 
