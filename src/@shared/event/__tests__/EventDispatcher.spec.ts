@@ -25,7 +25,7 @@ describe('Domain events unit test', () => {
     expect(eventDispatcher.getEventHandlers[eventName].length).toBe(2);
   });
 
-  it('should nofify when event occured', () => {
+  it('should nofify when event occurred', () => {
     const eventName = 'CustomerCreatedEvent';
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new AnyEventHandlerStub();
