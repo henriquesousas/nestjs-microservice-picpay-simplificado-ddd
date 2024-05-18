@@ -39,7 +39,7 @@ describe('Domain events unit test', () => {
     expect(handleSpy).toHaveBeenCalled();
   });
 
-  it('should nofify all events occured', () => {
+  it('should nofify all events occurred', () => {
     const eventName = 'CustomerCreatedEvent';
     const eventDispatcher = new EventDispatcher();
     const eventHandler = new AnyEventHandlerStub();
