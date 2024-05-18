@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Result } from '../../../@shared/types/Types';
 
 import { CustomerBuild } from '../build/CustomerBuild';
 import { CreateCustomerDto } from '../dto/CreateCustomerDto';
@@ -14,6 +13,8 @@ import {
 } from '../../../@shared/event/Dispatcher';
 import { CustomerAlreadyExistException } from '../exception/CustomerAlreadyExistException';
 import { Wallet } from '../value-object/Wallet';
+import { Result } from '../../../@shared/types/Types';
+// import { Result } from '../../../@shared/types/Types';
 
 export const CREATE_CUSTOMER_USECASE = 'CreateCustomer';
 

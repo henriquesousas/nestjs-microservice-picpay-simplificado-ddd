@@ -17,6 +17,6 @@ export class SendMessageToRabbitMQEventHandler
     const queue = this.configService.getOrThrow('RABBIT_MQ_CUSTOMER_QUEUE');
     const routingKey = 'customer.create';
     this.rabbitMQService.getInstance(queue).emit(routingKey, event);
-    console.log(`SendMessageToRabbitMQEventHandler`, event);
+    // console.log(`SendMessageToRabbitMQEventHandler`, event);
   }
 }

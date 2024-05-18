@@ -11,7 +11,7 @@ export class SendEmailEventHandler
   // constructor(private readonly notification: Notification) {}
 
   handle(event: CustomerCreatedEvent): void {
-    console.log('Sending SMS', event);
+    // console.log('Sending SMS', event);
     // this.notification.send();
   }
 }
