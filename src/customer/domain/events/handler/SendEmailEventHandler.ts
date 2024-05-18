@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { EventHandler } from '../../../../@shared/event/EventHandler';
 import { CustomerCreatedEvent } from '../CustomerCreatedEvent';
