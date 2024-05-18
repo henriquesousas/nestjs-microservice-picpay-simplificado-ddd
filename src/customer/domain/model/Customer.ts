@@ -8,7 +8,7 @@ import { Wallet } from '../value-object/Wallet';
 
 export abstract class Customer {
   abstract documentType: DocumentType;
-  abstract canTransfer: boolean;
+  protected abstract canTransfer: boolean;
 
   constructor(
     readonly firstName: string,

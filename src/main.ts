@@ -15,7 +15,10 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
   const port = configService.get('HTTP_PORT');
+  // app.connectMicroservice(RabbitMQClient.getOptions('queue1'));
+  //await app.startAllMicroservices();
   await app.listen(port, () => {
     console.log(`App running at port ${port}`);
   });

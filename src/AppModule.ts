@@ -11,6 +11,7 @@ import { NotificationModule } from './notification/NotificationModule';
 import { TransactionEntity } from './transaction/infrastructure/db/typeorm/TranscationEntity';
 import { EventDispatcher } from './@shared/event/EventDispatcher';
 import { EVENT_DISPATCHER_TOKERN } from './@shared/event/Dispatcher';
+import { RabbitMQService } from './@shared/rabbitmq/RabbitMQService';
 
 @Global()
 @Module({
@@ -28,11 +29,18 @@ import { EVENT_DISPATCHER_TOKERN } from './@shared/event/Dispatcher';
     NotificationModule,
   ],
   providers: [
+    RabbitMQService,
     {
       provide: EVENT_DISPATCHER_TOKERN,
       useClass: EventDispatcher,
     },
   ],
-  exports: [EVENT_DISPATCHER_TOKERN, TypeOrmModule, CustomerModule, HttpModule],
+  exports: [
+    EVENT_DISPATCHER_TOKERN,
+    TypeOrmModule,
+    CustomerModule,
+    HttpModule,
+    RabbitMQService,
+  ],
 })
 export class AppModule {}

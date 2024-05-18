@@ -17,12 +17,12 @@ import { Wallet } from '../value-object/Wallet';
 
 export const CREATE_CUSTOMER_USECASE = 'CreateCustomer';
 
-export interface CreateCustomer {
+export interface CreateCustomerUseCase {
   execute(dto: CreateCustomerDto): Promise<Result<void>>;
 }
 
 @Injectable()
-export class CreateCustomerUseCase implements CreateCustomer {
+export class CreateCustomerUseCase implements CreateCustomerUseCase {
   constructor(
     @Inject(CUSTOMER_REPOSITORY_TOKEN)
     private readonly customerRepository: CustomerRepository,

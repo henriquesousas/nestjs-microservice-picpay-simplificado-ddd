@@ -9,7 +9,7 @@ export class Password {
   }
 
   private validate(value: string): boolean {
-    return true;
+    return value.length >= 5 && value.length <= 10;
   }
 
   getValue(): string {
