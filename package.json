@@ -18,9 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "find-deadcode": "ts-prune --error",
-    "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "find-deadcode": "ts-prune --error"
+    
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.1",
@@ -42,8 +41,7 @@
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
+   
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
