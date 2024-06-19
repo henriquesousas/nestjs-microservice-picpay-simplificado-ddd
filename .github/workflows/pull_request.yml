@@ -27,31 +27,6 @@ jobs:
       - name: Install depedencies
         run: npm install
 
-  # unused:
-  #   name: 'Find unused code (dead code)'
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [16.x]
-  #   needs: install
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - name: Install Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-
-  #     - name: Restore node_modules
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: node_modules
-  #         key: ${{runner.os}}-${{hashFiles('**/package-lock.json')}}
-
-  #     - name: Run ts-prune
-  #       run: npm run find-deadcode
-
   testing:
     name: 'Run Unit Test'
     runs-on: ubuntu-latest

@@ -1,55 +1,51 @@
 version: '3.9'
 services:
   app:
-    container_name: picpay-api
+    container_name: app-transaction
     build:
       context: .
-      dockerfile: Dockerfile
-      target: development
+      dockerfile: Dockerfile   
     volumes:
-      - ./src:/home/node/app/src
-      - ./libs:/home/node/app/libs
-    env_file:
-      - .env
+      - .:/home/node/app 
     ports:
-      - ${HTTP_PORT}:${HTTP_PORT}
+      - 3000:3000
     expose:
-      - ${HTTP_PORT}
+      - 3000
     depends_on:
       - mysql
-    command: npm run start:dev
+    command: ./.docker/start.sh
 
   mysql:
-    image: mysql:8
-    container_name: picpay-db
+    image: mysql:8.0.30-debian
     volumes:
       - db:/var/lib/mysql
     restart: unless-stopped
-    env_file:
-      - .env
     environment:
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_HOST=${DB_HOST}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=transaction
+      - MYSQL_ROOT_PASSWORD=root
+    tmpfs: 
+      - /var/lib/mysql
+    # remove logs desnecessários  
+    security_opt:
+      - seccomp:unconfined
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 3306:3306
     expose:
-      - ${DB_PORT}
+      - 3306
 
-  rabbit:
-    image: 'rabbitmq:3-management'
-    hostname: my-rabbitmq
-    environment:
-      RABBITMQ_ERLANG_COOKIE: 'SWQOKODSQALRPCLNMEQG'
-      RABBITMQ_DEFAULT_PASS: 'admin'
-      RABBITMQ_DEFAULT_USER: 'admin'
+  # rabbit:
+  #   image: 'rabbitmq:3-management'
+  #   hostname: my-rabbitmq
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: 'SWQOKODSQALRPCLNMEQG'
+  #     RABBITMQ_DEFAULT_PASS: 'admin'
+  #     RABBITMQ_DEFAULT_USER: 'admin'
 
-    volumes:
-      - ./rabbitmq-data:/var/lib/rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
+  #   volumes:
+  #     - ./rabbitmq-data:/var/lib/rabbitmq
+  #   ports:
+  #     - 15672:15672
+  #     - 5672:5672
 
 volumes:
   db:
