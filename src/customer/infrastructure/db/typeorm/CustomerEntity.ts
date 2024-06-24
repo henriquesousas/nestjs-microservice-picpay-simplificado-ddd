@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { AbstractEntity } from '../../../../@shared/database/AbstractEntity';
 
-import { DocumentType } from '../../../domain/enum/DocumentType';
+import { DocumentType } from '../../../domain/enum/document-type';
 import { Customer } from '../../../domain/model/Customer';
 import { CustomerBuild } from '../../../domain/build/CustomerBuild';
 import { WalletEntity } from './WalletEntity';

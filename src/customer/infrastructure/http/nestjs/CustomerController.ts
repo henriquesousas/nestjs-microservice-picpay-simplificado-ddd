@@ -5,7 +5,7 @@ import {
   CreateCustomerUseCase,
 } from '../../../domain/usecase/CreateCustomerUseCase';
 import { CreateCustomerResponse } from './CreateCustomerResponse';
-import { CreateCustomerDto } from '../../../domain/dto/CreateCustomerDto';
+import { CreateCustomerDto } from '../../../../core/customer/application/usecase/create/create-customer.dto';
 
 @Controller('/customer')
 export class CustomerController {

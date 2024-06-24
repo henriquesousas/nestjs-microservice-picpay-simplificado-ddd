@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm/repository/Repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomerEntity } from './CustomerEntity';
-import { CustomerRepository } from '../../../domain/repository/CustomerRepository';
+import { CustomerRepository } from '../../../../core/customer/domain/customer.repository';
 import { Customer } from '../../../domain/model/Customer';
 import { WalletEntity } from './WalletEntity';
 

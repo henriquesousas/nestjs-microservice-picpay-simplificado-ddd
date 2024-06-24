@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CustomerBuild } from '../../../build/CustomerBuild';
-import { DocumentType } from '../../../enum/DocumentType';
+import { DocumentType } from '../../../enum/document-type';
 import { Customer } from '../../../model/Customer';
-import { CustomerRepository } from '../../CustomerRepository';
+import { CustomerRepository } from '../../../../../core/customer/domain/customer.repository';
 
 export class CustomerRepositoryStub implements CustomerRepository {
   async save(customer: Customer): Promise<void> {

@@ -4,12 +4,12 @@ import { Result } from 'src/@shared/types/Types';
 import {
   CUSTOMER_REPOSITORY_TOKEN,
   CustomerRepository,
-} from '../../../customer/domain/repository/CustomerRepository';
+} from '../../../core/customer/domain/customer.repository';
 import {
   TRANSACTION_REPOSITORY_TOKEN,
   TransactionReposytory,
 } from '../repository/TransactionRepository';
-import { CustomerNotFoundException } from '../../../customer/domain/exception/CustomerNotFoundException';
+import { CustomerNotFoundException } from '../../../core/customer/domain/exception/customer-not-found.exception';
 
 import { TransactionDto } from '../dto/TransactionDto';
 import {

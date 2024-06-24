@@ -8,7 +8,7 @@ import {
 import {
   CUSTOMER_REPOSITORY_TOKEN,
   CustomerRepository,
-} from './domain/repository/CustomerRepository';
+} from '../core/customer/domain/customer.repository';
 import {
   Dispatcher,
   EVENT_DISPATCHER_TOKERN,
