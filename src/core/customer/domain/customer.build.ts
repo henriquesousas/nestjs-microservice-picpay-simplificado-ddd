@@ -16,6 +16,11 @@ export class CustomerBuild {
     return this;
   }
 
+  withFirstName(name: string): CustomerBuild {
+    this.props.firstName = name;
+    return this;
+  }
+
   withWallet(wallet: Wallet): CustomerBuild {
     this.props.wallet = wallet;
     return this;

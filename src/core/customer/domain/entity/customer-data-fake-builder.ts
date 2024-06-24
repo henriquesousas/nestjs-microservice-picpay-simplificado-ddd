@@ -31,6 +31,11 @@ export class CustomerDataBuilderFake {
     return new CustomerDataBuilderFake(documentType);
   }
 
+  withFirstName(name: string): CustomerDataBuilderFake {
+    this.fakeCustomer.withFirstName(name);
+    return this;
+  }
+
   withWallet(value: number): CustomerDataBuilderFake {
     this.fakeCustomer.withWallet(new Wallet(value));
     return this;

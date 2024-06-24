@@ -1,9 +1,14 @@
+import { Op, WhereOptions } from 'sequelize';
+import { SearchParam } from '../../../../@shared/db/search-param';
+import { SearchResult } from '../../../../@shared/db/search-result';
 import { CustomerRepository } from '../../../domain/customer.repository';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerMapper } from './customer.mapper';
 import { CustomerModel } from './customer.model';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
+  sortableFields: string[] = ['firstName', 'createdAt'];
+
   constructor(private customerModel: typeof CustomerModel) {}
 
   async insert(entity: Customer): Promise<void> {
@@ -47,5 +52,35 @@ export class CustomerRepositorySequelize implements CustomerRepository {
       return CustomerMapper.toEntity(m);
     });
     return customers;
+  }
+
+  async search(props: SearchParam<string>): Promise<SearchResult<Customer>> {
+    const offset = (props.page - 1) * props.perPage;
+    const limit = props.perPage;
+    const { rows: models, count } = await this.customerModel.findAndCountAll({
+      ...(props.filter && {
+        where: {
+          firstName: { [Op.like]: `%${props.filter}%` },
+        },
+      }),
+      ...(props.sort && this.sortableFields.includes(props.sort)
+        ? {
+            order: [[props.sort, props.sortDirection!]],
+          }
+        : {
+            order: [['createdAt', 'desc']],
+          }),
+      offset,
+      limit,
+    });
+
+    return new SearchResult({
+      items: models.map((m) => {
+        return CustomerMapper.toEntity(m);
+      }),
+      currentpage: props.page,
+      perPage: props.perPage,
+      total: count,
+    });
   }
 }

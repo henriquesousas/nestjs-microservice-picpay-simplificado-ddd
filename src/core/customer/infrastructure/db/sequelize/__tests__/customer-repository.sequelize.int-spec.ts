@@ -3,6 +3,7 @@ import { CustomerModel } from '../customer.model';
 import { CustomerDataBuilderFake } from '../../../../domain/entity/customer-data-fake-builder';
 import { setupSequelize } from '../../../../../@shared/config/setup-sequelize';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
+import { SearchParam } from '../../../../../@shared/db/search-param';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
@@ -108,6 +109,41 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       await _repository.insertMany(customers);
       const customersFromDb = await _repository.findAll();
       expect(customersFromDb.length).toBe(3);
+    });
+  });
+
+  describe('Search', () => {
+    it('should search a customer by params ', async () => {
+      await _repository.insertMany([
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().build(),
+        CustomerDataBuilderFake.aCustomer().withFirstName('AAA').build(),
+        CustomerDataBuilderFake.aCustomer().withFirstName('Aaa').build(),
+        CustomerDataBuilderFake.aCustomer().withFirstName('aaa').build(),
+      ]);
+
+      const searchParams = new SearchParam({
+        page: 1,
+        perPage: 5,
+        sort: 'firstName',
+        sortDirection: 'asc',
+        filter: 'aa',
+      });
+
+      const searchResult = await _repository.search(searchParams);
+      expect(searchResult.items.length).toBe(3);
+      expect(searchResult.total).toBe(3);
+
+      searchResult.items.forEach((item) => {
+        expect(item).toBeInstanceOf(CustomerRegular);
+        expect(item.entityId).toBeDefined();
+      });
     });
   });
 });
