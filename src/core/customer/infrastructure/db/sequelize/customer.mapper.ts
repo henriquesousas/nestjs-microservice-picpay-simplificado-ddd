@@ -10,10 +10,9 @@ import { Email } from '../../../domain/value-object/email';
 import { Password } from '../../../domain/value-object/password';
 import { CustomerModel } from './customer.model';
 import { WalletMapper } from './wallet.mapper';
-import { WalletModel } from './wallet.model';
 
 export class CustomerMapper {
-  static toModel(entity: Customer): CustomerModel {
+  static toOrmModel(entity: Customer): CustomerModel {
     return CustomerModel.build({
       customerId: entity.entityId.id,
       firstName: entity.firstName,

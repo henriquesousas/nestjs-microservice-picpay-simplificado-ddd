@@ -5,19 +5,26 @@ import { setupSequelize } from '../../../../../@shared/config/setup-sequelize';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { SearchParam } from '../../../../../@shared/db/search-param';
 import { WalletModel } from '../wallet.model';
-import { Json } from 'sequelize/types/utils';
+import { UnitOfWorkSequelize } from '../../../../../@shared/db/sequelize/unit-of-work.sequelize';
+import { UnitOfWork } from '../../../../../@shared/db/unit-of-work';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
   let _repository: CustomerRepositorySequelize;
-  setupSequelize({ models: [CustomerModel, WalletModel] });
+  let _uow: UnitOfWorkSequelize;
+  const sequelize = setupSequelize({ models: [CustomerModel, WalletModel] });
 
   beforeEach(() => {
-    _repository = new CustomerRepositorySequelize(CustomerModel, WalletModel);
+    _uow = new UnitOfWorkSequelize(sequelize.sequelize);
+    _repository = new CustomerRepositorySequelize(
+      CustomerModel,
+      WalletModel,
+      _uow,
+    );
   });
 
   describe('insert and insertMany', () => {
-    test.only('should inserts a new customer', async () => {
+    test('should inserts a new customer', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
       const data = await CustomerModel.findByPk(customer.entityId.id, {
@@ -42,6 +49,22 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       expect(customerFromDb1).toStrictEqual(customer);
       expect(customerFromDb2).toStrictEqual(customer2);
       expect(customerFromDb3).toStrictEqual(customer3);
+    });
+  });
+
+  describe('Transation', () => {
+    test.only('should inserts a new customer with transaction()', async () => {
+      const customer = CustomerDataBuilderFake.aCustomer().build();
+      _uow.start();
+      await _repository.insert(customer);
+      _uow.commit();
+      const data = await CustomerModel.findByPk(customer.entityId.id, {
+        include: [WalletModel],
+      });
+      expect(data!.dataValues).toBeDefined();
+      expect(data?.dataValues.firstName).toEqual(customer.firstName);
+      expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
+      expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
   });
 

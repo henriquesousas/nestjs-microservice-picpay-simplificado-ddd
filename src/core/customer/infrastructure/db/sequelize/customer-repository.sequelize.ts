@@ -7,6 +7,7 @@ import { CustomerMapper } from './customer.mapper';
 import { CustomerModel } from './customer.model';
 import { WalletModel } from './wallet.model';
 import { WalletMapper } from './wallet.mapper';
+import { UnitOfWorkSequelize } from '../../../../@shared/db/sequelize/unit-of-work.sequelize';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];
@@ -14,29 +15,35 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   constructor(
     private customerModel: typeof CustomerModel,
     private walletModel: typeof WalletModel,
+    private uow: UnitOfWorkSequelize,
   ) {}
 
-  async insert(entity: Customer): Promise<void> {
-    const modelProps = CustomerMapper.toModel(entity);
-    await this.customerModel.create(modelProps.toJSON());
-
-    //Salvando o Wallet (precisa de uma transaction)
-    const walletModelProps = WalletMapper.toModel(
-      entity.wallet,
-      entity.entityId.id,
-    );
-    await this.walletModel.create(walletModelProps.toJSON());
+  async insert(customer: Customer): Promise<void> {
+    const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
+    const transaction = this.uow.getTransaction();
+    //cria o cliente
+    await this.customerModel.create(customerProps, {
+      transaction,
+    });
+    //cria a carteira do cliente
+    const walletProps = WalletMapper.toOrmModel(
+      customer.wallet,
+      customer.entityId.id,
+    ).toJSON();
+    await this.walletModel.create(walletProps, {
+      transaction,
+    });
   }
 
   async insertMany(entities: Customer[]): Promise<void> {
     const model = entities.map((entity) => {
-      return CustomerMapper.toModel(entity).toJSON();
+      return CustomerMapper.toOrmModel(entity).toJSON();
     });
     await this.customerModel.bulkCreate(model);
   }
 
   async update(entity: Customer): Promise<boolean> {
-    const model = CustomerMapper.toModel(entity).toJSON();
+    const model = CustomerMapper.toOrmModel(entity).toJSON();
     const [affectedRows] = await this.customerModel.update(model, {
       where: { customerId: entity.entityId.id },
     });

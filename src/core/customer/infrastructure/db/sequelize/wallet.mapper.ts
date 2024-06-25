@@ -3,7 +3,7 @@ import { Wallet, WalletId } from '../../../domain/value-object/wallet';
 import { WalletModel } from './wallet.model';
 
 export class WalletMapper {
-  static toModel(entity: Wallet, customerId: string): WalletModel {
+  static toOrmModel(entity: Wallet, customerId: string): WalletModel {
     return WalletModel.build({
       walletId: entity.entityId.id,
       balance: entity.balance,
