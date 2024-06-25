@@ -4,24 +4,29 @@ import { CustomerDataBuilderFake } from '../../../../domain/entity/customer-data
 import { setupSequelize } from '../../../../../@shared/config/setup-sequelize';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { SearchParam } from '../../../../../@shared/db/search-param';
+import { WalletModel } from '../wallet.model';
+import { Json } from 'sequelize/types/utils';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
   let _repository: CustomerRepositorySequelize;
-  setupSequelize({ models: [CustomerModel] });
+  setupSequelize({ models: [CustomerModel, WalletModel] });
 
   beforeEach(() => {
-    _repository = new CustomerRepositorySequelize(CustomerModel);
+    _repository = new CustomerRepositorySequelize(CustomerModel, WalletModel);
   });
 
   describe('insert and insertMany', () => {
-    test('should inserts a new customer', async () => {
+    test.only('should inserts a new customer', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
-      const data = await CustomerModel.findByPk(customer.entityId.id);
+      const data = await CustomerModel.findByPk(customer.entityId.id, {
+        include: [WalletModel],
+      });
       expect(data!.dataValues).toBeDefined();
       expect(data?.dataValues.firstName).toEqual(customer.firstName);
       expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
+      expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
 
     test('should inserts a many customers', async () => {
@@ -45,6 +50,7 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
       const customerFromDb = await _repository.findById(customer.entityId.id);
+      expect(customer.wallet).toBeDefined();
       expect(customer).toStrictEqual(customerFromDb);
     });
 

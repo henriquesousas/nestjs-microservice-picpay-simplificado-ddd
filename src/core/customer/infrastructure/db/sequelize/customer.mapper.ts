@@ -9,6 +9,8 @@ import { Cpf } from '../../../domain/value-object/cpf';
 import { Email } from '../../../domain/value-object/email';
 import { Password } from '../../../domain/value-object/password';
 import { CustomerModel } from './customer.model';
+import { WalletMapper } from './wallet.mapper';
+import { WalletModel } from './wallet.model';
 
 export class CustomerMapper {
   static toModel(entity: Customer): CustomerModel {
@@ -31,6 +33,7 @@ export class CustomerMapper {
         ? new Cpf(model.document)
         : new Cnpj(model.document);
 
+    const wallet = WalletMapper.toEntity(model.wallet);
     return new CustomerBuild({
       customerId: new CustomerId(model.customerId),
       firstName: model.firstName,
@@ -40,6 +43,8 @@ export class CustomerMapper {
       document,
       isActive: model.isActive,
       createdAt: model.createdAt,
-    }).build();
+    })
+      .withWallet(wallet)
+      .build();
   }
 }

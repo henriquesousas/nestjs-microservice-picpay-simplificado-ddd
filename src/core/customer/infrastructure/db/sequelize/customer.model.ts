@@ -1,10 +1,12 @@
 import {
   Column,
   DataType,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { WalletModel } from './wallet.model';
 
 export type CustomerModelProps = {
   customerId: string;
@@ -18,8 +20,6 @@ export type CustomerModelProps = {
   createdAt: Date;
 };
 
-//TODO: Falta salvar o wallet
-//TODO: Fazer o search
 @Table({ tableName: 'customers', timestamps: false })
 export class CustomerModel extends Model<CustomerModelProps> {
   @PrimaryKey
@@ -49,4 +49,7 @@ export class CustomerModel extends Model<CustomerModelProps> {
 
   @Column({ allowNull: false, type: DataType.DATE(3) })
   declare createdAt: Date;
+
+  @HasOne(() => WalletModel)
+  declare wallet: WalletModel;
 }

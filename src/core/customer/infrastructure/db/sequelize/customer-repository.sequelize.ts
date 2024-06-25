@@ -1,19 +1,31 @@
-import { Op, WhereOptions } from 'sequelize';
+import { Op } from 'sequelize';
 import { SearchParam } from '../../../../@shared/db/search-param';
 import { SearchResult } from '../../../../@shared/db/search-result';
 import { CustomerRepository } from '../../../domain/customer.repository';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerMapper } from './customer.mapper';
 import { CustomerModel } from './customer.model';
+import { WalletModel } from './wallet.model';
+import { WalletMapper } from './wallet.mapper';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];
 
-  constructor(private customerModel: typeof CustomerModel) {}
+  constructor(
+    private customerModel: typeof CustomerModel,
+    private walletModel: typeof WalletModel,
+  ) {}
 
   async insert(entity: Customer): Promise<void> {
     const modelProps = CustomerMapper.toModel(entity);
     await this.customerModel.create(modelProps.toJSON());
+
+    //Salvando o Wallet (precisa de uma transaction)
+    const walletModelProps = WalletMapper.toModel(
+      entity.wallet,
+      entity.entityId.id,
+    );
+    await this.walletModel.create(walletModelProps.toJSON());
   }
 
   async insertMany(entities: Customer[]): Promise<void> {
@@ -42,7 +54,9 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   }
 
   async findById(entityId: string): Promise<Customer | null> {
-    const model = await this.customerModel.findByPk(entityId);
+    const model = await this.customerModel.findByPk(entityId, {
+      include: [WalletModel],
+    });
     return model ? CustomerMapper.toEntity(model) : null;
   }
 
