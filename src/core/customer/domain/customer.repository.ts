@@ -4,4 +4,6 @@ import { Customer } from './entity/customer';
 
 export interface CustomerRepository
   extends Repository<Customer>,
-    SearchRepository<Customer> {}
+    SearchRepository<Customer> {
+  findByEmail(email: string): Promise<Customer | null>;
+}

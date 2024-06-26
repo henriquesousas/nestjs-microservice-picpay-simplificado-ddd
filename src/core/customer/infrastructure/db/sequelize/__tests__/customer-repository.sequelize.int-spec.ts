@@ -52,22 +52,6 @@ describe('CustomerRepositorySequelize Integration Test', () => {
     });
   });
 
-  describe('Transation', () => {
-    test.only('should inserts a new customer with transaction()', async () => {
-      const customer = CustomerDataBuilderFake.aCustomer().build();
-      _uow.start();
-      await _repository.insert(customer);
-      _uow.commit();
-      const data = await CustomerModel.findByPk(customer.entityId.id, {
-        include: [WalletModel],
-      });
-      expect(data!.dataValues).toBeDefined();
-      expect(data?.dataValues.firstName).toEqual(customer.firstName);
-      expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
-      expect(data?.dataValues['wallet'].balance).toEqual(0);
-    });
-  });
-
   describe('findById', () => {
     test('should find a customer by entity Id', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
@@ -173,6 +157,22 @@ describe('CustomerRepositorySequelize Integration Test', () => {
         expect(item).toBeInstanceOf(CustomerRegular);
         expect(item.entityId).toBeDefined();
       });
+    });
+  });
+
+  describe('Transation', () => {
+    test('should inserts a new customer with transaction()', async () => {
+      const customer = CustomerDataBuilderFake.aCustomer().build();
+      _uow.start();
+      await _repository.insert(customer);
+      _uow.commit();
+      const data = await CustomerModel.findByPk(customer.entityId.id, {
+        include: [WalletModel],
+      });
+      expect(data!.dataValues).toBeDefined();
+      expect(data?.dataValues.firstName).toEqual(customer.firstName);
+      expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
+      expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
   });
 });

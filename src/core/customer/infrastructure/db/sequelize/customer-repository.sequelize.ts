@@ -39,7 +39,20 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     const model = entities.map((entity) => {
       return CustomerMapper.toOrmModel(entity).toJSON();
     });
-    await this.customerModel.bulkCreate(model);
+    await this.customerModel.bulkCreate(model, {
+      transaction: this.uow.getTransaction(),
+    });
+
+    const walletProps = entities.map((entity) => {
+      return WalletMapper.toOrmModel(
+        entity.wallet,
+        entity.entityId.id,
+      ).toJSON();
+    });
+
+    await this.walletModel.bulkCreate(walletProps, {
+      transaction: this.uow.getTransaction(),
+    });
   }
 
   async update(entity: Customer): Promise<boolean> {
@@ -47,7 +60,6 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     const [affectedRows] = await this.customerModel.update(model, {
       where: { customerId: entity.entityId.id },
     });
-    console.log(affectedRows);
     return affectedRows === 1;
   }
 
@@ -67,8 +79,18 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     return model ? CustomerMapper.toEntity(model) : null;
   }
 
+  async findByEmail(email: string): Promise<Customer | null> {
+    const model = await this.customerModel.findOne({
+      where: { email },
+      include: [WalletModel],
+    });
+    return model ? CustomerMapper.toEntity(model) : null;
+  }
+
   async findAll(): Promise<Customer[]> {
-    const models = await this.customerModel.findAll();
+    const models = await this.customerModel.findAll({
+      include: [WalletModel],
+    });
     const customers = models.map((m) => {
       return CustomerMapper.toEntity(m);
     });
@@ -93,6 +115,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
           }),
       offset,
       limit,
+      include: [WalletModel],
     });
 
     return new SearchResult({

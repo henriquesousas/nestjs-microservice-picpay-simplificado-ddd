@@ -1,3 +1,4 @@
+import { DocumentFactory } from '../../../../@shared/document';
 import { CustomerBuild } from '../../../domain/customer.build';
 import {
   Customer,

@@ -37,11 +37,7 @@ export class CustomerDataBuilderFake {
   }
 
   withWallet(value: number): CustomerDataBuilderFake {
-    this.fakeCustomer.withWallet(
-      new Wallet({
-        balance: value,
-      }),
-    );
+    this.fakeCustomer.withWalletBalance(value);
     return this;
   }
 

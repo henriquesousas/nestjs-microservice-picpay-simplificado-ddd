@@ -1,6 +1,8 @@
 import { Document } from '../../../@shared/document';
 import { Entity } from '../../../@shared/entity';
+import { Flunt } from '../../../@shared/validator/flunt';
 import { Uuid } from '../../../@shared/value-object/uuid';
+import { CustomerValidator } from '../customer.validator';
 import { InsuficientBalanceException } from '../exception/insuficient-balance.exception';
 import { TrasferenceNotAllowed } from '../exception/transference-not-allowed.exception';
 import { Email } from '../value-object/email';
@@ -14,6 +16,7 @@ export enum DocumentType {
   CNPJ = 'CNPJ',
 }
 
+//TODO: Nao passar objetos de valor (Email, Password)
 export type CustomerProps = {
   customerId?: CustomerId;
   firstName: string;
@@ -41,10 +44,6 @@ export abstract class Customer extends Entity {
       isActive: props.isActive ?? true,
       createdAt: props.createdAt ?? new Date(),
     };
-  }
-
-  get getProps(): CustomerProps {
-    return this.props;
   }
 
   get entityId(): Uuid {
@@ -92,7 +91,7 @@ export abstract class Customer extends Entity {
   }
 
   transfer(receiver: Customer, value: number): void {
-    if (!this.canTransfer) {
+    if (!this.canTransfer) {     
       throw new TrasferenceNotAllowed();
     }
     if (this.wallet.balance < value) {
@@ -100,5 +99,11 @@ export abstract class Customer extends Entity {
     }
     this.wallet.debit(value);
     receiver.wallet.credit(value);
+  }
+
+  validate(fields?: string[]): boolean {
+    const validator = new CustomerValidator();
+    const newFields = fields?.length ? fields : ['firstName'];
+    return validator.validate(this.notification, this, newFields);
   }
 }

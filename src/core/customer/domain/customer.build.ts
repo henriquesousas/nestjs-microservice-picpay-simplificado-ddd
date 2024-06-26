@@ -21,6 +21,13 @@ export class CustomerBuild {
     return this;
   }
 
+  withWalletBalance(amount: number): CustomerBuild {
+    this.props.wallet = new Wallet({
+      balance: amount,
+    });
+    return this;
+  }
+
   withWallet(wallet: Wallet): CustomerBuild {
     this.props.wallet = wallet;
     return this;
