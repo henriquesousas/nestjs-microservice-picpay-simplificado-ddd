@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractEntity } from '../../../../@shared/database/AbstractEntity';
+// import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+// import { AbstractEntity } from '../../../../@shared/database/AbstractEntity';
 
-@Entity({ name: 'wallet' })
-export class WalletEntity extends AbstractEntity<WalletEntity> {
-  @PrimaryGeneratedColumn()
-  id: string;
+// @Entity({ name: 'wallet' })
+// export class WalletEntity extends AbstractEntity<WalletEntity> {
+//   @PrimaryGeneratedColumn()
+//   id: string;
 
-  @Column('decimal', { precision: 6, scale: 2, default: 0 })
-  amount: number;
-}
+//   @Column('decimal', { precision: 6, scale: 2, default: 0 })
+//   amount: number;
+// }

@@ -9,25 +9,19 @@ import {
 } from 'sequelize-typescript';
 import { CustomerModel } from './customer.model';
 
-export type WalletModelProps = {
-  walletId: string;
-  balance: number;
-  customerId: string;
-};
-
-@Table({ tableName: 'wallets', timestamps: false })
-export class WalletModel extends Model<WalletModelProps> {
+@Table({ tableName: 'tests', timestamps: false })
+export class TestModel extends Model {
   @PrimaryKey
   @Column({ type: DataType.UUID })
-  declare walletId: string;
+  declare testId: string;
 
-  @Column({ type: DataType.REAL })
-  declare balance: number;
+  // @Column({ type: DataType.NUMBER })
+  // declare balance: number;
 
   @ForeignKey(() => CustomerModel)
   @Column({ type: DataType.UUID })
   declare customerId: string;
 
   @BelongsTo(() => CustomerModel)
-  declare customer: CustomerModel;
+  declare customerModel: CustomerModel;
 }

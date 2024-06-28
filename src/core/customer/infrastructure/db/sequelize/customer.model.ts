@@ -23,7 +23,7 @@ export type CustomerModelProps = {
 @Table({ tableName: 'customers', timestamps: false })
 export class CustomerModel extends Model<CustomerModelProps> {
   @PrimaryKey
-  @Column({ type: DataType.TEXT })
+  @Column({ type: DataType.UUID })
   declare customerId: string;
 
   @Column({ allowNull: false, type: DataType.STRING(255) })
@@ -50,6 +50,6 @@ export class CustomerModel extends Model<CustomerModelProps> {
   @Column({ allowNull: false, type: DataType.DATE(3) })
   declare createdAt: Date;
 
-  @HasOne(() => WalletModel)
+  @HasOne(() => WalletModel, "walletId")
   declare wallet: WalletModel;
 }
