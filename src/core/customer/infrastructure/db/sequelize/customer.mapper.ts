@@ -28,23 +28,17 @@ export class CustomerMapper {
   }
 
   static toEntity(model: CustomerModel): Customer {
-    const document =
-      model.documentType === DocumentType.CPF
-        ? new Cpf(model.document)
-        : new Cnpj(model.document);
-
-    const wallet = WalletMapper.toEntity(model.wallet);
+     const wallet = WalletMapper.toEntity(model.wallet);
     return new CustomerBuild({
       customerId: new CustomerId(model.customerId),
       firstName: model.firstName,
       surName: model.surName,
-      email: new Email(model.email),
-      password: new Password(model.password),
-      document,
+      email: model.email,
+      password: model.password,
+      document: model.document,
       isActive: model.isActive,
       createdAt: model.createdAt,
-    })
-      .withWallet(wallet)
-      .build();
+      documentType: model.documentType === DocumentType.CPF ? DocumentType.CPF : DocumentType.CNPJ
+    }).withWallet(wallet).build();
   }
 }

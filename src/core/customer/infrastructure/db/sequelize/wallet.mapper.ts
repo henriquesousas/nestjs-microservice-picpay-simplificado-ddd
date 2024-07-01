@@ -1,5 +1,4 @@
-import { Uuid } from '../../../../@shared/value-object/uuid';
-import { Wallet, WalletId } from '../../../domain/value-object/wallet';
+import { Wallet, WalletId } from '../../../domain/entity/wallet';
 import { WalletModel } from './wallet.model';
 
 export class WalletMapper {

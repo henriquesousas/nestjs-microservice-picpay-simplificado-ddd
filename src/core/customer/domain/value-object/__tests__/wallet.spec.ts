@@ -1,4 +1,4 @@
-import { Wallet } from '../wallet';
+import { Wallet } from '../../entity/wallet';
 
 describe('Wallet unit test', () => {
   it('should create a wallet and make an credit', () => {

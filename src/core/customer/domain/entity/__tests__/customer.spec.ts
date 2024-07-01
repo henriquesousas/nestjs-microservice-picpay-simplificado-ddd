@@ -1,7 +1,7 @@
 import { Cpf } from '../../value-object/cpf';
 import { DocumentType } from '../customer';
 import { Cnpj } from '../../value-object/cnpj';
-import { CustomerDataBuilderFake } from '../customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../fake/customer-data-fake-builder';
 
 describe('CorporateCustomer unit tests', () => {
   it(`should create an new customer`, async () => {

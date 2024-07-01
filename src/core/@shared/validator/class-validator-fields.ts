@@ -7,6 +7,7 @@ export abstract class ClassValidatorFields implements ValidatorFields {
     const errors = validateSync(data, {
       groups: fields,
     });
+
     if (errors.length) {
       for (const error of errors) {
         const field = error.property;

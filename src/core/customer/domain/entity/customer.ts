@@ -7,7 +7,7 @@ import { InsuficientBalanceException } from '../exception/insuficient-balance.ex
 import { TrasferenceNotAllowed } from '../exception/transference-not-allowed.exception';
 import { Email } from '../value-object/email';
 import { Password } from '../value-object/password';
-import { Wallet } from '../value-object/wallet';
+import { Wallet } from './wallet';
 
 export class CustomerId extends Uuid {}
 
@@ -16,7 +16,6 @@ export enum DocumentType {
   CNPJ = 'CNPJ',
 }
 
-//TODO: Nao passar objetos de valor (Email, Password)
 export type CustomerProps = {
   customerId?: CustomerId;
   firstName: string;
@@ -29,7 +28,6 @@ export type CustomerProps = {
   createdAt?: Date;
 };
 
-//TODO: Validar entidade
 export abstract class Customer extends Entity {
   private props: CustomerProps;
   protected abstract documentType: DocumentType;
@@ -84,14 +82,16 @@ export abstract class Customer extends Entity {
 
   changeFirstName(name: string): void {
     this.props.firstName = name;
+    this.validate(['firstName']);
   }
 
   changeSurName(surName: string): void {
     this.props.surName = surName;
+    this.validate(['surName']);
   }
 
   transfer(receiver: Customer, value: number): void {
-    if (!this.canTransfer) {     
+    if (!this.canTransfer) {
       throw new TrasferenceNotAllowed();
     }
     if (this.wallet.balance < value) {
@@ -101,9 +101,8 @@ export abstract class Customer extends Entity {
     receiver.wallet.credit(value);
   }
 
-  validate(fields?: string[]): boolean {
+  private validate(fields: string[]): boolean {
     const validator = new CustomerValidator();
-    const newFields = fields?.length ? fields : ['firstName'];
-    return validator.validate(this.notification, this, newFields);
+    return validator.validate(this.notification, this, fields);
   }
 }

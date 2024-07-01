@@ -1,27 +1,33 @@
-import {
-  Customer,
-  CustomerId,
-  CustomerProps,
-  DocumentType,
-} from './entity/customer';
+import { DocumentFactory } from '../../@shared/document';
+import { Customer, CustomerId, DocumentType } from './entity/customer';
 import { CustomerCorporate } from './entity/customer-corporate';
 import { CustomerRegular } from './entity/customer-regular';
-import { Wallet } from './value-object/wallet';
+import { Email } from './value-object/email';
+import { Password } from './value-object/password';
+import { Wallet } from './entity/wallet';
+
+export type customerBuildProps = {
+  firstName: string;
+  surName: string;
+  email: string;
+  password: string;
+  document: string;
+  documentType: DocumentType;
+  wallet?: Wallet;
+  isActive?: boolean;
+  createdAt?: Date;
+  customerId?: CustomerId;
+};
 
 export class CustomerBuild {
-  constructor(private props: CustomerProps) {}
+  constructor(readonly props: customerBuildProps) {}
 
-  withId(id: string): CustomerBuild {
-    this.props.customerId = new CustomerId(id);
+  withCustomerId(customerId: CustomerId): CustomerBuild {
+    this.props.customerId = customerId;
     return this;
   }
 
-  withFirstName(name: string): CustomerBuild {
-    this.props.firstName = name;
-    return this;
-  }
-
-  withWalletBalance(amount: number): CustomerBuild {
+  withBalance(amount: number): CustomerBuild {
     this.props.wallet = new Wallet({
       balance: amount,
     });
@@ -44,11 +50,44 @@ export class CustomerBuild {
   }
 
   build(): Customer {
-    switch (this.props.document.documentType) {
+    const props = {
+      firstName: this.props.firstName,
+      surName: this.props.surName,
+      email: new Email(this.props.email),
+      password: new Password(this.props.password),
+      customerId: this.props.customerId,
+      wallet: this.props.wallet,
+      isActive: this.props.isActive,
+      createdAt: this.props.createdAt,
+    };
+    switch (this.props.documentType) {
       case DocumentType.CPF:
-        return new CustomerRegular(this.props);
+        const regularCustomer = new CustomerRegular({
+          ...props,
+          document: DocumentFactory.create(
+            DocumentType.CPF,
+            this.props.document,
+          ),
+        });
+
+        regularCustomer.notification.copyErrors(
+          this.props.wallet?.notification!,
+        );
+
+        return regularCustomer;
       case DocumentType.CNPJ:
-        return new CustomerCorporate(this.props);
+        const corporateCustomer = new CustomerCorporate({
+          ...props,
+          document: DocumentFactory.create(
+            DocumentType.CNPJ,
+            this.props.document,
+          ),
+        });
+
+        corporateCustomer.notification.copyErrors(
+          this.props.wallet?.notification!,
+        );
+        return corporateCustomer;
       default:
         throw Error('Document not supported!!!');
     }

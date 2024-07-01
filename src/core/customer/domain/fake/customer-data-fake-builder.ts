@@ -1,27 +1,18 @@
 import { faker } from '@faker-js/faker';
 import { CustomerBuild } from '../customer.build';
-import { Cnpj } from '../value-object/cnpj';
-import { Cpf } from '../value-object/cpf';
-import { Customer, DocumentType } from './customer';
-import { Password } from '../value-object/password';
-import { Email } from '../value-object/email';
-import { Wallet } from '../value-object/wallet';
+import { Customer, DocumentType } from '../entity/customer';
 
 export class CustomerDataBuilderFake {
   private fakeCustomer: CustomerBuild;
 
   constructor(type: DocumentType) {
-    const doc =
-      type === DocumentType.CPF
-        ? new Cpf('02346542312')
-        : new Cnpj('1234567890123456');
-
     this.fakeCustomer = new CustomerBuild({
       firstName: faker.internet.userName(),
       surName: faker.internet.domainName(),
-      document: doc,
-      password: new Password('123456'),
-      email: new Email(faker.internet.email()),
+      document: type === DocumentType.CPF ? '02346542312' : '1234567890123456',
+      documentType: type,
+      password: '123456',
+      email: faker.internet.email(),
     });
   }
 
@@ -32,12 +23,12 @@ export class CustomerDataBuilderFake {
   }
 
   withFirstName(name: string): CustomerDataBuilderFake {
-    this.fakeCustomer.withFirstName(name);
+    this.fakeCustomer.props.firstName = name;
     return this;
   }
 
   withWallet(value: number): CustomerDataBuilderFake {
-    this.fakeCustomer.withWalletBalance(value);
+    this.fakeCustomer.withBalance(value);
     return this;
   }
 

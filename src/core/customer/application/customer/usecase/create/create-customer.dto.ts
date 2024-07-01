@@ -7,5 +7,5 @@ export class CreateCustomerDto {
   password: string;
   document: string;
   documentType: DocumentType;
-  amount: number;
+  balance: number;
 }

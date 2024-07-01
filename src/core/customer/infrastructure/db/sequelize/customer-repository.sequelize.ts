@@ -25,6 +25,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     await this.customerModel.create(customerProps, {
       transaction,
     });
+
     //cria a carteira do cliente
     const walletProps = WalletMapper.toOrmModel(
       customer.wallet,
@@ -33,6 +34,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     await this.walletModel.create(walletProps, {
       transaction,
     });
+
   }
 
   async insertMany(entities: Customer[]): Promise<void> {

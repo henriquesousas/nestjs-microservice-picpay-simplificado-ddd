@@ -1,4 +1,4 @@
-import { MaxLength } from 'class-validator';
+import { MaxLength, MinLength } from 'class-validator';
 import { Notification } from '../../@shared/validator/notification';
 import { Customer } from './entity/customer';
 import { ClassValidatorFields } from '../../@shared/validator/class-validator-fields';
@@ -6,6 +6,9 @@ import { ClassValidatorFields } from '../../@shared/validator/class-validator-fi
 export class CustomerRules {
   @MaxLength(255, { groups: ['firstName'] })
   firstName: string;
+
+  @MaxLength(255, { groups: ['surName'] })
+  surName: string;
 
   constructor(entity: Customer) {
     Object.assign(this, entity);

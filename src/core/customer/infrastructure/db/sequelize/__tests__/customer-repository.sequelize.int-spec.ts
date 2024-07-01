@@ -1,6 +1,6 @@
 import { CustomerRepositorySequelize } from '../customer-repository.sequelize';
 import { CustomerModel } from '../customer.model';
-import { CustomerDataBuilderFake } from '../../../../domain/entity/customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../../../domain/fake/customer-data-fake-builder';
 import { setupSequelize } from '../../../../../@shared/config/setup-sequelize';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { SearchParam } from '../../../../../@shared/db/search-param';

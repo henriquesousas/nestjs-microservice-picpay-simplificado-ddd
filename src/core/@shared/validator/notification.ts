@@ -1,3 +1,5 @@
+import { isArray } from 'class-validator';
+
 export class Notification {
   errors = new Map<string, string[] | string>();
 
@@ -35,7 +37,7 @@ export class Notification {
     });
   }
 
-  toJSON() {
+  toJSON(): Array<string | { [key: string]: string[] }> {
     const errors: Array<string | { [key: string]: string[] }> = [];
     this.errors.forEach((value, key) => {
       if (typeof value === 'string') {
@@ -44,6 +46,21 @@ export class Notification {
         errors.push({ [key]: value });
       }
     });
+
+    return errors;
+  }
+
+  toArray(): string[] {
+    const errors: string[] = [];
+    this.errors.forEach((value, key) => {
+      if (typeof value === 'string') {
+        errors.push(value);
+      }
+      for (let errorMessage of value) {
+        errors.push(errorMessage);
+      }
+    });
+
     return errors;
   }
 }

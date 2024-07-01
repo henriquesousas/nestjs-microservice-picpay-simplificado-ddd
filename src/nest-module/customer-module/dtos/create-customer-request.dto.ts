@@ -8,24 +8,24 @@ import {
 import { DocumentType } from '../../../core/customer/domain/entity/customer';
 
 export class CreateCustomerRequestDto {
-  @MinLength(3, { message: 'Nome dever ter pelo menos três caracteres' })
+  @MinLength(3)
   firstName: string;
 
-  @MinLength(3, { message: 'Sobrenome deve ter pelo menos três caracteres' })
+  @MinLength(3)
   surName: string;
 
-  @IsEmail({}, { message: 'Email invalido' })
+  @IsEmail({})
   email: string;
 
   @IsString()
   password: string;
 
-  @IsString({ message: 'Documento inválido' })
+  @IsString()
   document: string;
 
-  @IsEnum(DocumentType, { message: 'Tipo de documento desconhecido' })
+  @IsEnum(DocumentType)
   documentType: DocumentType;
 
   @IsNumber()
-  amount: number;
+  balance: number;
 }

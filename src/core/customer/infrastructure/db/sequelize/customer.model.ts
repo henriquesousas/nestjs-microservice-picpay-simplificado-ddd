@@ -50,6 +50,6 @@ export class CustomerModel extends Model<CustomerModelProps> {
   @Column({ allowNull: false, type: DataType.DATE(3) })
   declare createdAt: Date;
 
-  @HasOne(() => WalletModel, "walletId")
+  @HasOne(() => WalletModel)
   declare wallet: WalletModel;
 }

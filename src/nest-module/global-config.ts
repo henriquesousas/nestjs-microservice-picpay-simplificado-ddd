@@ -1,5 +1,4 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { HttpExceptionFilter } from './shared-module/filter/http-exception.filter';
 import { NotFoundErrorFilter } from './shared-module/filter/not-found-error.filter';
 
 export function applyGlobalConfig(app: INestApplication) {
@@ -12,11 +11,11 @@ export function applyGlobalConfig(app: INestApplication) {
     }),
   );
 
-  app
-    .useGlobalInterceptors
-    // new WrapperDataInterceptor(),
-    // new ClassSerializerInterceptor(app.get(Reflector)),
-    ();
+  // app
+  //   .useGlobalInterceptors
+  //   // new WrapperDataInterceptor(),
+  //   // new ClassSerializerInterceptor(app.get(Reflector)),
+  //   ();
 
   app.useGlobalFilters(
     // new EntityValidationErrorFilter(),
