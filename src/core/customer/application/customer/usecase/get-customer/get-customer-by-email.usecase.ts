@@ -1,4 +1,4 @@
-import { UseCase } from '../../../../../@shared/usecase';
+import { UseCase } from '../../../../../../../libs/common/src/core/usecase';
 import { CustomerRepository } from '../../../../domain/customer.repository';
 import { Customer } from '../../../../domain/entity/customer';
 

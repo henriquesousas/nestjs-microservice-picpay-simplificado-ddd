@@ -1,18 +1,19 @@
-export class Password {
-  private _value: string;
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
-  constructor(value: string) {
-    if (!this.validate(value)) {
-      throw new Error('Senha inválida.');
+export class Password extends ValueObject {
+  constructor(private readonly value: string) {
+    super();
+    this.validate();
+  }
+
+  get getValue(): string {
+    return this.value;
+  }
+
+  private validate(): void {
+    const isValid = this.value.length >= 5 && this.value.length <= 10;
+    if (!isValid) {
+      this.notification.addError('Senha inválida', 'password');
     }
-    this._value = value;
-  }
-
-  private validate(value: string): boolean {
-    return value.length >= 5 && value.length <= 10;
-  }
-
-  get value(): string {
-    return this._value;
   }
 }

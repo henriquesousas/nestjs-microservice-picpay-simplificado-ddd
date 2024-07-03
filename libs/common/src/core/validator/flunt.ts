@@ -1,4 +1,3 @@
-import { Notification } from './notification';
 import { FieldsErrors } from './validator-field';
 
 export class ValidationError extends Error {
@@ -12,7 +11,7 @@ export class ValidationError extends Error {
 }
 
 export class Flunt {
-  private notification = new Notification();
+  errors: Set<string> = new Set<string>();
   private constructor(private value: any, private property: string) {}
 
   static values(value: any, property: string) {
@@ -21,34 +20,34 @@ export class Flunt {
 
   required(): Omit<this, 'required'> {
     if (this.value === null || this.value === undefined || this.value === '') {
-      // throw new ValidationError([`The ${this.property} is required`]);
-      this.notification.setError(
-        `The ${this.property} is required`,
-        this.property,
-      );
+      throw new ValidationError([`The ${this.property} is required`]);
     }
     return this;
   }
 
   string(): Omit<this, 'string'> {
     if (!isEmpty(this.value) && typeof this.value !== 'string') {
-      // throw new ValidationError([`The ${this.property} must be a string`]);
-      this.notification.addError(
-        `The ${this.property} must be a string`,
-        this.property,
-      );
+      throw new ValidationError([`The ${this.property} must be a string`]);
     }
     return this;
   }
 
   maxLength(max: number): Omit<this, 'maxLength'> {
     if (!isEmpty(this.value) && this.value.length > max) {
-      // throw new ValidationError([
-      //   `The ${this.property} must be less or equal than ${max} characters`,
-      // ]);
-      this.notification.addError(
+      throw new ValidationError([
         `The ${this.property} must be less or equal than ${max} characters`,
-        this.property,
+      ]);
+    }
+    return this;
+  }
+
+  minLength(min: number): Omit<this, 'minLength'> {
+    if (!isEmpty(this.value) && this.value.length < min) {
+      // throw new ValidationError([
+      //   `The ${this.property} must be grather or equals than ${min} characters`,
+      // ]);
+      this.errors.add(
+        `The ${this.property} must be grather or equals than ${min} characters`,
       );
     }
     return this;
@@ -56,17 +55,10 @@ export class Flunt {
 
   boolean(): Omit<this, 'boolean'> {
     if (!isEmpty(this.value) && typeof this.value !== 'boolean') {
-      //  throw new ValidationError([`The ${this.property} must be a boolean`]);
-      this.notification.setError(
-        `The ${this.property} must be a boolean`,
-        this.property,
-      );
+      // throw new ValidationError([`The ${this.property} must be a boolean`]);
+      this.errors.add(`The ${this.property} must be a boolean`);
     }
     return this;
-  }
-
-  get getResult(): Notification {
-    return this.notification;
   }
 }
 

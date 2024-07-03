@@ -1,10 +1,16 @@
-import { DocumentFactory } from '../../@shared/document';
-import { Customer, CustomerId, DocumentType } from './entity/customer';
+import {
+  Customer,
+  CustomerConstructorProps,
+  CustomerId,
+  DocumentType,
+} from './entity/customer';
 import { CustomerCorporate } from './entity/customer-corporate';
 import { CustomerRegular } from './entity/customer-regular';
 import { Email } from './value-object/email';
 import { Password } from './value-object/password';
 import { Wallet } from './entity/wallet';
+import { DocumentFactory } from '../../../../libs/common/src/core/document';
+import { Name } from './value-object/name';
 
 export type customerBuildProps = {
   firstName: string;
@@ -50,46 +56,29 @@ export class CustomerBuild {
   }
 
   build(): Customer {
-    const props = {
+    const name = Name.create({
       firstName: this.props.firstName,
       surName: this.props.surName,
-      email: new Email(this.props.email),
-      password: new Password(this.props.password),
+    });
+    const email = new Email(this.props.email);
+    const password = new Password(this.props.password);
+
+    const customerProps: CustomerConstructorProps = {
       customerId: this.props.customerId,
+      name,
+      email,
+      password,
       wallet: this.props.wallet,
       isActive: this.props.isActive,
       createdAt: this.props.createdAt,
+      document: DocumentFactory.create(
+        this.props.documentType,
+        this.props.document,
+      ),
     };
-    switch (this.props.documentType) {
-      case DocumentType.CPF:
-        const regularCustomer = new CustomerRegular({
-          ...props,
-          document: DocumentFactory.create(
-            DocumentType.CPF,
-            this.props.document,
-          ),
-        });
 
-        regularCustomer.notification.copyErrors(
-          this.props.wallet?.notification!,
-        );
-
-        return regularCustomer;
-      case DocumentType.CNPJ:
-        const corporateCustomer = new CustomerCorporate({
-          ...props,
-          document: DocumentFactory.create(
-            DocumentType.CNPJ,
-            this.props.document,
-          ),
-        });
-
-        corporateCustomer.notification.copyErrors(
-          this.props.wallet?.notification!,
-        );
-        return corporateCustomer;
-      default:
-        throw Error('Document not supported!!!');
-    }
+    return this.props.documentType == DocumentType.CPF
+      ? new CustomerRegular(customerProps)
+      : new CustomerCorporate(customerProps);
   }
 }

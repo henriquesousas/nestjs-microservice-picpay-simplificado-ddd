@@ -1,6 +1,6 @@
 import { validateSync } from 'class-validator';
-import { Notification } from '../../@shared/validator/notification';
-import { ValidatorFields } from '../../@shared/validator/validator-field';
+import { ValidatorFields } from './validator-field';
+import { Notification } from './notification';
 
 export abstract class ClassValidatorFields implements ValidatorFields {
   validate(notification: Notification, data: any, fields: string[]): boolean {

@@ -1,7 +1,7 @@
 import { MaxLength, MinLength } from 'class-validator';
-import { Notification } from '../../@shared/validator/notification';
+import { Notification } from '../../../../libs/common/src/core/validator/notification';
 import { Customer } from './entity/customer';
-import { ClassValidatorFields } from '../../@shared/validator/class-validator-fields';
+import { ClassValidatorFields } from '../../../../libs/common/src/core/validator/class-validator-fields';
 
 export class CustomerRules {
   @MaxLength(255, { groups: ['firstName'] })

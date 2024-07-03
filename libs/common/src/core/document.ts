@@ -1,12 +1,14 @@
-import { DocumentType } from '../customer/domain/entity/customer';
-import { Cnpj } from '../customer/domain/value-object/cnpj';
-import { Cpf } from '../customer/domain/value-object/cpf';
+import { DocumentType } from '../../../../src/core/customer/domain/entity/customer';
+import { Cnpj } from '../../../../src/core/customer/domain/value-object/cnpj';
+import { Cpf } from '../../../../src/core/customer/domain/value-object/cpf';
+
+//TODO: Mudar nome classe
 
 export interface Document {
-  get value(): string;
   get documentType(): DocumentType;
 }
 
+//TODO: remover factory deste local
 export class DocumentFactory {
   static create(type: DocumentType, documentValue: string): Document {
     switch (type) {

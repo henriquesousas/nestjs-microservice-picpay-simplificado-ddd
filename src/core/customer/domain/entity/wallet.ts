@@ -1,5 +1,5 @@
-import { Entity } from '../../../@shared/entity';
-import { Uuid } from '../../../@shared/value-object/uuid';
+import { Entity } from '../../../../../libs/common/src/core/entity';
+import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { WalletValidator } from '../wallet.validator';
 
 export class WalletId extends Uuid {}

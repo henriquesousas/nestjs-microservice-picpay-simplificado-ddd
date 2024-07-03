@@ -1,5 +1,5 @@
-import { SearchParam } from '../../../../../../@shared/db/search-param';
-import { SearchResult } from '../../../../../../@shared/db/search-result';
+import { SearchParam } from '../../../../../../../../libs/common/src/core/db/search-param';
+import { SearchResult } from '../../../../../../../../libs/common/src/core/db/search-result';
 import { CustomerRepository } from '../../../../../domain/customer.repository';
 import { Customer } from '../../../../../domain/entity/customer';
 import { CustomerDataBuilderFake } from '../../../../../domain/fake/customer-data-fake-builder';

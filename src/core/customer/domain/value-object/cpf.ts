@@ -1,5 +1,5 @@
-import { Document } from '../../../@shared/document';
-import { ValueObject } from '../../../@shared/value-object/value-object';
+import { Document } from '../../../../../libs/common/src/core/document';
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 import { DocumentType } from '../entity/customer';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 
@@ -9,11 +9,10 @@ export class Cpf extends ValueObject implements Document {
     if (!this.validate(value)) {
       throw new DocumentInvalidException(DocumentType.CPF);
     }
-    this._value = value;
   }
 
   get value(): string {
-    return this._value;
+    return this.value;
   }
 
   get documentType(): DocumentType {

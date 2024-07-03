@@ -1,14 +1,9 @@
-import { DocumentFactory } from '../../../../@shared/document';
 import { CustomerBuild } from '../../../domain/customer.build';
 import {
   Customer,
   CustomerId,
   DocumentType,
 } from '../../../domain/entity/customer';
-import { Cnpj } from '../../../domain/value-object/cnpj';
-import { Cpf } from '../../../domain/value-object/cpf';
-import { Email } from '../../../domain/value-object/email';
-import { Password } from '../../../domain/value-object/password';
 import { CustomerModel } from './customer.model';
 import { WalletMapper } from './wallet.mapper';
 
@@ -28,7 +23,7 @@ export class CustomerMapper {
   }
 
   static toEntity(model: CustomerModel): Customer {
-     const wallet = WalletMapper.toEntity(model.wallet);
+    const wallet = WalletMapper.toEntity(model.wallet);
     return new CustomerBuild({
       customerId: new CustomerId(model.customerId),
       firstName: model.firstName,
@@ -38,7 +33,12 @@ export class CustomerMapper {
       document: model.document,
       isActive: model.isActive,
       createdAt: model.createdAt,
-      documentType: model.documentType === DocumentType.CPF ? DocumentType.CPF : DocumentType.CNPJ
-    }).withWallet(wallet).build();
+      documentType:
+        model.documentType === DocumentType.CPF
+          ? DocumentType.CPF
+          : DocumentType.CNPJ,
+    })
+      .withWallet(wallet)
+      .build();
   }
 }

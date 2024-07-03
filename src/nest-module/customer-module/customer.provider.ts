@@ -1,11 +1,11 @@
 import { getModelToken } from '@nestjs/sequelize';
-import { UnitOfWorkSequelize } from '../../core/@shared/db/sequelize/unit-of-work.sequelize';
 import { CustomerRepositorySequelize } from '../../core/customer/infrastructure/db/sequelize/customer-repository.sequelize';
 import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/customer.model';
 import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
 import { CreateCustomerUseCase } from '../../core/customer/application/customer/usecase/create/create-customer.usecase';
 import { CustomerRepository } from '../../core/customer/domain/customer.repository';
-import { UnitOfWork } from '../../core/@shared/db/unit-of-work';
+import { UnitOfWork } from '../../../libs/common/src/core/db/unit-of-work';
+import { UnitOfWorkSequelize } from '../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
@@ -31,7 +31,7 @@ export const USECASES = {
     useFactory: (repository: CustomerRepository, uow: UnitOfWork) => {
       return new CreateCustomerUseCase(repository, uow);
     },
-    inject: [ REPOSITORIES.CUSTOMER_REPOSITORY_SEQUELIZE.provide,'UnitOfWork'],
+    inject: [REPOSITORIES.CUSTOMER_REPOSITORY_SEQUELIZE.provide, 'UnitOfWork'],
   },
 };
 

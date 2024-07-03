@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { UnitOfWork } from '@app/common/core/db/unit-of-work';
 import { CustomerRepository } from '../../../../../domain/customer.repository';
 import { DocumentType } from '../../../../../domain/entity/customer';
 import { CreateCustomerDto } from '../create-customer.dto';
@@ -6,7 +7,6 @@ import { CreateCustomerUseCase } from '../create-customer.usecase';
 import { CustomerRegular } from '../../../../../domain/entity/customer-regular';
 import { Cpf } from '../../../../../domain/value-object/cpf';
 import { CustomerAlreadyExistException } from '../../../../../domain/exception/customer-already-exist.exception';
-import { UnitOfWork } from '../../../../../../@shared/db/unit-of-work';
 import { CustomerRepositoryStub } from '../../../../../infrastructure/db/sequelize/__tests__/mocks/customer-repository.stub';
 
 export class UnitOfWorkStub implements UnitOfWork {
@@ -44,7 +44,7 @@ const makeCreateCustomerDto = (
     password: '1234567890',
     document: documentValue,
     documentType,
-    amount: 0,
+    balance: 0,
   };
 };
 
@@ -89,6 +89,8 @@ describe('CreateCustomerUseCase Unit Tests', () => {
   it('should return CustomerAlreadyExistException when customer already registered', async () => {
     const { sut } = makeSut();
     const result = await sut.execute(makeCreateCustomerDto());
+   
+    
     expect(result.isFail()).toBe(true);
     expect(result.error).toBeInstanceOf(CustomerAlreadyExistException);
     expect(result.error.message).toBe('Cliente já cadastro em nosso sistema');

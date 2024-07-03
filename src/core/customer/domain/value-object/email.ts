@@ -1,19 +1,19 @@
-import { ValueObject } from '../../../@shared/value-object/value-object';
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
 export class Email extends ValueObject {
-  constructor(value: string) {
+  constructor(private readonly value: string) {
     super();
-    if (!this.validate(value)) {
-      throw new Error('Email inválido.');
+    this.validate(value);
+  }
+
+  getEmail(): string {
+    return this.value;
+  }
+
+  validate(value: string): void {
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    if (!isEmail) {
+      this.notification.addError('Email inválido', 'email');
     }
-    this._value = value;
-  }
-
-  get value(): string {
-    return this._value;
-  }
-
-  validate(value: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 }

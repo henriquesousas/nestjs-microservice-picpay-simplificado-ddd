@@ -4,7 +4,7 @@ import { Notification } from '../../domain/Notification';
 @Injectable()
 export class EmailNotificationNodeMailer implements Notification {
   async send(): Promise<boolean> {
-    console.log('Notificacao de email enviada com sucesso');
+    // console.log('Notificacao de email enviada com sucesso');
     return true;
     // const request = this.http
     //   .get(this.configService.get('NOTIFICATION_URL'))

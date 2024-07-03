@@ -4,20 +4,15 @@ import { getConnectionToken } from '@nestjs/sequelize';
 import { CustomerModel } from './core/customer/infrastructure/db/sequelize/customer.model';
 import { WalletModel } from './core/customer/infrastructure/db/sequelize/wallet.model';
 import { CustomerModule } from './nest-module/customer-module/customer.module';
-import { UnitOfWorkSequelize } from './core/@shared/db/sequelize/unit-of-work.sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { DatabaseSequelizeModule } from './nest-module/database-module/database-sequelize.module';
+import { UnitOfWorkSequelize } from '../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
 
-const models = [ CustomerModel, WalletModel];
-
+const models = [CustomerModel, WalletModel];
 
 @Global()
 @Module({
-  imports: [
-    AppConfigModule.forRoot(),
-    DatabaseSequelizeModule,
-    CustomerModule,   
-  ],
+  imports: [AppConfigModule.forRoot(), DatabaseSequelizeModule, CustomerModule],
   providers: [
     {
       provide: UnitOfWorkSequelize,

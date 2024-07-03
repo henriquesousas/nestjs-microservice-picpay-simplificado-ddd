@@ -1,13 +1,15 @@
-import { Document } from '../../../@shared/document';
-import { Entity } from '../../../@shared/entity';
-import { Flunt } from '../../../@shared/validator/flunt';
-import { Uuid } from '../../../@shared/value-object/uuid';
+import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
+import { Document } from '../../../../../libs/common/src/core/document';
+import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { CustomerValidator } from '../customer.validator';
 import { InsuficientBalanceException } from '../exception/insuficient-balance.exception';
 import { TrasferenceNotAllowed } from '../exception/transference-not-allowed.exception';
 import { Email } from '../value-object/email';
+import { Name } from '../value-object/name';
 import { Password } from '../value-object/password';
 import { Wallet } from './wallet';
+import { NameUpdatedEvent } from '../events/name-updated.event';
+import { CustomerCreatedEvent } from '../events/customer-created.event';
 
 export class CustomerId extends Uuid {}
 
@@ -16,24 +18,22 @@ export enum DocumentType {
   CNPJ = 'CNPJ',
 }
 
-export type CustomerProps = {
-  customerId?: CustomerId;
-  firstName: string;
-  surName: string;
-  email: Email;
-  password: Password;
-  document: Document;
-  wallet?: Wallet;
+export type CustomerConstructorProps = {
+  readonly customerId?: CustomerId;
+  readonly name: Name;
+  readonly email: Email;
+  readonly password: Password;
+  readonly document: Document;
+  readonly wallet?: Wallet;
   isActive?: boolean;
   createdAt?: Date;
 };
 
-export abstract class Customer extends Entity {
-  private props: CustomerProps;
+export abstract class Customer extends AggregateRoot {
   protected abstract documentType: DocumentType;
   protected abstract canTransfer: boolean;
 
-  constructor(props: CustomerProps) {
+  constructor(public props: CustomerConstructorProps) {
     super();
     this.props = {
       ...props,
@@ -42,63 +42,72 @@ export abstract class Customer extends Entity {
       isActive: props.isActive ?? true,
       createdAt: props.createdAt ?? new Date(),
     };
+
+    // this.notification.copyErrors(this.props.wallet!.notification);
+    this.registerDomainEvents();
+    this.applyEvent(
+      new CustomerCreatedEvent([
+        this.props.name,
+        this.props.email,
+        this.props.password,
+      ]),
+    );
   }
 
   get entityId(): Uuid {
     return this.props.customerId!;
   }
 
-  get document(): Document {
-    return this.props.document;
-  }
-
-  get wallet(): Wallet {
-    return this.props.wallet!;
-  }
-
-  get firstName(): string {
-    return this.props.firstName;
-  }
-
-  get surName(): string {
-    return this.props.surName;
-  }
-
-  get email(): string {
-    return this.props.email.value;
-  }
-
-  get password(): string {
-    return this.props.password.value;
-  }
-
-  get createdAt(): Date {
-    return this.props.createdAt!;
-  }
-
-  get isActive(): boolean {
-    return this.props.isActive!;
-  }
-
   changeFirstName(name: string): void {
-    this.props.firstName = name;
-    this.validate(['firstName']);
+    this.props.name.changeName(name);
+    this.applyEvent(new NameUpdatedEvent());
   }
 
   changeSurName(surName: string): void {
-    this.props.surName = surName;
-    this.validate(['surName']);
+    this.props.name.changeSurName(surName);
+    this.applyEvent(new NameUpdatedEvent());
+  }
+
+  active() {
+    this.props.isActive = true;
+  }
+
+  deactive() {
+    this.props.isActive = false;
   }
 
   transfer(receiver: Customer, value: number): void {
     if (!this.canTransfer) {
       throw new TrasferenceNotAllowed();
     }
-    if (this.wallet.balance < value) {
+    if (this.props.wallet!.balance < value) {
       throw new InsuficientBalanceException();
     }
-    this.wallet.debit(value);
-    receiver.wallet.credit(value);
+    this.props.wallet!.debit(value);
+    receiver.props.wallet!.credit(value);
+  }
+
+  private registerDomainEvents() {
+    this.registerHandler(
+      NameUpdatedEvent.name,
+      this.onNameUpdatedEvent.bind(this),
+    );
+
+    this.registerHandler(
+      CustomerCreatedEvent.name,
+      this.onCustomerCreatedEvent.bind(this),
+    );
+  }
+
+  private onNameUpdatedEvent(event: NameUpdatedEvent) {
+    this.notification.copyErrors(this.props.name.notification);
+  }
+
+  private onCustomerCreatedEvent(event: CustomerCreatedEvent) {
+    for (const vo of event.valueObjects) {
+      if (vo.notification.hasErrors())
+        this.notification.copyErrors(vo.notification);
+    }
   }
 
   private validate(fields: string[]): boolean {

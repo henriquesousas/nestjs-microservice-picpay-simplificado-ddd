@@ -22,8 +22,23 @@ export class CustomerDataBuilderFake {
     return new CustomerDataBuilderFake(documentType);
   }
 
-  withFirstName(name: string): CustomerDataBuilderFake {
-    this.fakeCustomer.props.firstName = name;
+  withFirstNameInvalid(): CustomerDataBuilderFake {
+    this.fakeCustomer.props.firstName = '1';
+    return this;
+  }
+
+  withSurName(name: string): CustomerDataBuilderFake {
+    this.fakeCustomer.props.surName = name;
+    return this;
+  }
+
+  withEmailInvalid(): CustomerDataBuilderFake {
+    this.fakeCustomer.props.email = 'test';
+    return this;
+  }
+
+  withPasswordInvalid(): CustomerDataBuilderFake {
+    this.fakeCustomer.props.password = '1';
     return this;
   }
 

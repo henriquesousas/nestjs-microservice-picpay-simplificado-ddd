@@ -1,13 +1,13 @@
 import { Op } from 'sequelize';
-import { SearchParam } from '../../../../@shared/db/search-param';
-import { SearchResult } from '../../../../@shared/db/search-result';
 import { CustomerRepository } from '../../../domain/customer.repository';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerMapper } from './customer.mapper';
 import { CustomerModel } from './customer.model';
 import { WalletModel } from './wallet.model';
 import { WalletMapper } from './wallet.mapper';
-import { UnitOfWorkSequelize } from '../../../../@shared/db/sequelize/unit-of-work.sequelize';
+import { UnitOfWorkSequelize } from '../../../../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
+import { SearchParam } from '../../../../../../libs/common/src/core/db/search-param';
+import { SearchResult } from '../../../../../../libs/common/src/core/db/search-result';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];
@@ -34,7 +34,6 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     await this.walletModel.create(walletProps, {
       transaction,
     });
-
   }
 
   async insertMany(entities: Customer[]): Promise<void> {
