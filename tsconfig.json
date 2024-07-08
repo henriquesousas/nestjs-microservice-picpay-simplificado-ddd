@@ -20,18 +20,10 @@
     "esModuleInterop": true,
     "allowJs": true,
     "paths": {
-      "@app/core": [
-        "libs/core/src"
-      ],
-      "@app/core/*": [
-        "libs/core/src/*"
-      ],
-      "@app/common": [
-        "libs/common/src"
-      ],
-      "@app/common/*": [
-        "libs/common/src/*"
-      ]
+      //  "@app/core": ["libs/core/src"],
+      //   "@app/core/*": ["libs/core/src/ *"],
+      // "@app/common": ["libs/common/src"],
+      "@app/common/*": ["libs/common/src/*"]
     }
   }
 }

@@ -62,19 +62,20 @@ export class CustomerBuild {
     });
     const email = new Email(this.props.email);
     const password = new Password(this.props.password);
+    const document = DocumentFactory.create(
+      this.props.documentType,
+      this.props.document,
+    );
 
     const customerProps: CustomerConstructorProps = {
       customerId: this.props.customerId,
       name,
       email,
       password,
+      document,
       wallet: this.props.wallet,
       isActive: this.props.isActive,
       createdAt: this.props.createdAt,
-      document: DocumentFactory.create(
-        this.props.documentType,
-        this.props.document,
-      ),
     };
 
     return this.props.documentType == DocumentType.CPF

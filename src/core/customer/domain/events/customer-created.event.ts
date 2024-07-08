@@ -1,3 +1,4 @@
+import { Entity } from '../../../../../libs/common/src/core/entity';
 import { IDomainEvent } from '../../../../../libs/common/src/core/event/domain.event';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
@@ -7,5 +8,8 @@ export class CustomerCreatedEvent implements IDomainEvent {
   readonly occuredOn: Date = new Date();
   readonly eventVersion: number = 1;
 
-  constructor(public readonly valueObjects: ValueObject[]) {}
+  constructor(
+    public readonly valueObjects: ValueObject[],
+    public readonly entities: Entity[],
+  ) {}
 }

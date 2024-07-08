@@ -1,12 +1,12 @@
-import { Either } from '../../../../../../../libs/common/src/core/types/either';
-import { CustomerBuild } from '../../../../domain/customer.build';
-import { CustomerRepository } from '../../../../domain/customer.repository';
-import { Customer } from '../../../../domain/entity/customer';
-import { CustomerAlreadyExistException } from '../../../../domain/exception/customer-already-exist.exception';
+import { UseCase } from '@app/common/core/usecase';
 import { CreateCustomerDto } from './create-customer.dto';
-import { EntityValidationError } from '../../../../../../../libs/common/src/core/exception/entity-validation.error';
-import { UseCase } from '../../../../../../../libs/common/src/core/usecase';
-import { UnitOfWork } from '../../../../../../../libs/common/src/core/db/unit-of-work';
+import { Either } from '@app/common/core/types/either';
+import { CustomerRepository } from 'src/core/customer/domain/customer.repository';
+import { UnitOfWork } from '@app/common/core/db/unit-of-work';
+import { EntityValidationError } from '@app/common/core/exception/entity-validation.error';
+import { CustomerAlreadyExistException } from 'src/core/customer/domain/exception/customer-already-exist.exception';
+import { Customer } from '../../../domain/entity/customer';
+import { CustomerBuild } from '../../../domain/customer.build';
 
 export type CustomerOutputDto = Either<Customer>;
 
@@ -19,7 +19,7 @@ export class CreateCustomerUseCase
   ) {}
 
   async execute(dto: CreateCustomerDto): Promise<CustomerOutputDto> {
-    const customer = new CustomerBuild(dto).build();
+    let customer = new CustomerBuild(dto).withBalance(dto.balance).build();
 
     if (customer.notification.hasErrors()) {
       const error = new EntityValidationError(customer.notification.toArray());

@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
-import { CreateCustomerUseCase } from '../../core/customer/application/customer/usecase/create/create-customer.usecase';
 import { CreateCustomerRequestDto } from './dtos/create-customer-request.dto';
+import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 
 @Controller('/customer')
 export class CustomerController {

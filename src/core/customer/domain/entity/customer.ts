@@ -1,7 +1,7 @@
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 import { Document } from '../../../../../libs/common/src/core/document';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
-import { CustomerValidator } from '../customer.validator';
+import { CustomerValidator } from '../validator/customer.validator';
 import { InsuficientBalanceException } from '../exception/insuficient-balance.exception';
 import { TrasferenceNotAllowed } from '../exception/transference-not-allowed.exception';
 import { Email } from '../value-object/email';
@@ -43,14 +43,13 @@ export abstract class Customer extends AggregateRoot {
       createdAt: props.createdAt ?? new Date(),
     };
 
-    // this.notification.copyErrors(this.props.wallet!.notification);
-    this.registerDomainEvents();
+    this.registerDomainEventHandlers();
+
     this.applyEvent(
-      new CustomerCreatedEvent([
-        this.props.name,
-        this.props.email,
-        this.props.password,
-      ]),
+      new CustomerCreatedEvent(
+        [this.props.name, this.props.email, this.props.password],
+        [this.props.wallet!],
+      ),
     );
   }
 
@@ -87,7 +86,7 @@ export abstract class Customer extends AggregateRoot {
     receiver.props.wallet!.credit(value);
   }
 
-  private registerDomainEvents() {
+  private registerDomainEventHandlers() {
     this.registerHandler(
       NameUpdatedEvent.name,
       this.onNameUpdatedEvent.bind(this),
@@ -100,13 +99,19 @@ export abstract class Customer extends AggregateRoot {
   }
 
   private onNameUpdatedEvent(event: NameUpdatedEvent) {
-    this.notification.copyErrors(this.props.name.notification);
+    if (this.props.name.notification.hasErrors())
+      this.notification.copyErrors(this.props.name.notification);
   }
 
   private onCustomerCreatedEvent(event: CustomerCreatedEvent) {
     for (const vo of event.valueObjects) {
       if (vo.notification.hasErrors())
         this.notification.copyErrors(vo.notification);
+    }
+
+    for (const entity of event.entities) {
+      if (entity.notification.hasErrors())
+        this.notification.copyErrors(entity.notification);
     }
   }
 
