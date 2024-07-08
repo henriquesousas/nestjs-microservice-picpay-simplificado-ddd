@@ -1,4 +1,4 @@
-import { Entity } from '../../../../../libs/common/src/core/entity';
+import { Entity } from '../../../../../libs/common/src/core/entity/entity';
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { WalletValidator } from '../validator/wallet.validator';

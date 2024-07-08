@@ -6,13 +6,12 @@ import { CUSTOMER_PROVIDERS } from './customer.provider';
 import { DatabaseSequelizeModule } from '../database-module/database-sequelize.module';
 
 @Module({
-  imports: [    
-  DatabaseSequelizeModule.forFeature([CustomerModel, WalletModel])],
+  imports: [DatabaseSequelizeModule.forFeature([CustomerModel, WalletModel])],
   controllers: [CustomerController],
-  providers: [    
-    ...Object.values(CUSTOMER_PROVIDERS.REPOSITORIES),    
-    ...Object.values(CUSTOMER_PROVIDERS.USECASES),    
+  providers: [
+    ...Object.values(CUSTOMER_PROVIDERS.REPOSITORIES),
+    ...Object.values(CUSTOMER_PROVIDERS.USECASES),
+    ...Object.values(CUSTOMER_PROVIDERS.HANDLERS),
   ],
 })
-export class CustomerModule { 
-}
+export class CustomerModule {}

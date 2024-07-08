@@ -1,5 +1,5 @@
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
-import { Document } from '../../../../../libs/common/src/core/document';
+import { Document } from '../../../../../libs/common/src/core/entity/document';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { CustomerValidator } from '../validator/customer.validator';
 import { InsuficientBalanceException } from '../exception/insuficient-balance.exception';
@@ -45,12 +45,7 @@ export abstract class Customer extends AggregateRoot {
 
     this.registerDomainEventHandlers();
 
-    this.applyEvent(
-      new CustomerCreatedEvent(
-        [this.props.name, this.props.email, this.props.password],
-        [this.props.wallet!],
-      ),
-    );
+    this.applyEvent(new CustomerCreatedEvent(this));
   }
 
   get entityId(): Uuid {
@@ -104,14 +99,17 @@ export abstract class Customer extends AggregateRoot {
   }
 
   private onCustomerCreatedEvent(event: CustomerCreatedEvent) {
-    for (const vo of event.valueObjects) {
-      if (vo.notification.hasErrors())
-        this.notification.copyErrors(vo.notification);
+    if (this.props.name.notification.hasErrors()) {
+      this.notification.copyErrors(this.props.name.notification);
     }
-
-    for (const entity of event.entities) {
-      if (entity.notification.hasErrors())
-        this.notification.copyErrors(entity.notification);
+    if (this.props.email.notification.hasErrors()) {
+      this.notification.copyErrors(this.props.email.notification);
+    }
+    if (this.props.password.notification.hasErrors()) {
+      this.notification.copyErrors(this.props.password.notification);
+    }
+    if (this.props.wallet!.notification.hasErrors()) {
+      this.notification.copyErrors(this.props.password.notification);
     }
   }
 

@@ -9,7 +9,7 @@ import { CustomerRegular } from './entity/customer-regular';
 import { Email } from './value-object/email';
 import { Password } from './value-object/password';
 import { Wallet } from './entity/wallet';
-import { DocumentFactory } from '../../../../libs/common/src/core/document';
+import { DocumentFactory } from '../../../../libs/common/src/core/entity/document';
 import { Name } from './value-object/name';
 
 export type customerBuildProps = {

@@ -1,12 +1,11 @@
 import { CustomerRepositorySequelize } from '../customer-repository.sequelize';
 import { CustomerModel } from '../customer.model';
 import { CustomerDataBuilderFake } from '../../../../domain/fake/customer-data-fake-builder';
-import { setupSequelize } from '../../../../../@shared/config/setup-sequelize';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
-import { SearchParam } from '../../../../../@shared/db/search-param';
 import { WalletModel } from '../wallet.model';
-import { UnitOfWorkSequelize } from '../../../../../@shared/db/sequelize/unit-of-work.sequelize';
-import { UnitOfWork } from '../../../../../@shared/db/unit-of-work';
+import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
+import { setupSequelize } from '../../../../../../../libs/common/src/core/config/setup-sequelize';
+import { SearchParam } from '../../../../../../../libs/common/src/core/db/search-param';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
@@ -31,7 +30,9 @@ describe('CustomerRepositorySequelize Integration Test', () => {
         include: [WalletModel],
       });
       expect(data!.dataValues).toBeDefined();
-      expect(data?.dataValues.firstName).toEqual(customer.firstName);
+      expect(data?.dataValues.firstName).toEqual(
+        customer.props.name.getfirstName,
+      );
       expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
       expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
@@ -57,7 +58,7 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
       const customerFromDb = await _repository.findById(customer.entityId.id);
-      expect(customer.wallet).toBeDefined();
+      expect(customer.props.wallet!).toBeDefined();
       expect(customer).toStrictEqual(customerFromDb);
     });
 
@@ -170,7 +171,9 @@ describe('CustomerRepositorySequelize Integration Test', () => {
         include: [WalletModel],
       });
       expect(data!.dataValues).toBeDefined();
-      expect(data?.dataValues.firstName).toEqual(customer.firstName);
+      expect(data?.dataValues.firstName).toEqual(
+        customer.props.name.getfirstName,
+      );
       expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
       expect(data?.dataValues['wallet'].balance).toEqual(0);
     });

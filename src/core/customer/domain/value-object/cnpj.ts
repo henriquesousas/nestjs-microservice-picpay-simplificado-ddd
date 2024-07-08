@@ -2,7 +2,7 @@ import { DocumentInvalidException } from '../exception/document-invalid.exceptio
 import { DocumentType } from '../entity/customer';
 
 import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
-import { Document } from '../../../../../libs/common/src/core/document';
+import { Document } from '../../../../../libs/common/src/core/entity/document';
 
 export class Cnpj extends ValueObject implements Document {
   constructor(private value: string) {
@@ -12,11 +12,11 @@ export class Cnpj extends ValueObject implements Document {
     }
   }
 
-  get getValue(): string {
+  getValue(): string {
     return this.value;
   }
 
-  get documentType(): DocumentType {
+  getDocumentType(): DocumentType {
     return DocumentType.CNPJ;
   }
 

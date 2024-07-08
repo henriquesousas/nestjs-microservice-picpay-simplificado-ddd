@@ -1,12 +1,12 @@
-import { UseCase } from '@app/common/core/usecase';
+import { UseCase } from '@app/common/core/usecase/usecase';
 import { CreateCustomerDto } from './create-customer.dto';
 import { Either } from '@app/common/core/types/either';
 import { CustomerRepository } from 'src/core/customer/domain/customer.repository';
-import { UnitOfWork } from '@app/common/core/db/unit-of-work';
 import { EntityValidationError } from '@app/common/core/exception/entity-validation.error';
 import { CustomerAlreadyExistException } from 'src/core/customer/domain/exception/customer-already-exist.exception';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerBuild } from '../../../domain/customer.build';
+import { ApplicationService } from '../../../../../../libs/common/src/core/usecase/application.service';
 
 export type CustomerOutputDto = Either<Customer>;
 
@@ -15,7 +15,7 @@ export class CreateCustomerUseCase
 {
   constructor(
     private readonly customerRepository: CustomerRepository,
-    private readonly uow: UnitOfWork,
+    private readonly applicationService: ApplicationService,
   ) {}
 
   async execute(dto: CreateCustomerDto): Promise<CustomerOutputDto> {
@@ -31,7 +31,7 @@ export class CreateCustomerUseCase
       return Either.fail(new CustomerAlreadyExistException());
     }
 
-    await this.uow.do(async () => {
+    await this.applicationService.run(async () => {
       return this.customerRepository.insert(customer);
     });
 

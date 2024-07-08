@@ -11,14 +11,14 @@ export class CustomerMapper {
   static toOrmModel(entity: Customer): CustomerModel {
     return CustomerModel.build({
       customerId: entity.entityId.id,
-      firstName: entity.firstName,
-      surName: entity.surName,
-      email: entity.email,
-      password: entity.password,
-      document: entity.document.value,
-      documentType: entity.document.documentType,
-      isActive: entity.isActive,
-      createdAt: entity.createdAt,
+      firstName: entity.props.name.getfirstName,
+      surName: entity.props.name.getSurName,
+      email: entity.props.email.getEmail(),
+      password: entity.props.password.getValue(),
+      document: entity.props.document.getValue(),
+      documentType: entity.props.document.getDocumentType(),
+      isActive: entity.props.isActive!,
+      createdAt: entity.props.createdAt!,
     });
   }
 

@@ -1,14 +1,5 @@
-import { CustomerBuild } from '../../../customer/domain/customer.build';
-import { DocumentType } from '../../../customer/domain/entity/customer';
-import { CustomerDataBuilderFake } from '../../../customer/domain/fake/customer-data-fake-builder';
-import { Wallet } from '../../../customer/domain/entity/wallet';
-import { EntityValidationError } from '../../../../../libs/common/src/core/exception/entity-validation.error';
-import {
-  Flunt,
-  ValidationError,
-} from '../../../../../libs/common/src/core/validator/flunt';
-import { Notification } from '../../../../../libs/common/src/core/validator/notification';
-import { FieldsErrors } from '../../../../../libs/common/src/core/validator/validator-field';
+import { DocumentType } from '../../../../../../src/core/customer/domain/entity/customer';
+import { CustomerDataBuilderFake } from '../../../../../../src/core/customer/domain/fake/customer-data-fake-builder';
 
 describe('Name of the group', () => {
   it('should ', () => {

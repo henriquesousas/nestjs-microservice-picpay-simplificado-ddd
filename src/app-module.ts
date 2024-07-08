@@ -1,32 +1,18 @@
 import { Global, Module, Scope } from '@nestjs/common';
 import { AppConfigModule } from './nest-module/config-module/app-config.module';
-import { getConnectionToken } from '@nestjs/sequelize';
-import { CustomerModel } from './core/customer/infrastructure/db/sequelize/customer.model';
-import { WalletModel } from './core/customer/infrastructure/db/sequelize/wallet.model';
 import { CustomerModule } from './nest-module/customer-module/customer.module';
-import { Sequelize } from 'sequelize-typescript';
 import { DatabaseSequelizeModule } from './nest-module/database-module/database-sequelize.module';
-import { UnitOfWorkSequelize } from '../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
-
-const models = [CustomerModel, WalletModel];
+import { EventModule } from '../libs/common/src/nestjs/event/event.module';
+import { ApplicationServiceModule } from '../libs/common/src/nestjs/aplication-service-module/application-service.module';
 
 @Global()
 @Module({
-  imports: [AppConfigModule.forRoot(), DatabaseSequelizeModule, CustomerModule],
-  providers: [
-    {
-      provide: UnitOfWorkSequelize,
-      useFactory: (sequelize: Sequelize) => {
-        return new UnitOfWorkSequelize(sequelize);
-      },
-      inject: [getConnectionToken()],
-    },
-    {
-      provide: 'UnitOfWork',
-      useExisting: UnitOfWorkSequelize,
-      scope: Scope.REQUEST,
-    },
+  imports: [
+    AppConfigModule.forRoot(),
+    ApplicationServiceModule,
+    DatabaseSequelizeModule,
+    EventModule,
+    CustomerModule,
   ],
-  exports: ['UnitOfWork'],
 })
 export class AppModule {}

@@ -19,6 +19,8 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   ) {}
 
   async insert(customer: Customer): Promise<void> {
+    console.log('Insert');
+
     const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
     const transaction = this.uow.getTransaction();
     //cria o cliente
@@ -27,13 +29,14 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     });
 
     //cria a carteira do cliente
-    const walletProps = WalletMapper.toOrmModel(
-      customer.wallet,
-      customer.entityId.id,
-    ).toJSON();
+    const wallet = customer.props.wallet!;
+    const customerId = customer.entityId.id;
+    const walletProps = WalletMapper.toOrmModel(wallet, customerId).toJSON();
     await this.walletModel.create(walletProps, {
       transaction,
     });
+
+    this.uow.addAggregateRoot(customer);
   }
 
   async insertMany(entities: Customer[]): Promise<void> {
@@ -46,7 +49,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
 
     const walletProps = entities.map((entity) => {
       return WalletMapper.toOrmModel(
-        entity.wallet,
+        entity.props.wallet!,
         entity.entityId.id,
       ).toJSON();
     });

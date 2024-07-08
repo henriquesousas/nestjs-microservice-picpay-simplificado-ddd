@@ -1,11 +1,13 @@
-import { DocumentType } from '../../../../src/core/customer/domain/entity/customer';
-import { Cnpj } from '../../../../src/core/customer/domain/value-object/cnpj';
-import { Cpf } from '../../../../src/core/customer/domain/value-object/cpf';
+import { DocumentType } from '../../../../../src/core/customer/domain/entity/customer';
+import { Cnpj } from '../../../../../src/core/customer/domain/value-object/cnpj';
+import { Cpf } from '../../../../../src/core/customer/domain/value-object/cpf';
+import { ValueObject } from '../value-object/value-object';
 
 //TODO: Mudar nome classe
 
 export interface Document {
-  get documentType(): DocumentType;
+  getDocumentType(): DocumentType;
+  getValue(): string;
 }
 
 //TODO: remover factory deste local

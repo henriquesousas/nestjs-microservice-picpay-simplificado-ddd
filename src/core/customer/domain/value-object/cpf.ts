@@ -1,21 +1,21 @@
-import { Document } from '../../../../../libs/common/src/core/document';
+import { Document } from '../../../../../libs/common/src/core/entity/document';
 import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 import { DocumentType } from '../entity/customer';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 
 export class Cpf extends ValueObject implements Document {
-  constructor(value: string) {
+  constructor(private value: string) {
     super();
     if (!this.validate(value)) {
       throw new DocumentInvalidException(DocumentType.CPF);
     }
   }
 
-  get value(): string {
+  getValue(): string {
     return this.value;
   }
 
-  get documentType(): DocumentType {
+  getDocumentType(): DocumentType {
     return DocumentType.CPF;
   }
 

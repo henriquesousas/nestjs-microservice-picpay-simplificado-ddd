@@ -1,35 +1,21 @@
 import { faker } from '@faker-js/faker';
-import { UnitOfWork } from '@app/common/core/db/unit-of-work';
-import { CustomerRepository } from '../../../../../domain/customer.repository';
-import { DocumentType } from '../../../../../domain/entity/customer';
+import { CustomerRepository } from '../../../../domain/customer.repository';
+import { DocumentType } from '../../../../domain/entity/customer';
 import { CreateCustomerDto } from '../create-customer.dto';
 import { CreateCustomerUseCase } from '../create-customer.usecase';
-import { CustomerRegular } from '../../../../../domain/entity/customer-regular';
-import { Cpf } from '../../../../../domain/value-object/cpf';
-import { CustomerAlreadyExistException } from '../../../../../domain/exception/customer-already-exist.exception';
-import { CustomerRepositoryStub } from '../../../../../infrastructure/db/sequelize/__tests__/mocks/customer-repository.stub';
-
-export class UnitOfWorkStub implements UnitOfWork {
-  async start(): Promise<void> {
-    return;
-  }
-  async commit(): Promise<void> {
-    return;
-  }
-  async rollback(): Promise<void> {
-    return;
-  }
-  getTransaction() {
-    return;
-  }
-  do<T>(workFn: (uow: UnitOfWork) => Promise<T>): Promise<T> {
-    return workFn(this);
-  }
-}
+import { CustomerRegular } from '../../../../domain/entity/customer-regular';
+import { Cpf } from '../../../../domain/value-object/cpf';
+import { CustomerAlreadyExistException } from '../../../../domain/exception/customer-already-exist.exception';
+import { CustomerRepositoryStub } from '../../../../infrastructure/db/sequelize/__tests__/mocks/customer-repository.stub';
+import { AggregateRoot } from '../../../../../../../libs/common/src/core/entity/aggregate_root';
+import { StubUnitOfWork } from '../../../../../../../libs/common/src/core/usecase/__mocks__/stub-unit-of-work';
+import { ApplicationService } from '../../../../../../../libs/common/src/core/usecase/application.service';
+import { DomainEventMediator } from '../../../../../../../libs/common/src/core/event/domain-event.mediator';
+import EventEmitter2 from 'eventemitter2';
 
 type sutTypes = {
   sut: CreateCustomerUseCase;
-  uow: UnitOfWork;
+  applicationService: ApplicationService;
   repository: CustomerRepository;
 };
 
@@ -50,11 +36,13 @@ const makeCreateCustomerDto = (
 
 const makeSut = (): sutTypes => {
   const repository = new CustomerRepositoryStub();
-  const uow = new UnitOfWorkStub();
-  const sut = new CreateCustomerUseCase(repository, uow);
+  const uow = new StubUnitOfWork();
+  const dem = new DomainEventMediator(new EventEmitter2());
+  const applicationService = new ApplicationService(uow, dem);
+  const sut = new CreateCustomerUseCase(repository, applicationService);
   return {
     sut,
-    uow,
+    applicationService,
     repository,
   };
 };
@@ -79,25 +67,24 @@ describe('CreateCustomerUseCase Unit Tests', () => {
     expect(result.isOk()).toBe(true);
     const customer = result.ok;
     expect(customer).toBeInstanceOf(CustomerRegular);
-    expect(customer.email).toEqual(dto.email);
-    expect(customer.password).toEqual(dto.password);
-    expect(customer.document).toBeInstanceOf(Cpf);
-    expect(customer.document.value).toEqual(dto.document);
-    expect(customer.document.documentType).toEqual(dto.documentType);
+    expect(customer.props.email).toEqual(dto.email);
+    expect(customer.props.password).toEqual(dto.password);
+    expect(customer.props.document).toBeInstanceOf(Cpf);
+    expect(customer.props.document.getValue()).toEqual(dto.document);
+    expect(customer.props.document.getDocumentType()).toEqual(dto.documentType);
   });
 
   it('should return CustomerAlreadyExistException when customer already registered', async () => {
     const { sut } = makeSut();
     const result = await sut.execute(makeCreateCustomerDto());
-   
-    
+
     expect(result.isFail()).toBe(true);
     expect(result.error).toBeInstanceOf(CustomerAlreadyExistException);
     expect(result.error.message).toBe('Cliente já cadastro em nosso sistema');
   });
 
   it('should call repository', async () => {
-    const { sut, repository, uow } = makeSut();
+    const { sut, repository } = makeSut();
     const dto = makeCreateCustomerDto();
     mockImplementationFindByEmail(repository);
     const spyInsert = jest.spyOn(repository, 'insert');

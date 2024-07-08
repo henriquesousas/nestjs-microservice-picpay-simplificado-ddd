@@ -1,9 +1,11 @@
 import Transaction from 'sequelize/types/transaction';
 import { Sequelize } from 'sequelize-typescript';
-import { UnitOfWork } from '../unit-of-work';
+import { UnitOfWork } from '../../usecase/unit-of-work';
+import { AggregateRoot } from '../../entity/aggregate_root';
 
 export class UnitOfWorkSequelize implements UnitOfWork {
   private transaction: Transaction | null;
+  private aggregateRoots: Set<AggregateRoot> = new Set<AggregateRoot>();
 
   constructor(private sequelize: Sequelize) {}
 
@@ -51,6 +53,14 @@ export class UnitOfWorkSequelize implements UnitOfWork {
       this.transaction = null;
       throw e;
     }
+  }
+
+  addAggregateRoot(aggregateRoot: AggregateRoot): void {
+    this.aggregateRoots.add(aggregateRoot);
+  }
+
+  getAggregateRoots(): AggregateRoot[] {
+    return [...this.aggregateRoots];
   }
 
   private validateTransaction() {

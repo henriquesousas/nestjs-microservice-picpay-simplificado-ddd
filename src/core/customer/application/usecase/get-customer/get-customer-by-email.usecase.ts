@@ -1,6 +1,6 @@
-import { UseCase } from '../../../../../../../libs/common/src/core/usecase';
-import { CustomerRepository } from '../../../../domain/customer.repository';
-import { Customer } from '../../../../domain/entity/customer';
+import { UseCase } from '../../../../../../libs/common/src/core/usecase/usecase';
+import { CustomerRepository } from '../../../domain/customer.repository';
+import { Customer } from '../../../domain/entity/customer';
 
 export class GetCustomerByEmailUseCase implements UseCase<string, Customer> {
   constructor(private readonly customerRepository: CustomerRepository) {}

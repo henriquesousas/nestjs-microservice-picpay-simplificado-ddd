@@ -6,7 +6,7 @@ export class Password extends ValueObject {
     this.validate();
   }
 
-  get getValue(): string {
+  getValue(): string {
     return this.value;
   }
 
