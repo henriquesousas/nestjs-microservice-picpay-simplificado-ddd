@@ -1,16 +1,16 @@
-import { Global, Module, Scope } from '@nestjs/common';
-import { AppConfigModule } from './nest-module/config-module/app-config.module';
-import { CustomerModule } from './nest-module/customer-module/customer.module';
-import { DatabaseSequelizeModule } from './nest-module/database-module/database-sequelize.module';
+import { Global, Module } from '@nestjs/common';
+import { ConfigModule } from '../libs/common/src/nestjs/config/config.module';
+import { CustomerModule } from './nest-module/customer/customer.module';
+import { DatabaseModule } from '../libs/common/src/nestjs/database/sequelize/database.module';
 import { EventModule } from '../libs/common/src/nestjs/event/event.module';
-import { ApplicationServiceModule } from '../libs/common/src/nestjs/aplication-service-module/application-service.module';
+import { UseCaseModule } from '../libs/common/src/nestjs/usecase/usecase.module';
 
 @Global()
 @Module({
   imports: [
-    AppConfigModule.forRoot(),
-    ApplicationServiceModule,
-    DatabaseSequelizeModule,
+    ConfigModule.forRoot(),
+    UseCaseModule,
+    DatabaseModule,
     EventModule,
     CustomerModule,
   ],

@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app-module';
 import { ConfigService } from '@nestjs/config';
-import { applyGlobalConfig } from './nest-module/global-config';
+import { applyGlobalConfig } from '../libs/common/src/nestjs/global-config';
 
 // app.connectMicroservice(RabbitMQClient.getOptions('queue1'));
 //await app.startAllMicroservices();

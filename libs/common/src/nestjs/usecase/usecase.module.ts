@@ -1,4 +1,4 @@
-import { Global, Module, Scope } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ApplicationService } from '../../core/usecase/application.service';
 import { UnitOfWork } from '../../core/usecase/unit-of-work';
 import { DomainEventMediator } from '../../core/event/domain-event.mediator';
@@ -19,4 +19,4 @@ import { DomainEventMediator } from '../../core/event/domain-event.mediator';
   ],
   exports: [ApplicationService],
 })
-export class ApplicationServiceModule {}
+export class UseCaseModule {}

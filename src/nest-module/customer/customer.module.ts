@@ -3,10 +3,10 @@ import { CustomerController } from './customer.controller';
 import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/customer.model';
 import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
 import { CUSTOMER_PROVIDERS } from './customer.provider';
-import { DatabaseSequelizeModule } from '../database-module/database-sequelize.module';
+import { DatabaseModule } from '../../../libs/common/src/nestjs/database/sequelize/database.module';
 
 @Module({
-  imports: [DatabaseSequelizeModule.forFeature([CustomerModel, WalletModel])],
+  imports: [DatabaseModule.forFeature([CustomerModel, WalletModel])],
   controllers: [CustomerController],
   providers: [
     ...Object.values(CUSTOMER_PROVIDERS.REPOSITORIES),

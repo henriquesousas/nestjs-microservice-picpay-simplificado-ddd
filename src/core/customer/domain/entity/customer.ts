@@ -94,8 +94,9 @@ export abstract class Customer extends AggregateRoot {
   }
 
   private onNameUpdatedEvent(event: NameUpdatedEvent) {
-    if (this.props.name.notification.hasErrors())
+    if (this.props.name.notification.hasErrors()) {
       this.notification.copyErrors(this.props.name.notification);
+    }
   }
 
   private onCustomerCreatedEvent(event: CustomerCreatedEvent) {
@@ -109,7 +110,7 @@ export abstract class Customer extends AggregateRoot {
       this.notification.copyErrors(this.props.password.notification);
     }
     if (this.props.wallet!.notification.hasErrors()) {
-      this.notification.copyErrors(this.props.password.notification);
+      this.notification.copyErrors(this.props.wallet!.notification);
     }
   }
 

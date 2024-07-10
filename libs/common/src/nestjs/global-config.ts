@@ -1,5 +1,5 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { NotFoundErrorFilter } from './shared-module/filter/not-found-error.filter';
+import { NotFoundErrorFilter } from './filter/not-found-error.filter';
 
 export function applyGlobalConfig(app: INestApplication) {
   app.useGlobalPipes(

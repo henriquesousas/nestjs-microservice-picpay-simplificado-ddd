@@ -3,8 +3,7 @@ import { CustomerRepositorySequelize } from '../../core/customer/infrastructure/
 import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/customer.model';
 import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
 import { CustomerRepository } from '../../core/customer/domain/customer.repository';
-import { UnitOfWork } from '../../../libs/common/src/core/usecase/unit-of-work';
-import { UnitOfWorkSequelize } from '../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
+import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { CustomerCreatedInQueueHandler } from '../../core/customer/application/handler/customer-created-in-queue.handler';
 import { ApplicationService } from '../../../libs/common/src/core/usecase/application.service';

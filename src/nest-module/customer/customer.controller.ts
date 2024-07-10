@@ -11,13 +11,17 @@ export class CustomerController {
   @HttpCode(201)
   async create(
     @Body() dto: CreateCustomerRequestDto,
-  ): Promise<{ customerId: string }> {
-    const customerOrError = await this.createCustomerUseCase.execute(dto);
-    if (customerOrError.isFail()) {
-      throw customerOrError.error;
+  ): Promise<{ customer_id: string }> {
+    const [customer, error] = (
+      await this.createCustomerUseCase.execute(dto)
+    ).asArray();
+
+    if (error) {
+      throw error;
     }
+
     return {
-      customerId: customerOrError.ok.entityId.id,
+      customer_id: customer.entityId.id,
     };
   }
 }

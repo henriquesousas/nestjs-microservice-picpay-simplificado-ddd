@@ -1,9 +1,9 @@
 import { DynamicModule, Global, Module, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getConnectionToken, SequelizeModule } from '@nestjs/sequelize';
-import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/customer.model';
-import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
-import { UnitOfWorkSequelize } from '../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
+import { CustomerModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/customer.model';
+import { WalletModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/wallet.model';
+import { UnitOfWorkSequelize } from './unit-of-work.sequelize';
 import { Sequelize } from 'sequelize-typescript';
 
 const models = [CustomerModel, WalletModel];
@@ -61,7 +61,7 @@ const models = [CustomerModel, WalletModel];
   ],
   exports: ['UnitOfWork'],
 })
-export class DatabaseSequelizeModule {
+export class DatabaseModule {
   static forFeature(models: Function[]): DynamicModule {
     return SequelizeModule.forFeature(models);
   }

@@ -3,9 +3,9 @@ import { CustomerModel } from '../customer.model';
 import { CustomerDataBuilderFake } from '../../../../domain/fake/customer-data-fake-builder';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { WalletModel } from '../wallet.model';
-import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
+import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { setupSequelize } from '../../../../../../../libs/common/src/core/config/setup-sequelize';
-import { SearchParam } from '../../../../../../../libs/common/src/core/db/search-param';
+import { SearchParam } from '../../../../../../../libs/common/src/core/database/search-param';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {

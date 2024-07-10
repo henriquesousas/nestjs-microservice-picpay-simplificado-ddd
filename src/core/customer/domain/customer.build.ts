@@ -33,9 +33,9 @@ export class CustomerBuild {
     return this;
   }
 
-  withBalance(amount: number): CustomerBuild {
+  withBalance(balance: number): CustomerBuild {
     this.props.wallet = new Wallet({
-      balance: amount,
+      balance,
     });
     return this;
   }
@@ -56,6 +56,7 @@ export class CustomerBuild {
   }
 
   build(): Customer {
+
     const name = Name.create({
       firstName: this.props.firstName,
       surName: this.props.surName,

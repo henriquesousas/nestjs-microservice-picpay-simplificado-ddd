@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNumber,
   IsString,
+  Min,
   MinLength,
 } from 'class-validator';
 import { DocumentType } from '../../../core/customer/domain/entity/customer';
@@ -27,5 +28,6 @@ export class CreateCustomerRequestDto {
   documentType: DocumentType;
 
   @IsNumber()
+  @Min(0)
   balance: number;
 }

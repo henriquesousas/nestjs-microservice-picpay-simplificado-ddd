@@ -1,5 +1,5 @@
-import { Repository } from '../../../../libs/common/src/core/db/repository';
-import { SearchRepository } from '@app/common/core/db/search.repository';
+import { Repository } from '../../../../libs/common/src/core/database/repository';
+import { SearchRepository } from '@app/common/core/database/search.repository';
 import { Customer } from './entity/customer';
 
 export interface CustomerRepository

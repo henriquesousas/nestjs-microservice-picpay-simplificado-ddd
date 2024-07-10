@@ -5,9 +5,9 @@ import { CustomerMapper } from './customer.mapper';
 import { CustomerModel } from './customer.model';
 import { WalletModel } from './wallet.model';
 import { WalletMapper } from './wallet.mapper';
-import { UnitOfWorkSequelize } from '../../../../../../libs/common/src/core/db/sequelize/unit-of-work.sequelize';
-import { SearchParam } from '../../../../../../libs/common/src/core/db/search-param';
-import { SearchResult } from '../../../../../../libs/common/src/core/db/search-result';
+import { UnitOfWorkSequelize } from '../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
+import { SearchParam } from '../../../../../../libs/common/src/core/database/search-param';
+import { SearchResult } from '../../../../../../libs/common/src/core/database/search-result';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];
@@ -19,8 +19,6 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   ) {}
 
   async insert(customer: Customer): Promise<void> {
-    console.log('Insert');
-
     const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
     const transaction = this.uow.getTransaction();
     //cria o cliente

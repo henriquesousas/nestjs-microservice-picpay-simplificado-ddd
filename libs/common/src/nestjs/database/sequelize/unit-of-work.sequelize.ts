@@ -1,7 +1,7 @@
 import Transaction from 'sequelize/types/transaction';
 import { Sequelize } from 'sequelize-typescript';
-import { UnitOfWork } from '../../usecase/unit-of-work';
-import { AggregateRoot } from '../../entity/aggregate_root';
+import { UnitOfWork } from '../../../core/usecase/unit-of-work';
+import { AggregateRoot } from '../../../core/entity/aggregate_root';
 
 export class UnitOfWorkSequelize implements UnitOfWork {
   private transaction: Transaction | null;

@@ -46,13 +46,4 @@ export class Name extends ValueObject {
       this.notification.addError(error, propertyName);
     }
   }
-
-  validateWithNotificationCallback(
-    value: string,
-    propertyName: string,
-    callback: (notification: Notification) => void,
-  ) {
-    this.validate(value, propertyName);
-    callback(this.notification);
-  }
 }

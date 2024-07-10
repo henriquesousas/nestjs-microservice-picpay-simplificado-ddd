@@ -1,0 +1,16 @@
+
+@contentType = application/json
+@apiUrl = http://localhost:3000
+
+POST  {{apiUrl}}/customer
+content-type: {{contentType}}
+
+{
+    "firstName": "name {{$randomInt 1 500}}",
+    "surName": "surname {{$randomInt 1 500}} ",
+    "email": "{{$randomInt 1 500}}@gmail.com",
+    "password": "prm260110",
+    "document": "31111111111",
+    "documentType": "CPF",
+    "balance": 0
+}
