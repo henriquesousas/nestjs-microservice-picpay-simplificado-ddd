@@ -7,7 +7,6 @@ import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { Cpf } from '../../../../domain/value-object/cpf';
 import { CustomerAlreadyExistException } from '../../../../domain/exception/customer-already-exist.exception';
 import { CustomerRepositoryStub } from '../../../../infrastructure/db/sequelize/__tests__/mocks/customer-repository.stub';
-import { AggregateRoot } from '../../../../../../../libs/common/src/core/entity/aggregate_root';
 import { StubUnitOfWork } from '../../../../../../../libs/common/src/core/usecase/__mocks__/stub-unit-of-work';
 import { ApplicationService } from '../../../../../../../libs/common/src/core/usecase/application.service';
 import { DomainEventMediator } from '../../../../../../../libs/common/src/core/event/domain-event.mediator';

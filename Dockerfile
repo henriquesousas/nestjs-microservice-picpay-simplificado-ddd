@@ -15,6 +15,6 @@ WORKDIR /home/node/app
 COPY package.json ./
 RUN npm install
 COPY . .
-RUN npm install -g @nestjs/cli@10.1.17
+RUN npm install -g @nestjs/cli
 # RUN npm run build
 CMD [ "tail", "-f", "/dev/null" ]

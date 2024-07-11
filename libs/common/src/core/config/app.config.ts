@@ -14,13 +14,19 @@ export class AppConfig {
     };
   }
 
+  static rabbitmqUri() {
+    AppConfig.readEnv();
+
+    return AppConfig.env.RABBITMQ_URI;
+  }
+
   static readEnv() {
     if (AppConfig.env) {
       return;
     }
 
     const { parsed } = readEnv({
-      path: join(__dirname, `../../../../envs/.env.${process.env.NODE_ENV}`),
+      path: join(__dirname, `../../../../../envs/.env.${process.env.NODE_ENV}`),
     });
 
     AppConfig.env = {

@@ -13,6 +13,8 @@ const models = [CustomerModel, WalletModel];
   imports: [
     SequelizeModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
+        console.log(configService);
+
         const dbVendor = configService.get('DB_VENDOR');
 
         if (dbVendor === 'sqlite') {
