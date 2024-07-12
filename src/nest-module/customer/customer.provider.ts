@@ -7,6 +7,7 @@ import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/se
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { CustomerCreatedInQueueHandler } from '../../core/customer/application/handler/customer-created-in-queue.handler';
 import { ApplicationService } from '../../../libs/common/src/core/usecase/application.service';
+import { IMessageBroker } from '../../../libs/common/src/core/message-broker/message-broker.interface';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
@@ -45,7 +46,10 @@ export const USECASES = {
 export const HANDLERS = {
   CUSTOMER_CREATED_IN_QUEUE_HANDLER: {
     provide: CustomerCreatedInQueueHandler,
-    useClass: CustomerCreatedInQueueHandler,
+    useFactory: (messageBroker: IMessageBroker) => {
+      return new CustomerCreatedInQueueHandler(messageBroker);
+    },
+    inject: ['IMessageBroker'],
   },
 };
 

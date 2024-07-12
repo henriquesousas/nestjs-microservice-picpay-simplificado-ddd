@@ -40,6 +40,14 @@ export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<DB_SCHEMA_TYPE> = {
   DB_AUTO_LOAD_MODELS: Joi.boolean().required(),
 };
 
+type RABBIT_SCHEMA_TYPE = {
+  RABBITMQ_URI: string;
+};
+
+export const CONFIG_RABBITMQ_SCHEMA: Joi.StrictSchemaMap<RABBIT_SCHEMA_TYPE> = {
+  RABBITMQ_URI: Joi.string().required(),
+};
+
 @Module({})
 export class ConfigModule extends NestConfigModule {
   static forRoot(options: ConfigModuleOptions = {}) {
@@ -54,6 +62,7 @@ export class ConfigModule extends NestConfigModule {
       ],
       validationSchema: Joi.object({
         ...CONFIG_DB_SCHEMA,
+        ...CONFIG_RABBITMQ_SCHEMA,
       }),
       ...otherOptions,
     });

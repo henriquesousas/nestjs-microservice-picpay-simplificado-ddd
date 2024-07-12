@@ -1,9 +1,12 @@
-import { CustomerCreatedEvent } from '../../../../../src/core/customer/domain/events/customer-created.event';
+import {
+  CustomerCreatedEvent,
+  CustomerCreatedIntegrationEvent,
+} from '../../../../../src/core/customer/domain/events/customer-created.event';
 
 export const EVENSTS_MESSAGE_BROKER_CONFIG = {
-  [CustomerCreatedEvent.name]: {
+  [CustomerCreatedIntegrationEvent.name]: {
     exchange: 'amq.direct',
-    routing_key: CustomerCreatedEvent.name,
+    routing_key: CustomerCreatedIntegrationEvent.name,
   },
   TestEvent: {
     exchange: 'test-exchange',

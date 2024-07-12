@@ -22,6 +22,7 @@ export class ApplicationService {
     this.uow.commit();
 
     // Se todas os handlers de dominio foram executados com sucesso
+
     for (const aggregateRoot of aggregateRoots) {
       await this.domainEventMediador.publishIntegrationEvents(aggregateRoot);
     }

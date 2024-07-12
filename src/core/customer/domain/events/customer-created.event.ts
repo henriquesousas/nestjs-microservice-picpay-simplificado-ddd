@@ -24,7 +24,7 @@ export class CustomerCreatedIntegrationEvent
   eventName: string;
   payload: any;
 
-  constructor(private readonly event: CustomerCreatedEvent) {
+  constructor(readonly event: CustomerCreatedEvent) {
     this.aggregateId = event.aggregateId;
     this.eventName = CustomerCreatedEvent.name;
     this.eventVersion = event.eventVersion;

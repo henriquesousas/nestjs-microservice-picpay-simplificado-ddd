@@ -23,7 +23,7 @@ export class DomainEventMediator {
       const integrationEvent = event.getIntegrationEvent?.();
       if (!integrationEvent) continue;
       await this.eventEmitter.emitAsync(
-        event.constructor.name,
+        integrationEvent.constructor.name,
         integrationEvent,
       );
     }

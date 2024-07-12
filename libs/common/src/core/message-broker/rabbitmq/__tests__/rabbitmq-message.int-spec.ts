@@ -4,11 +4,18 @@ import { ConsumeMessage } from 'amqplib';
 import { IDomainEvent } from '../../../event/domain.event';
 import { Uuid } from '../../../value-object/uuid';
 import { AppConfig } from '../../../config/app.config';
+import { IDomainEventIntegration } from '../../../event/domain-event-integration';
 
-class TestEvent implements IDomainEvent {
-  occurredOn: Date = new Date();
-  readonly eventVersion: 1;
-  constructor(readonly aggregateId: Uuid) {}
+class TestEvent implements IDomainEventIntegration {
+  public occurredOn: Date = new Date();
+  public eventVersion: number = 1;
+  public eventName: 'TestEvent';
+  public payload: any;
+  constructor(readonly aggregateId: Uuid) {
+    this.payload = {
+      message: 'ok',
+    };
+  }
 }
 
 describe('RabbitMQMessageBroker Integration tests', () => {
