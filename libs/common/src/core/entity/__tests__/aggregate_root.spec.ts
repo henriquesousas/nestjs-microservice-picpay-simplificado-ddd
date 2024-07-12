@@ -4,13 +4,13 @@ import { IDomainEvent } from '../../event/domain.event';
 
 class NameChangedEventStub implements IDomainEvent {
   aggregateId: Uuid;
-  occuredOn: Date;
+  occurredOn: Date;
   eventVersion = 1;
   name: string;
 
   constructor(aggregateId: Uuid, name: string) {
     this.aggregateId = aggregateId;
-    this.occuredOn = new Date();
+    this.occurredOn = new Date();
     this.name = name;
   }
 }

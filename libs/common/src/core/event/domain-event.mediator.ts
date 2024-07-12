@@ -5,6 +5,7 @@ import { AggregateRoot } from '../entity/aggregate_root';
 export class DomainEventMediator {
   constructor(private eventEmitter: EventEmitter2) {}
 
+  //TODO: Metodo nao esta sendo chamado
   register(event: string, handler: any): void {
     this.eventEmitter.on(event, handler);
   }
@@ -14,6 +15,17 @@ export class DomainEventMediator {
       const eventName = event.constructor.name;
       aggregateRoot.markEventAsDispatched(event);
       await this.eventEmitter.emitAsync(eventName, event);
+    }
+  }
+
+  async publishIntegrationEvents(aggregateRoot: AggregateRoot): Promise<void> {
+    for (const event of aggregateRoot.events) {
+      const integrationEvent = event.getIntegrationEvent?.();
+      if (!integrationEvent) continue;
+      await this.eventEmitter.emitAsync(
+        event.constructor.name,
+        integrationEvent,
+      );
     }
   }
 }

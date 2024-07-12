@@ -4,7 +4,7 @@ import { Name } from '../value-object/name';
 
 export class NameUpdatedEvent implements IDomainEvent {
   readonly aggregateId: Uuid;
-  readonly occuredOn: Date = new Date();
+  readonly occurredOn: Date = new Date();
   readonly eventVersion: number = 1;
 
   constructor() {}

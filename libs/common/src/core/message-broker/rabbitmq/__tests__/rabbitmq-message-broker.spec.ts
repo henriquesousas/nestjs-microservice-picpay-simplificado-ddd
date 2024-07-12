@@ -5,7 +5,7 @@ import { EVENSTS_MESSAGE_BROKER_CONFIG } from '../../events-message-broker.confi
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 class TestEvent implements IDomainEvent {
-  occuredOn: Date = new Date();
+  occurredOn: Date = new Date();
   readonly eventVersion: 1;
   constructor(readonly aggregateId: Uuid) {}
 }

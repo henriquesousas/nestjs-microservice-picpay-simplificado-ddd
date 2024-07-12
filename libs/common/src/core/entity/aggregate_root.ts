@@ -3,7 +3,7 @@ import { Entity } from './entity';
 import { IDomainEvent } from '../event/domain.event';
 
 export abstract class AggregateRoot extends Entity {
-  private events: Set<IDomainEvent> = new Set<IDomainEvent>();
+  events: Set<IDomainEvent> = new Set<IDomainEvent>();
   private dispatchedchEvents: Set<IDomainEvent> = new Set<IDomainEvent>();
   localMediator = new EventEmitter2();
 

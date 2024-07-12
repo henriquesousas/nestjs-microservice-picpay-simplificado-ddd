@@ -6,12 +6,12 @@ import { IDomainEvent } from '../domain.event';
 
 class StubEvent implements IDomainEvent {
   aggregateId: Uuid;
-  occuredOn: Date;
+  occurredOn: Date;
   eventVersion: number;
   payload: string;
 
   constructor(payload: string) {
-    this.occuredOn = new Date();
+    this.occurredOn = new Date();
     this.aggregateId = new Uuid();
     this.eventVersion = 1;
     this.payload = payload;
@@ -42,12 +42,12 @@ describe('DomainEventMediator Unit Test', () => {
     // expect.assertions(3);
     //Registra enventos (listeners)
     sut.register(StubEvent.name, (event: StubEvent) => {
-      console.log('event 1', event.payload);
+      // console.log('event 1', event.payload);
       expect(event.payload).toBe('NAME');
     });
 
     sut.register(StubEvent2.name, (event: StubEvent) => {
-      console.log('event 2', event.payload);
+      // console.log('event 2', event.payload);
       expect(event.payload).toBe('NAME');
     });
 

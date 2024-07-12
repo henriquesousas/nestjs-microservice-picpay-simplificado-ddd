@@ -6,7 +6,7 @@ import { Uuid } from '../../../value-object/uuid';
 import { AppConfig } from '../../../config/app.config';
 
 class TestEvent implements IDomainEvent {
-  occuredOn: Date = new Date();
+  occurredOn: Date = new Date();
   readonly eventVersion: 1;
   constructor(readonly aggregateId: Uuid) {}
 }
@@ -60,7 +60,7 @@ describe('RabbitMQMessageBroker Integration tests', () => {
       });
       const msgObj = JSON.parse(msg.content.toString());
       expect(msgObj.aggregateId.id).toEqual(event.aggregateId.id);
-      expect(msgObj.occuredOn).toEqual(event.occuredOn.toISOString());
+      expect(msgObj.occuredOn).toEqual(event.occurredOn.toISOString());
     });
   });
 });

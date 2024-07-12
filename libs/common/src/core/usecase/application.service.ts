@@ -14,9 +14,17 @@ export class ApplicationService {
   async finish(): Promise<void> {
     const aggregateRoots = [...this.uow.getAggregateRoots()];
     for (const aggregateRoot of aggregateRoots) {
+      //Não necessariamente esse puslish será em uma fila, pode ser uma regra de negócio, neste caso
+      //não podemos dar um commit sem ante se certificar que toda a regra foi executado com sucesso.
+      //Para isso foi criado um DomainEventIntegration.
       await this.domainEventMediador.publish(aggregateRoot);
     }
     this.uow.commit();
+
+    // Se todas os handlers de dominio foram executados com sucesso
+    for (const aggregateRoot of aggregateRoots) {
+      await this.domainEventMediador.publishIntegrationEvents(aggregateRoot);
+    }
   }
 
   async fail(): Promise<void> {
