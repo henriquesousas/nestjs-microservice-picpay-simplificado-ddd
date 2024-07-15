@@ -22,11 +22,26 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+
+ ## Fonte
+ https://github.com/PicPay/picpay-desafio-backend
+
+ ## O que teremos neste desafio
+Este desafio tem como objetivo principal a aplicação de boas práticas de desenvolvimento, garantindo a implementação de um código limpo, eficiente e sustentável.
+  * DDD
+  * Clean Architecture
+  * Arquitetura em microserviços
+  * Autenticação e Keycloak
+  * RabbitMQ
+  * Docker
+  * TDD (Jest)
+
+ 
 <!-- ABOUT THE PROJECT -->
 ## Sobre o projeto
 Api para simular uma transação bancária entre duas contas.
 
-### 📂 Objetivo
+### 📂 Resumo do objetivo
 > Temos 2 tipos de usuários, os comuns e lojistas, ambos têm carteira com dinheiro e realizam transferências entre eles.
 Vamos nos atentar somente ao fluxo de transferência entre dois usuários. <br >
 Para ambos tipos de usuário, precisamos do Nome Completo, CPF, e-mail e Senha. CPF/CNPJ e e-mails devem ser únicos no sistema. Sendo assim, seu sistema deve permitir apenas um cadastro com o mesmo CPF ou endereço de e-mail.<br >
@@ -47,14 +62,19 @@ para simular o envio (https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4
 * [![Docker][Docker]][Docker-url]
 
 
+
+
 <!-- GETTING STARTED -->
 ##  Getting Started
-
+Em breve
+<!-- 
 Siga as instruções abaixo para clonar,executar e propor melhorias neste pequeno projeto que ajuda muito a reforçar alguns conceitos de programação 
 para quem esta aprendendo.
-Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
+Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>-->
 
 ### Requisitos
+Em breve
+<!--
   1. Necessário ter a variavel de ambiente configurada no projeto (.env)<br />
   2. Na raiz do projeto se tem um .env.example que mostra quais são as KEYs necessárias para configurar corretamente o projeto.<br />
   2. Se preferir rodar o projeto com docker necessário usar na propriedade DB_HOST a configuração abaixo, pois é o nome do container que servirá como host da aplicação. 
@@ -63,9 +83,8 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
     DB_HOST=picpay-db
     # Host caso rode roda o projeto fora do docker
     DB_HOST=localhost 
-
-   ```   
-
+   ```   -->
+<!--
 #### ⚙️ Instalação
   ```sh
    # Clone do repositório
@@ -74,18 +93,13 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
    # Instalando NPM packages
     npm install
    ```
-
-#### ⚙️ Executar
-  ```sh
-   # Usando docker
-    docker-compose up
-
-   # Roda o projeto sem o docker
-    npm run start:dev
-   ```
+   -->
 
 <!-- Test-->
+
 #### 🧪 Test
+Em breve
+<!--
    ```sh
    # roda os teste unitários
    npm run test
@@ -97,10 +111,12 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
    # roda os testes com coverage
    npm run test:cov
    ```
-
+-->
 
 <!-- Docker-->
 #### 🐳 Docker
+Em breve
+<!--
    ```sh
    # sobe o container
    docker compose up
@@ -108,8 +124,7 @@ Qualquer dúvida entre em contato através do email na guia <b>Contatos</b>
    # interrompe a execução do container
    docker compose down
    ```
-
-
+-->
 
 <!-- CONTRIBUTING -->
 ## 🤝 Contribuiçao
