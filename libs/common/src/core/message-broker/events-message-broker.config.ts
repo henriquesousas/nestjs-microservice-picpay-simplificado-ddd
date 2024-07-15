@@ -1,7 +1,4 @@
-import {
-  CustomerCreatedEvent,
-  CustomerCreatedIntegrationEvent,
-} from '../../../../../src/core/customer/domain/events/customer-created.event';
+import { CustomerCreatedIntegrationEvent } from '../../../../../src/core/customer/domain/events/customer-created.event';
 
 export const EVENSTS_MESSAGE_BROKER_CONFIG = {
   [CustomerCreatedIntegrationEvent.name]: {

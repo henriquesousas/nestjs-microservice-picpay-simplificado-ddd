@@ -4,7 +4,7 @@ import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/c
 import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
 import { CUSTOMER_PROVIDERS } from './customer.provider';
 import { DatabaseModule } from '../../../libs/common/src/nestjs/database/sequelize/database.module';
-import { MyRabbitMQModule } from '../../../libs/common/src/nestjs/message-broker/my-rabbitmq.module';
+import { MyRabbitMQModule } from '../../../libs/common/src/nestjs/message-broker/rabbitmq/my-rabbitmq.module';
 import { CustomerConsumer } from './customer.consumer';
 
 @Module({
@@ -21,13 +21,6 @@ import { CustomerConsumer } from './customer.consumer';
       provide: 'CustomerConsumer',
       useClass: CustomerConsumer,
     },
-    // {
-    //   provide: CustomerCreatedInQueueHandler,
-    //   useFactory: (messageBroker: IMessageBroker) => {
-    //     return new CustomerCreatedInQueueHandler(messageBroker);
-    //   },
-    //   inject: ['IMessageBroker'],
-    // },
   ],
 })
 export class CustomerModule {}

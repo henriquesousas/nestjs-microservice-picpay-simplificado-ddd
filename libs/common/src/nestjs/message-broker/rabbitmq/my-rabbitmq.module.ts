@@ -1,7 +1,7 @@
 import { AmqpConnection, RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { RabbitMQMessageBroker } from '../../core/message-broker/rabbitmq/rabbitmq-message-broker';
+import { RabbitMQMessageBroker } from '../../../core/message-broker/rabbitmq/rabbitmq-message-broker';
 
 // @Module({
 //   imports: [
@@ -31,7 +31,21 @@ export class MyRabbitMQModule {
         RabbitMQModule.forRootAsync(RabbitMQModule, {
           useFactory: (configService: ConfigService) => ({
             uri: configService.get('RABBITMQ_URI') as string,
+            exchanges: [
+              {
+                name: 'dlx.exchange',
+                type: 'topic',
+              },
+            ],
+            queues: [
+              {
+                name: 'dlx.queue',
+                exchange: 'dlx.exchange',
+                routingKey: '#', // aceita qualquer routing key
+              },
+            ],
           }),
+
           inject: [ConfigService],
         }),
       ],
