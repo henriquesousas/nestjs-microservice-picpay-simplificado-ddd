@@ -1,6 +1,6 @@
 import { MaxLength, MinLength } from 'class-validator';
 import { Notification } from '../../../../../libs/common/src/core/validator/notification';
-import { Customer } from '../entity/customer';
+import { Customer } from '../../domain/entity/customer';
 import { ClassValidatorFields } from '../../../../../libs/common/src/core/validator/class-validator-fields';
 
 export class CustomerRules {

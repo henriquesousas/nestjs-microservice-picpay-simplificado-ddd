@@ -1,6 +1,6 @@
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
-import { WalletValidator } from '../validator/wallet.validator';
+import { WalletValidator } from '../../application/validator/wallet.validator';
 
 export class WalletId extends Uuid {}
 

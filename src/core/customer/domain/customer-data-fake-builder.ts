@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { CustomerBuild } from '../customer.build';
-import { Customer, DocumentType } from '../entity/customer';
+import { CustomerBuilder } from './customer.builder';
+import { Customer, DocumentType } from './entity/customer';
 
 export class CustomerDataBuilderFake {
-  private fakeCustomer: CustomerBuild;
+  private fakeCustomer: CustomerBuilder;
 
   constructor(type: DocumentType) {
-    this.fakeCustomer = new CustomerBuild({
+    this.fakeCustomer = new CustomerBuilder({
       firstName: faker.internet.userName(),
       surName: faker.internet.domainName(),
       document: type === DocumentType.CPF ? '02346542312' : '1234567890123456',

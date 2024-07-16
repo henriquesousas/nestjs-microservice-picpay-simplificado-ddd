@@ -1,6 +1,6 @@
 import { CustomerRepositorySequelize } from '../customer-repository.sequelize';
 import { CustomerModel } from '../customer.model';
-import { CustomerDataBuilderFake } from '../../../../domain/fake/customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../../../domain/customer-data-fake-builder';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { WalletModel } from '../wallet.model';
 import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';

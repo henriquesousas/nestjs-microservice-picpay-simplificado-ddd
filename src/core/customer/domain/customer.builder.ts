@@ -9,8 +9,8 @@ import { CustomerRegular } from './entity/customer-regular';
 import { Email } from './value-object/email';
 import { Password } from './value-object/password';
 import { Wallet } from './entity/wallet';
-import { DocumentFactory } from '../../../../libs/common/src/core/entity/document';
 import { Name } from './value-object/name';
+import { DocumentFactory } from './factory/document.factory';
 
 export type customerBuildProps = {
   firstName: string;
@@ -25,38 +25,37 @@ export type customerBuildProps = {
   customerId?: CustomerId;
 };
 
-export class CustomerBuild {
+export class CustomerBuilder {
   constructor(readonly props: customerBuildProps) {}
 
-  withCustomerId(customerId: CustomerId): CustomerBuild {
+  withCustomerId(customerId: CustomerId): CustomerBuilder {
     this.props.customerId = customerId;
     return this;
   }
 
-  withBalance(balance: number): CustomerBuild {
+  withBalance(balance: number): CustomerBuilder {
     this.props.wallet = new Wallet({
       balance,
     });
     return this;
   }
 
-  withWallet(wallet: Wallet): CustomerBuild {
+  withWallet(wallet: Wallet): CustomerBuilder {
     this.props.wallet = wallet;
     return this;
   }
 
-  withIsActive(active: boolean): CustomerBuild {
+  withIsActive(active: boolean): CustomerBuilder {
     this.props.isActive = active;
     return this;
   }
 
-  withCreatedAt(date: Date): CustomerBuild {
+  withCreatedAt(date: Date): CustomerBuilder {
     this.props.createdAt = date;
     return this;
   }
 
   build(): Customer {
-
     const name = Name.create({
       firstName: this.props.firstName,
       surName: this.props.surName,

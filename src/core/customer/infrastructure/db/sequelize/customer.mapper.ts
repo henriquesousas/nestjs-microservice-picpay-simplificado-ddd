@@ -1,4 +1,4 @@
-import { CustomerBuild } from '../../../domain/customer.build';
+import { CustomerBuilder } from '../../../domain/customer.builder';
 import {
   Customer,
   CustomerId,
@@ -24,7 +24,7 @@ export class CustomerMapper {
 
   static toEntity(model: CustomerModel): Customer {
     const wallet = WalletMapper.toEntity(model.wallet);
-    return new CustomerBuild({
+    return new CustomerBuilder({
       customerId: new CustomerId(model.customerId),
       firstName: model.firstName,
       surName: model.surName,

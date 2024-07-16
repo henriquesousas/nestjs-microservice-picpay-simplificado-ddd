@@ -1,5 +1,5 @@
 import { Cpf } from '../../value-object/cpf';
-import { CustomerDataBuilderFake } from '../../fake/customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../customer-data-fake-builder';
 import { Customer, DocumentType } from '../customer';
 import { Cnpj } from '../../value-object/cnpj';
 

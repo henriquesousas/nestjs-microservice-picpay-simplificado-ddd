@@ -1,5 +1,5 @@
 import { DocumentType } from '../../../../../../src/core/customer/domain/entity/customer';
-import { CustomerDataBuilderFake } from '../../../../../../src/core/customer/domain/fake/customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../../../../../src/core/customer/domain/customer-data-fake-builder';
 
 describe('Name of the group', () => {
   it('should ', () => {

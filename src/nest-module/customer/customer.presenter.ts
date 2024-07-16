@@ -4,7 +4,7 @@ import {
   DocumentType,
 } from '../../core/customer/domain/entity/customer';
 import { Wallet } from '../../core/customer/domain/entity/wallet';
-import { Document } from '../../../libs/common/src/core/entity/document';
+import { Document } from '../../core/customer/domain/document';
 
 export class WalletPresenter {
   private constructor(private wallet_id: string, private balance: number) {}

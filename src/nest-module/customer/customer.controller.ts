@@ -7,12 +7,14 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Query,
 } from '@nestjs/common';
-import { CreateCustomerRequestDto } from './dtos/create-customer-request.dto';
+import { CreateCustomerRequestDto } from './dto/create-customer-request.dto';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
 import { CustomerPresenter, WalletPresenter } from './customer.presenter';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
+import { SearchCustomerRequest } from './dto/search-customer-resquest.dto';
 
 @Controller('customer')
 export class CustomerController {
@@ -68,9 +70,17 @@ export class CustomerController {
     const [wallet, error] = (
       await this.getBalanceUseCase.execute(customerId)
     ).asArray();
+
     if (error) {
       throw error;
     }
+
     return WalletPresenter.build(wallet);
+  }
+
+  @Get()
+  @HttpCode(200)
+  async search(@Query() query: SearchCustomerRequest) {
+    return query;
   }
 }

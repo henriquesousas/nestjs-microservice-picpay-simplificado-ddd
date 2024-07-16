@@ -2,7 +2,7 @@ import { SearchParam } from '../../../../../../../../libs/common/src/core/databa
 import { SearchResult } from '../../../../../../../../libs/common/src/core/database/search-result';
 import { CustomerRepository } from '../../../../../domain/customer.repository';
 import { Customer } from '../../../../../domain/entity/customer';
-import { CustomerDataBuilderFake } from '../../../../../domain/fake/customer-data-fake-builder';
+import { CustomerDataBuilderFake } from '../../../../../domain/customer-data-fake-builder';
 
 export class CustomerRepositoryStub implements CustomerRepository {
   sortableFields: string[] = [];

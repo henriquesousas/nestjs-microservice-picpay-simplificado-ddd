@@ -4,7 +4,7 @@ import { Either } from '@app/common/core/types/either';
 import { CustomerRepository } from 'src/core/customer/domain/customer.repository';
 import { CustomerAlreadyExistException } from 'src/core/customer/domain/exception/customer-already-exist.exception';
 import { Customer } from '../../../domain/entity/customer';
-import { CustomerBuild } from '../../../domain/customer.build';
+import { CustomerBuilder } from '../../../domain/customer.builder';
 import { ApplicationService } from '../../../../../../libs/common/src/core/usecase/application.service';
 import { EntityValidationException } from '../../../../../../libs/common/src/core/exception/entity-validation.exception';
 
@@ -19,7 +19,7 @@ export class CreateCustomerUseCase
   ) {}
 
   async execute(dto: CreateCustomerDto): Promise<CustomerOutputDto> {
-    let customer = new CustomerBuild(dto).withBalance(dto.balance).build();
+    let customer = new CustomerBuilder(dto).withBalance(dto.balance).build();
 
     if (customer.notification.hasErrors()) {
       const error = new EntityValidationException(

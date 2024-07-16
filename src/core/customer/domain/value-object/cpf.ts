@@ -1,5 +1,5 @@
-import { Document } from '../../../../../libs/common/src/core/entity/document';
 import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
+import { Document } from '../document';
 import { DocumentType } from '../entity/customer';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 
