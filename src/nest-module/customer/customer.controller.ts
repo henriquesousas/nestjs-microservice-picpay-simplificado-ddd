@@ -5,12 +5,13 @@ import {
   HttpCode,
   Inject,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { CreateCustomerRequestDto } from './dtos/create-customer-request.dto';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
-import { CustomerPresenter } from './customer.presenter';
+import { CustomerPresenter, WalletPresenter } from './customer.presenter';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
 
 @Controller('customer')
@@ -19,7 +20,7 @@ export class CustomerController {
   private readonly createCustomerUseCase: CreateCustomerUseCase;
 
   @Inject(GetCustomerByIdUseCase)
-  private readonly getCustomerByEmailUseCase: GetCustomerByIdUseCase;
+  private readonly getCustomerUseCase: GetCustomerByIdUseCase;
 
   @Inject(GetBalanceUseCase)
   private readonly getBalanceUseCase: GetBalanceUseCase;
@@ -45,10 +46,11 @@ export class CustomerController {
   @Get('/:customerId')
   @HttpCode(200)
   async getCustomer(
-    @Param('customerId') customerId: string,
+    @Param('customerId', new ParseUUIDPipe({ errorHttpStatusCode: 422 }))
+    customerId: string,
   ): Promise<CustomerPresenter> {
     const [customer, error] = (
-      await this.getCustomerByEmailUseCase.execute(customerId)
+      await this.getCustomerUseCase.execute(customerId)
     ).asArray();
 
     if (error) {
@@ -60,14 +62,15 @@ export class CustomerController {
   @Get('/balance/:customerId')
   @HttpCode(200)
   async getBalance(
-    @Param('customerId') customerId: string,
-  ): Promise<{ balance: number }> {
+    @Param('customerId', new ParseUUIDPipe({ errorHttpStatusCode: 422 }))
+    customerId: string,
+  ): Promise<WalletPresenter> {
     const [wallet, error] = (
       await this.getBalanceUseCase.execute(customerId)
     ).asArray();
     if (error) {
       throw error;
     }
-    return { balance: wallet.balance };
+    return WalletPresenter.build(wallet);
   }
 }
