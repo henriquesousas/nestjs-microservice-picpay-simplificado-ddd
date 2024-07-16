@@ -10,13 +10,13 @@ import { WalletMapper } from './wallet.mapper';
 export class CustomerMapper {
   static toOrmModel(entity: Customer): CustomerModel {
     return CustomerModel.build({
-      customerId: entity.entityId.id,
+      customerId: entity.getUUid().id,
       firstName: entity.props.name.getfirstName,
       surName: entity.props.name.getSurName,
       email: entity.props.email.getEmail(),
       password: entity.props.password.getValue(),
       document: entity.props.document.getValue(),
-      documentType: entity.props.document.getDocumentType(),
+      documentType: entity.props.document.getType(),
       isActive: entity.props.isActive!,
       createdAt: entity.props.createdAt!,
     });

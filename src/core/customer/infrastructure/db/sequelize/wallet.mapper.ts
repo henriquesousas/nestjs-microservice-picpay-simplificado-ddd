@@ -4,7 +4,7 @@ import { WalletModel } from './wallet.model';
 export class WalletMapper {
   static toOrmModel(entity: Wallet, customerId: string): WalletModel {
     return WalletModel.build({
-      walletId: entity.entityId.id,
+      walletId: entity.getUUid().id,
       balance: entity.balance,
       customerId,
     });

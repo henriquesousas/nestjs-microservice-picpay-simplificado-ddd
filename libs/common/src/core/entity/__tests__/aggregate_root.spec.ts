@@ -29,13 +29,13 @@ class AggregateRootStub extends AggregateRoot {
     );
   }
 
-  get entityId(): Uuid {
+  get getUUid(): Uuid {
     return this.aggregrateId;
   }
 
   changeNameToUpperCase(): void {
     this.name = this.name.toUpperCase();
-    this.applyEvent(new NameChangedEventStub(this.entityId, this.name));
+    this.applyEvent(new NameChangedEventStub(this.getUUid, this.name));
   }
 
   onNameChangedEvent(event: NameChangedEventStub) {

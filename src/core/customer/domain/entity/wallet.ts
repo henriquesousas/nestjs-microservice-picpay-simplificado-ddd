@@ -1,4 +1,3 @@
-import { Entity } from '../../../../../libs/common/src/core/entity/entity';
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { WalletValidator } from '../validator/wallet.validator';
@@ -14,7 +13,6 @@ export class Wallet extends AggregateRoot {
   constructor(private props: WalletProps = {}) {
     super();
     this.props = {
-      ...props,
       walletId: props.walletId ?? new WalletId(),
       balance: props.balance ?? 0,
     };
@@ -22,7 +20,7 @@ export class Wallet extends AggregateRoot {
     this.validate(['balance']);
   }
 
-  get entityId(): Uuid {
+  getUUid(): Uuid {
     return this.props.walletId!;
   }
 

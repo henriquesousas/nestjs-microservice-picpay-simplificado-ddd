@@ -70,7 +70,7 @@ describe('CreateCustomerUseCase Unit Tests', () => {
     expect(customer.props.password).toEqual(dto.password);
     expect(customer.props.document).toBeInstanceOf(Cpf);
     expect(customer.props.document.getValue()).toEqual(dto.document);
-    expect(customer.props.document.getDocumentType()).toEqual(dto.documentType);
+    expect(customer.props.document.getType()).toEqual(dto.documentType);
   });
 
   it('should return CustomerAlreadyExistException when customer already registered', async () => {

@@ -15,7 +15,7 @@ export class Cpf extends ValueObject implements Document {
     return this.value;
   }
 
-  getDocumentType(): DocumentType {
+  getType(): DocumentType {
     return DocumentType.CPF;
   }
 

@@ -16,7 +16,7 @@ export class Cnpj extends ValueObject implements Document {
     return this.value;
   }
 
-  getDocumentType(): DocumentType {
+  getType(): DocumentType {
     return DocumentType.CNPJ;
   }
 

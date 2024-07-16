@@ -1,9 +1,6 @@
 import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 import { Document } from '../../../../../libs/common/src/core/entity/document';
 import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
-import { CustomerValidator } from '../validator/customer.validator';
-import { InsuficientBalanceException } from '../exception/insuficient-balance.exception';
-import { TrasferenceNotAllowed } from '../exception/transference-not-allowed.exception';
 import { Email } from '../value-object/email';
 import { Name } from '../value-object/name';
 import { Password } from '../value-object/password';
@@ -48,8 +45,12 @@ export abstract class Customer extends AggregateRoot {
     this.applyEvent(new CustomerCreatedEvent(this));
   }
 
-  get entityId(): Uuid {
+  getUUid(): Uuid {
     return this.props.customerId!;
+  }
+
+  canMakeTransfer(): boolean {
+    return this.canTransfer;
   }
 
   changeFirstName(name: string): void {
@@ -68,17 +69,6 @@ export abstract class Customer extends AggregateRoot {
 
   deactive() {
     this.props.isActive = false;
-  }
-
-  transfer(receiver: Customer, value: number): void {
-    if (!this.canTransfer) {
-      throw new TrasferenceNotAllowed();
-    }
-    if (this.props.wallet!.balance < value) {
-      throw new InsuficientBalanceException();
-    }
-    this.props.wallet!.debit(value);
-    receiver.props.wallet!.credit(value);
   }
 
   private registerDomainEventHandlers() {
@@ -114,8 +104,19 @@ export abstract class Customer extends AggregateRoot {
     }
   }
 
-  private validate(fields: string[]): boolean {
-    const validator = new CustomerValidator();
-    return validator.validate(this.notification, this, fields);
-  }
+  // transfer(receiver: Customer, value: number): void {
+  //   if (!this.canTransfer) {
+  //     throw new TrasferenceNotAllowed();
+  //   }
+  //   if (this.props.wallet!.balance < value) {
+  //     throw new InsuficientBalanceException();
+  //   }
+  //   this.props.wallet!.debit(value);
+  //   receiver.props.wallet!.credit(value);
+  // }
+
+  // private validate(fields: string[]): boolean {
+  //   const validator = new CustomerValidator();
+  //   return validator.validate(this.notification, this, fields);
+  // }
 }

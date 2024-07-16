@@ -2,11 +2,11 @@ import { UseCase } from '@app/common/core/usecase/usecase';
 import { CreateCustomerDto } from './create-customer.dto';
 import { Either } from '@app/common/core/types/either';
 import { CustomerRepository } from 'src/core/customer/domain/customer.repository';
-import { EntityValidationError } from '@app/common/core/exception/entity-validation.error';
 import { CustomerAlreadyExistException } from 'src/core/customer/domain/exception/customer-already-exist.exception';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerBuild } from '../../../domain/customer.build';
 import { ApplicationService } from '../../../../../../libs/common/src/core/usecase/application.service';
+import { EntityValidationException } from '../../../../../../libs/common/src/core/exception/entity-validation.exception';
 
 export type CustomerOutputDto = Either<Customer>;
 
@@ -22,7 +22,9 @@ export class CreateCustomerUseCase
     let customer = new CustomerBuild(dto).withBalance(dto.balance).build();
 
     if (customer.notification.hasErrors()) {
-      const error = new EntityValidationError(customer.notification.toArray());
+      const error = new EntityValidationException(
+        customer.notification.toArray(),
+      );
       return Either.fail(error);
     }
 

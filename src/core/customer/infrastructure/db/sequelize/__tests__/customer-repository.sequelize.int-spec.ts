@@ -26,14 +26,14 @@ describe('CustomerRepositorySequelize Integration Test', () => {
     test('should inserts a new customer', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
-      const data = await CustomerModel.findByPk(customer.entityId.id, {
+      const data = await CustomerModel.findByPk(customer.getUUid.id, {
         include: [WalletModel],
       });
       expect(data!.dataValues).toBeDefined();
       expect(data?.dataValues.firstName).toEqual(
         customer.props.name.getfirstName,
       );
-      expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
+      expect(data?.dataValues.customerId).toEqual(customer.getUUid.id);
       expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
 
@@ -44,9 +44,9 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       const customers = [customer, customer2, customer3];
       await _repository.insertMany(customers);
 
-      const customerFromDb1 = await _repository.findById(customer.entityId.id);
-      const customerFromDb2 = await _repository.findById(customer2.entityId.id);
-      const customerFromDb3 = await _repository.findById(customer3.entityId.id);
+      const customerFromDb1 = await _repository.findById(customer.getUUid.id);
+      const customerFromDb2 = await _repository.findById(customer2.getUUid.id);
+      const customerFromDb3 = await _repository.findById(customer3.getUUid.id);
       expect(customerFromDb1).toStrictEqual(customer);
       expect(customerFromDb2).toStrictEqual(customer2);
       expect(customerFromDb3).toStrictEqual(customer3);
@@ -57,14 +57,14 @@ describe('CustomerRepositorySequelize Integration Test', () => {
     test('should find a customer by entity Id', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
       await _repository.insert(customer);
-      const customerFromDb = await _repository.findById(customer.entityId.id);
+      const customerFromDb = await _repository.findById(customer.getUUid.id);
       expect(customer.props.wallet!).toBeDefined();
       expect(customer).toStrictEqual(customerFromDb);
     });
 
     test('should  return null when not found customer by id', async () => {
       const customer = CustomerDataBuilderFake.aCustomer().build();
-      const customerFromDb = await _repository.findById(customer.entityId.id);
+      const customerFromDb = await _repository.findById(customer.getUUid.id);
       expect(customerFromDb).toBeFalsy();
     });
   });
@@ -75,12 +75,12 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       await _repository.insert(customer);
 
       const customerFromDbBeforeDelete = await _repository.findById(
-        customer.entityId.id,
+        customer.getUUid.id,
       );
       expect(customerFromDbBeforeDelete).toStrictEqual(customer);
 
-      await _repository.delete(customer.entityId.id);
-      const customerFromDb = await _repository.findById(customer.entityId.id);
+      await _repository.delete(customer.getUUid.id);
+      const customerFromDb = await _repository.findById(customer.getUUid.id);
       expect(customerFromDb).toBeFalsy();
     });
 
@@ -104,7 +104,7 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       const hasUpdated = await _repository.update(customer);
       expect(hasUpdated).toBeTruthy();
 
-      const customerFromDb = await _repository.findById(customer.entityId.id);
+      const customerFromDb = await _repository.findById(customer.getUUid.id);
       expect(customer).toStrictEqual(customerFromDb);
     });
   });
@@ -156,7 +156,7 @@ describe('CustomerRepositorySequelize Integration Test', () => {
 
       searchResult.items.forEach((item) => {
         expect(item).toBeInstanceOf(CustomerRegular);
-        expect(item.entityId).toBeDefined();
+        expect(item.getUUid).toBeDefined();
       });
     });
   });
@@ -167,14 +167,14 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       _uow.start();
       await _repository.insert(customer);
       _uow.commit();
-      const data = await CustomerModel.findByPk(customer.entityId.id, {
+      const data = await CustomerModel.findByPk(customer.getUUid.id, {
         include: [WalletModel],
       });
       expect(data!.dataValues).toBeDefined();
       expect(data?.dataValues.firstName).toEqual(
         customer.props.name.getfirstName,
       );
-      expect(data?.dataValues.customerId).toEqual(customer.entityId.id);
+      expect(data?.dataValues.customerId).toEqual(customer.getUUid().id);
       expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
   });

@@ -1,8 +1,10 @@
 
 @contentType = application/json
-@apiUrl = http://localhost:3000
+@apiUrl = http://localhost:3000/customer
 
-POST  {{apiUrl}}/customer
+###
+# @name createCustomer
+POST {{apiUrl}}
 content-type: {{contentType}}
 
 {
@@ -12,5 +14,16 @@ content-type: {{contentType}}
     "password": "prm260110",
     "document": "31111111111",
     "documentType": "CPF",
-    "balance": 0
+    "balance": 100
 }
+
+###
+# @name getCustomerById
+@customerId =  50ed3071-7ad1-4d6b-8028-d343dd308b48
+GET  {{apiUrl}}/{{customerId}}
+
+
+###
+# @name getBalance
+@customerId =  50ed3071-7ad1-4d6b-8028-d343dd308b48
+GET  {{apiUrl}}/balance/{{customerId}}

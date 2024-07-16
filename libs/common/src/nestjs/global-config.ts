@@ -1,6 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NotFoundErrorFilter } from './filter/not-found-error.filter';
-import { RabbitMQConsumeErrorFilter } from './message-broker/rabbitmq/rabbitmq-consumer-error-filter';
+import { EntityValidationErrorFilter } from './filter/entity-validation-error.filter';
 
 export function applyGlobalConfig(app: INestApplication) {
   app.useGlobalPipes(
@@ -18,5 +18,8 @@ export function applyGlobalConfig(app: INestApplication) {
   //   // new ClassSerializerInterceptor(app.get(Reflector)),
   //   ();
 
-  app.useGlobalFilters(new NotFoundErrorFilter());
+  app.useGlobalFilters(
+    new NotFoundErrorFilter(),
+    new EntityValidationErrorFilter(),
+  );
 }

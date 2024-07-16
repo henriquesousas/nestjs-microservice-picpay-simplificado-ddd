@@ -23,7 +23,7 @@ class StubEvent2 extends StubEvent {}
 class StubAggregateRoot extends AggregateRoot {
   name: string;
 
-  get entityId(): Uuid {
+  get getUUid(): Uuid {
     return new Uuid();
   }
 

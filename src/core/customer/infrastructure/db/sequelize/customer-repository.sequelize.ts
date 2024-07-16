@@ -28,7 +28,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
 
     //cria a carteira do cliente
     const wallet = customer.props.wallet!;
-    const customerId = customer.entityId.id;
+    const customerId = customer.getUUid().id;
     const walletProps = WalletMapper.toOrmModel(wallet, customerId).toJSON();
     await this.walletModel.create(walletProps, {
       transaction,
@@ -48,7 +48,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     const walletProps = entities.map((entity) => {
       return WalletMapper.toOrmModel(
         entity.props.wallet!,
-        entity.entityId.id,
+        entity.getUUid().id,
       ).toJSON();
     });
 
@@ -60,7 +60,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   async update(entity: Customer): Promise<boolean> {
     const model = CustomerMapper.toOrmModel(entity).toJSON();
     const [affectedRows] = await this.customerModel.update(model, {
-      where: { customerId: entity.entityId.id },
+      where: { customerId: entity.getUUid().id },
     });
     return affectedRows === 1;
   }
@@ -74,10 +74,11 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     return affectedRows === 1;
   }
 
-  async findById(entityId: string): Promise<Customer | null> {
-    const model = await this.customerModel.findByPk(entityId, {
+  async findById(customerId: string): Promise<Customer | null> {
+    const model = await this.customerModel.findByPk(customerId, {
       include: [WalletModel],
     });
+
     return model ? CustomerMapper.toEntity(model) : null;
   }
 
