@@ -1,8 +1,8 @@
 import EventEmitter2 from 'eventemitter2';
-import { AggregateRoot } from '../../entity/aggregate_root';
-import { Uuid } from '../../value-object/uuid';
 import { DomainEventMediator } from '../domain-event.mediator';
 import { IDomainEvent } from '../domain.event';
+import { AggregateRoot } from '../../domain/entity/aggregate_root';
+import { Uuid } from '../../domain/value-object/uuid';
 
 class StubEvent implements IDomainEvent {
   aggregateId: Uuid;
@@ -21,11 +21,10 @@ class StubEvent implements IDomainEvent {
 class StubEvent2 extends StubEvent {}
 
 class StubAggregateRoot extends AggregateRoot {
-  name: string;
-
-  get getUUid(): Uuid {
+  getUUid(): Uuid {
     return new Uuid();
   }
+  name: string;
 
   async fakeMethodNameToUpperCase(name: string): Promise<void> {
     this.name = name.toUpperCase();

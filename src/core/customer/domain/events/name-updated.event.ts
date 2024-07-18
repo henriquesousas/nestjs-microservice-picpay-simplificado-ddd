@@ -1,5 +1,5 @@
+import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
 import { IDomainEvent } from '../../../../../libs/common/src/core/event/domain.event';
-import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 
 export class NameUpdatedEvent implements IDomainEvent {
   readonly aggregateId: Uuid;

@@ -1,4 +1,3 @@
-import { InvalidUuidError } from '../exception/invalid-uuid.exception';
 import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
 import { ValueObject } from './value-object';
 

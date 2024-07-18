@@ -1,5 +1,5 @@
-import { AggregateRoot } from '../../entity/aggregate_root';
-import { UnitOfWork } from '../unit-of-work';
+import { AggregateRoot } from '../../../domain/entity/aggregate_root';
+import { UnitOfWork } from '../../unit-of-work';
 
 export class StubUnitOfWork implements UnitOfWork {
   async start(): Promise<void> {

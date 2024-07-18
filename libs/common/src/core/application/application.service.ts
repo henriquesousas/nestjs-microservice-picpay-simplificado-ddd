@@ -1,5 +1,5 @@
-import { UnitOfWork } from './unit-of-work';
 import { DomainEventMediator } from '../event/domain-event.mediator';
+import { UnitOfWork } from './unit-of-work';
 
 export class ApplicationService {
   constructor(

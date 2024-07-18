@@ -1,15 +1,17 @@
 import { getModelToken } from '@nestjs/sequelize';
 import { CustomerRepositorySequelize } from '../../core/customer/infrastructure/db/sequelize/customer-repository.sequelize';
-import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/customer.model';
-import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/wallet.model';
+import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet.model';
 import { CustomerRepository } from '../../core/customer/domain/customer.repository';
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { CustomerCreatedInQueueHandler } from '../../core/customer/application/handler/customer-created-in-queue.handler';
-import { ApplicationService } from '../../../libs/common/src/core/usecase/application.service';
+
 import { IMessageBroker } from '../../../libs/common/src/core/message-broker/message-broker.interface';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
+import { ListCustomerUseCase } from '../../core/customer/application/usecase/list-customer/list-customer.usecase';
+import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/models/customer.model';
+import { ApplicationService } from '../../../libs/common/src/core/application/application.service';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
@@ -56,6 +58,14 @@ export const USECASES = {
     provide: GetBalanceUseCase,
     useFactory: (repository: CustomerRepository) => {
       return new GetBalanceUseCase(repository);
+    },
+    inject: [REPOSITORIES.CUSTOMER_REPOSITORY_SEQUELIZE.provide],
+  },
+
+  LIST_CUSTOMER_USECASE: {
+    provide: ListCustomerUseCase,
+    useFactory: (repository: CustomerRepository) => {
+      return new ListCustomerUseCase(repository);
     },
     inject: [REPOSITORIES.CUSTOMER_REPOSITORY_SEQUELIZE.provide],
   },

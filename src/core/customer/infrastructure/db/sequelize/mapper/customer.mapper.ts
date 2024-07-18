@@ -1,10 +1,10 @@
-import { CustomerBuilder } from '../../../domain/customer.builder';
+import { CustomerBuilder } from '../../../../domain/customer.builder';
 import {
   Customer,
   CustomerId,
   DocumentType,
-} from '../../../domain/entity/customer';
-import { CustomerModel } from './customer.model';
+} from '../../../../domain/entity/customer';
+import { CustomerModel } from '../models/customer.model';
 import { WalletMapper } from './wallet.mapper';
 
 export class CustomerMapper {

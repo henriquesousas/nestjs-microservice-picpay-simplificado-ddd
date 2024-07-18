@@ -1,4 +1,4 @@
-import { Uuid } from '../value-object/uuid';
+import { Uuid } from '../domain/value-object/uuid';
 
 export interface IDomainEventIntegration<T = any> {
   aggregateId: Uuid;

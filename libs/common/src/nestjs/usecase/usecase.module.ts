@@ -1,7 +1,8 @@
 import { Global, Module } from '@nestjs/common';
-import { ApplicationService } from '../../core/usecase/application.service';
-import { UnitOfWork } from '../../core/usecase/unit-of-work';
+
+import { UnitOfWork } from '../../core/application/unit-of-work';
 import { DomainEventMediator } from '../../core/event/domain-event.mediator';
+import { ApplicationService } from '../../core/application/application.service';
 
 @Global()
 @Module({

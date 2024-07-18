@@ -2,7 +2,7 @@ import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Injectable, UseFilters } from '@nestjs/common';
 import { RabbitMQConsumeErrorFilter } from '../../../libs/common/src/nestjs/message-broker/rabbitmq/rabbitmq-consumer-error-filter';
 import { NotFoundErrorFilter } from '../../../libs/common/src/nestjs/filter/not-found-error.filter';
-import { InvalidUuidError } from '../../../libs/common/src/core/exception/invalid-uuid.exception';
+import { InvalidUuidError } from '../../../libs/common/src/core/domain/exception/invalid-uuid.exception';
 
 /**
  * Consumer podem receber outros usecases, outras classes que ajudem a completar a
@@ -28,7 +28,6 @@ export class CustomerConsumer {
     //Pode usar uma abstracao do class validator
     //pode usar o flunt
     //pode usar a classe validation pipe
-    throw new InvalidUuidError();
     console.log(message);
   }
 }

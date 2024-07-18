@@ -1,4 +1,4 @@
-import { Uuid } from '../value-object/uuid';
+import { Uuid } from '../domain/value-object/uuid';
 import { IDomainEventIntegration } from './domain-event-integration';
 
 export interface IDomainEvent {

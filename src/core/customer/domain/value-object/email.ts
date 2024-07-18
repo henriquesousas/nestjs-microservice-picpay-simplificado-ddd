@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
+import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
 
 export class Email extends ValueObject {
   constructor(private readonly value: string) {

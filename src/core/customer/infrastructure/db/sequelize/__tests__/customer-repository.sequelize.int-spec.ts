@@ -2,7 +2,7 @@ import { CustomerRepositorySequelize } from '../customer-repository.sequelize';
 import { CustomerModel } from '../customer.model';
 import { CustomerDataBuilderFake } from '../../../../domain/customer-data-fake-builder';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
-import { WalletModel } from '../wallet.model';
+import { WalletModel } from '../models/wallet.model';
 import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { setupSequelize } from '../../../../../../../libs/common/src/core/config/setup-sequelize';
 import { SearchParam } from '../../../../../../../libs/common/src/core/database/search-param';
@@ -144,9 +144,9 @@ describe('CustomerRepositorySequelize Integration Test', () => {
 
       const searchParams = new SearchParam({
         page: 1,
-        perPage: 5,
+        per_page: 5,
         sort: 'firstName',
-        sortDirection: 'asc',
+        sort_dir: 'asc',
         filter: 'aa',
       });
 

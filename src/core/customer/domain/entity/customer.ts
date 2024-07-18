@@ -1,5 +1,3 @@
-import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
-import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
 import { Email } from '../value-object/email';
 import { Name } from '../value-object/name';
 import { Password } from '../value-object/password';
@@ -7,6 +5,8 @@ import { Wallet } from './wallet';
 import { NameUpdatedEvent } from '../events/name-updated.event';
 import { CustomerCreatedEvent } from '../events/customer-created.event';
 import { Document } from '../document';
+import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
+import { AggregateRoot } from '../../../../../libs/common/src/core/domain/entity/aggregate_root';
 
 export class CustomerId extends Uuid {}
 

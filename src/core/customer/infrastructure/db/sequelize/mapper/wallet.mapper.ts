@@ -1,5 +1,5 @@
-import { Wallet, WalletId } from '../../../domain/entity/wallet';
-import { WalletModel } from './wallet.model';
+import { Wallet, WalletId } from '../../../../domain/entity/wallet';
+import { WalletModel } from '../models/wallet.model';
 
 export class WalletMapper {
   static toOrmModel(entity: Wallet, customerId: string): WalletModel {

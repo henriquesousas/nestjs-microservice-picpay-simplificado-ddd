@@ -1,4 +1,4 @@
-import { Entity } from '../entity/entity';
+import { Entity } from '../domain/entity/entity';
 
 type SearchResultConstructorProps<E extends Entity> = {
   items: E[];
@@ -7,7 +7,7 @@ type SearchResultConstructorProps<E extends Entity> = {
   perPage: number;
 };
 
-export class SearchResult<E extends Entity> {
+export class SearchResult<E extends Entity = Entity> {
   readonly items: E[];
   readonly total: number;
   readonly currentPage: number;

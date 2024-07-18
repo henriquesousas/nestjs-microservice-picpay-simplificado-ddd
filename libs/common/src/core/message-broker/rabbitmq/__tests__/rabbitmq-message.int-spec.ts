@@ -2,7 +2,7 @@ import { RabbitMQMessageBroker } from '../rabbitmq-message-broker';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { ConsumeMessage } from 'amqplib';
 import { IDomainEvent } from '../../../event/domain.event';
-import { Uuid } from '../../../value-object/uuid';
+import { Uuid } from '../../../domain/entity/value-object/uuid';
 import { AppConfig } from '../../../config/app.config';
 import { IDomainEventIntegration } from '../../../event/domain-event-integration';
 

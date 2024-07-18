@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
+import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
 import { Document } from '../document';
 import { DocumentType } from '../entity/customer';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';

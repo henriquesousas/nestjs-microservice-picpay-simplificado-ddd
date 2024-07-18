@@ -16,14 +16,25 @@ content-type: {{contentType}}
     "documentType": "CPF",
     "balance": 100
 }
+###
+@customerId =  {{createCustomer.response.body.customer_id}}
+
 
 ###
 # @name getCustomerById
-@customerId =  50ed3071-7ad1-4d6b-8028-d343dd308b48
 GET  {{apiUrl}}/{{customerId}}
 
 
 ###
 # @name getBalance
-@customerId =  50ed3071-7ad1-4d6b-8028-d343dd308b48
 GET  {{apiUrl}}/balance/{{customerId}}
+
+###
+# @name ListCustomer
+@page = 1
+@per_page = 10
+@sort = firstName
+@sort_dir = desc
+@filter = name
+GET  {{apiUrl}}?page={{page}}&per_page={{per_page}}&sort={{sort}}&sort_dir={{sort_dir}}&filter={{filter}}
+

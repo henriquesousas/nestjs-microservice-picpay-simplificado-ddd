@@ -1,10 +1,11 @@
 import { DynamicModule, Global, Module, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getConnectionToken, SequelizeModule } from '@nestjs/sequelize';
-import { CustomerModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/customer.model';
-import { WalletModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/wallet.model';
+
+import { WalletModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/wallet.model';
 import { UnitOfWorkSequelize } from './unit-of-work.sequelize';
 import { Sequelize } from 'sequelize-typescript';
+import { CustomerModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/customer.model';
 
 const models = [CustomerModel, WalletModel];
 

@@ -1,6 +1,6 @@
 import { Min } from 'class-validator';
-import { Notification } from '../../../../../libs/common/src/core/validator/notification';
-import { ClassValidatorFields } from '../../../../../libs/common/src/core/validator/class-validator-fields';
+import { Notification } from '../../../../../libs/common/src/core/application/validator/notification';
+import { ClassValidatorFields } from '../../../../../libs/common/src/core/application/validator/class-validator-fields';
 import { Wallet } from '../../domain/entity/wallet';
 
 export class WalletRules {

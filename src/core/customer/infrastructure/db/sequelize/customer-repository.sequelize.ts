@@ -1,13 +1,13 @@
 import { Op } from 'sequelize';
 import { CustomerRepository } from '../../../domain/customer.repository';
 import { Customer } from '../../../domain/entity/customer';
-import { CustomerMapper } from './customer.mapper';
-import { CustomerModel } from './customer.model';
-import { WalletModel } from './wallet.model';
-import { WalletMapper } from './wallet.mapper';
+import { WalletModel } from './models/wallet.model';
 import { UnitOfWorkSequelize } from '../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { SearchParam } from '../../../../../../libs/common/src/core/database/search-param';
 import { SearchResult } from '../../../../../../libs/common/src/core/database/search-result';
+import { CustomerModel } from './models/customer.model';
+import { CustomerMapper } from './mapper/customer.mapper';
+import { WalletMapper } from './mapper/wallet.mapper';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];

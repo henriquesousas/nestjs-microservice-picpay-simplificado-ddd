@@ -1,8 +1,8 @@
 export type SearchParamsConstructorProps<Filter = string> = {
   page?: number;
-  perPage?: number;
+  per_page?: number;
   sort?: string | null;
-  sortDirection?: SortDirection | null;
+  sort_dir?: SortDirection | null;
   filter?: Filter | null;
 };
 
@@ -17,9 +17,9 @@ export class SearchParam<Filter = string> {
 
   constructor(props: SearchParamsConstructorProps<Filter> = {}) {
     this._page = props.page!;
-    this._perPage = props.perPage!;
+    this._perPage = props.per_page!;
     this._sort = props.sort!;
-    this._sortDirection = props.sortDirection!;
+    this._sortDirection = props.sort_dir!;
     this._filter = props.filter!;
   }
 

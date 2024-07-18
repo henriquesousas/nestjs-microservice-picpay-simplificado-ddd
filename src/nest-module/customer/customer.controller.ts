@@ -12,9 +12,15 @@ import {
 import { CreateCustomerRequestDto } from './dto/create-customer-request.dto';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
-import { CustomerPresenter, WalletPresenter } from './customer.presenter';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
 import { SearchCustomerRequest } from './dto/search-customer-resquest.dto';
+
+import { PaginationOutput } from '../../../libs/common/src/core/application/pagination-output.mapper';
+import {
+  CustomerOutput,
+  WalleteOutput,
+} from '../../core/customer/application/usecase/customer-output.mapper';
+import { ListCustomerUseCase } from '../../core/customer/application/usecase/list-customer/list-customer.usecase';
 
 @Controller('customer')
 export class CustomerController {
@@ -26,6 +32,9 @@ export class CustomerController {
 
   @Inject(GetBalanceUseCase)
   private readonly getBalanceUseCase: GetBalanceUseCase;
+
+  @Inject(ListCustomerUseCase)
+  private readonly listCustomerUsecase: ListCustomerUseCase;
 
   @Post()
   @HttpCode(201)
@@ -50,15 +59,15 @@ export class CustomerController {
   async getCustomer(
     @Param('customerId', new ParseUUIDPipe({ errorHttpStatusCode: 422 }))
     customerId: string,
-  ): Promise<CustomerPresenter> {
-    const [customer, error] = (
+  ): Promise<CustomerOutput> {
+    const [customerOutput, error] = (
       await this.getCustomerUseCase.execute(customerId)
     ).asArray();
 
     if (error) {
       throw error;
     }
-    return CustomerPresenter.build(customer);
+    return customerOutput;
   }
 
   @Get('/balance/:customerId')
@@ -66,8 +75,8 @@ export class CustomerController {
   async getBalance(
     @Param('customerId', new ParseUUIDPipe({ errorHttpStatusCode: 422 }))
     customerId: string,
-  ): Promise<WalletPresenter> {
-    const [wallet, error] = (
+  ): Promise<WalleteOutput> {
+    const [walletOutput, error] = (
       await this.getBalanceUseCase.execute(customerId)
     ).asArray();
 
@@ -75,12 +84,18 @@ export class CustomerController {
       throw error;
     }
 
-    return WalletPresenter.build(wallet);
+    return walletOutput;
   }
 
   @Get()
   @HttpCode(200)
-  async search(@Query() query: SearchCustomerRequest) {
-    return query;
+  async search(
+    @Query() request: SearchCustomerRequest,
+  ): Promise<PaginationOutput<CustomerOutput>> {
+    try {
+      return await this.listCustomerUsecase.execute(request);
+    } catch (error) {
+      throw error;
+    }
   }
 }

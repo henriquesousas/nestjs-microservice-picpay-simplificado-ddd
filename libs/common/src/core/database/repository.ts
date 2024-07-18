@@ -1,4 +1,4 @@
-import { Entity } from '@app/common/core/entity/entity';
+import { Entity } from '../domain/entity/entity';
 
 export interface Repository<E extends Entity> {
   insert(entity: E): Promise<void>;

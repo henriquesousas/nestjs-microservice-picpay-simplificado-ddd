@@ -1,6 +1,7 @@
+import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
 import { IDomainEventIntegration } from '../../../../../libs/common/src/core/event/domain-event-integration';
 import { IDomainEvent } from '../../../../../libs/common/src/core/event/domain.event';
-import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
+
 import { Customer } from '../entity/customer';
 
 export class CustomerCreatedEvent implements IDomainEvent {

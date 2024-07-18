@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
-import { EntityValidationException } from '../../core/exception/entity-validation.exception';
+import { EntityValidationException } from '../../core/domain/exception/entity-validation.exception';
 
 //TODO: Testar essa classe
 @Catch(EntityValidationException)

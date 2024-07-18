@@ -1,6 +1,6 @@
 import EventEmitter2 from 'eventemitter2';
 import { Entity } from './entity';
-import { IDomainEvent } from '../event/domain.event';
+import { IDomainEvent } from '../../event/domain.event';
 
 export abstract class AggregateRoot extends Entity {
   events: Set<IDomainEvent> = new Set<IDomainEvent>();

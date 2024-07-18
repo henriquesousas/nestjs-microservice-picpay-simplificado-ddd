@@ -1,6 +1,6 @@
 import { RabbitMQMessageBroker } from '../rabbitmq-message-broker';
 import { IDomainEvent } from '../../../event/domain.event';
-import { Uuid } from '../../../value-object/uuid';
+import { Uuid } from '../../../domain/entity/value-object/uuid';
 import { EVENSTS_MESSAGE_BROKER_CONFIG } from '../../events-message-broker.config';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { IDomainEventIntegration } from '../../../event/domain-event-integration';

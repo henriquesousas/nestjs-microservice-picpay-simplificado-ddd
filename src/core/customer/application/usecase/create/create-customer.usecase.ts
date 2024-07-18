@@ -1,12 +1,13 @@
-import { UseCase } from '@app/common/core/usecase/usecase';
+import { UseCase } from '@app/common/core/application/usecase/usecase';
 import { CreateCustomerDto } from './create-customer.dto';
 import { Either } from '@app/common/core/types/either';
 import { CustomerRepository } from 'src/core/customer/domain/customer.repository';
 import { CustomerAlreadyExistException } from 'src/core/customer/domain/exception/customer-already-exist.exception';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerBuilder } from '../../../domain/customer.builder';
-import { ApplicationService } from '../../../../../../libs/common/src/core/usecase/application.service';
-import { EntityValidationException } from '../../../../../../libs/common/src/core/exception/entity-validation.exception';
+
+import { EntityValidationException } from '../../../../../../libs/common/src/core/domain/exception/entity-validation.exception';
+import { ApplicationService } from '../../../../../../libs/common/src/core/application/application.service';
 
 export type CustomerOutputDto = Either<Customer>;
 

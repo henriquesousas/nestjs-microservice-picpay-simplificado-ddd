@@ -1,6 +1,6 @@
-import { Flunt } from '../../../../../libs/common/src/core/validator/flunt';
-import { Notification } from '../../../../../libs/common/src/core/validator/notification';
-import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
+import { Flunt } from '../../../../../libs/common/src/core/application/validator/flunt';
+import { Notification } from '../../../../../libs/common/src/core/application/validator/notification';
+import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
 
 export type NameConstructorProps = {
   firstName: string;
