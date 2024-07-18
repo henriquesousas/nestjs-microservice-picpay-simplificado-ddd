@@ -5,14 +5,14 @@ import { AggregateRoot } from '../../domain/entity/aggregate_root';
 import { Uuid } from '../../domain/value-object/uuid';
 
 class StubEvent implements IDomainEvent {
-  aggregateId: Uuid;
+  aggregateId: string;
   occurredOn: Date;
   eventVersion: number;
   payload: string;
 
   constructor(payload: string) {
     this.occurredOn = new Date();
-    this.aggregateId = new Uuid();
+    this.aggregateId = new Uuid().id;
     this.eventVersion = 1;
     this.payload = payload;
   }
@@ -24,6 +24,7 @@ class StubAggregateRoot extends AggregateRoot {
   getUUid(): Uuid {
     return new Uuid();
   }
+
   name: string;
 
   async fakeMethodNameToUpperCase(name: string): Promise<void> {

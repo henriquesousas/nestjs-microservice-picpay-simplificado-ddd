@@ -18,10 +18,11 @@ export class CustomerCreatedInQueueHandler
 
   constructor(private readonly messageBroker: IMessageBroker) {}
 
-  //TODO: não publica todas as informacoes do objeto
   @OnEvent(CustomerCreatedIntegrationEvent.name)
-  async handle(event: CustomerCreatedIntegrationEvent): Promise<void> {
-    // console.log('Publicando na fila', event);
-    await this.messageBroker.publishEvent(event);
+  async handle(
+    createdCustomerEvent: CustomerCreatedIntegrationEvent,
+  ): Promise<void> {
+    const { event, ...rest } = createdCustomerEvent;
+    await this.messageBroker.publishEvent(rest);
   }
 }

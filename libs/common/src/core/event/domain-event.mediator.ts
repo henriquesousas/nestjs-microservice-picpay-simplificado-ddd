@@ -21,7 +21,9 @@ export class DomainEventMediator {
   async publishIntegrationEvents(aggregateRoot: AggregateRoot): Promise<void> {
     for (const event of aggregateRoot.events) {
       const integrationEvent = event.getIntegrationEvent?.();
+
       if (!integrationEvent) continue;
+
       await this.eventEmitter.emitAsync(
         integrationEvent.constructor.name,
         integrationEvent,

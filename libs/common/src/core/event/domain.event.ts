@@ -1,8 +1,7 @@
-import { Uuid } from '../domain/value-object/uuid';
 import { IDomainEventIntegration } from './domain-event-integration';
 
 export interface IDomainEvent {
-  aggregateId: Uuid;
+  aggregateId: string;
   occurredOn: Date;
   eventVersion: number;
 
