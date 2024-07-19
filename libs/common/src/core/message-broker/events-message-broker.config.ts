@@ -2,8 +2,9 @@ import { CustomerCreatedIntegrationEvent } from '../../../../../src/core/custome
 
 export const EVENSTS_MESSAGE_BROKER_CONFIG = {
   [CustomerCreatedIntegrationEvent.name]: {
-    exchange: 'amq.direct',
-    routing_key: CustomerCreatedIntegrationEvent.name,
+    exchange: 'amq.topic',
+    // routing_key: CustomerCreatedIntegrationEvent.name,
+    routing_key: 'customer-created.notification',
   },
   TestEvent: {
     exchange: 'test-exchange',

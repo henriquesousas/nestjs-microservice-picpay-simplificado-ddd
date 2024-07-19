@@ -1,10 +1,11 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigModule } from '../libs/common/src/nestjs/config/config.module';
+import { ConfigModule } from '@app/common/nestjs/config/config.module';
+import { DatabaseModule } from '@app/common/nestjs/database/sequelize/database.module';
+import { EventModule } from '@app/common/nestjs/event/event.module';
+import { UseCaseModule } from '@app/common/nestjs/usecase/usecase.module';
+import { MyRabbitMQModule } from '@app/common/nestjs/message-broker/rabbitmq/my-rabbitmq.module';
 import { CustomerModule } from './nest-module/customer/customer.module';
-import { DatabaseModule } from '../libs/common/src/nestjs/database/sequelize/database.module';
-import { EventModule } from '../libs/common/src/nestjs/event/event.module';
-import { UseCaseModule } from '../libs/common/src/nestjs/usecase/usecase.module';
-import { MyRabbitMQModule } from '../libs/common/src/nestjs/message-broker/rabbitmq/my-rabbitmq.module';
+import { NotificationModule } from './nest-module/notification/notification.module';
 
 @Global()
 @Module({
@@ -15,6 +16,7 @@ import { MyRabbitMQModule } from '../libs/common/src/nestjs/message-broker/rabbi
     DatabaseModule,
     EventModule,
     CustomerModule,
+    NotificationModule,
   ],
   providers: [],
 })
