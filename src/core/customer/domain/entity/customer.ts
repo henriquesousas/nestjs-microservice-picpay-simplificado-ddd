@@ -10,11 +10,6 @@ import { AggregateRoot } from '../../../../../libs/common/src/core/domain/entity
 
 export class CustomerId extends Uuid {}
 
-export enum DocumentType {
-  CPF = 'CPF',
-  CNPJ = 'CNPJ',
-}
-
 export type CustomerConstructorProps = {
   readonly customerId?: CustomerId;
   readonly name: Name;
