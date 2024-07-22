@@ -13,15 +13,21 @@ export class TransactionId extends Uuid {}
 
 export type TransactionConstructorProps = {
   transaction_id: TransactionId;
-  occurred_on: Date;
   type: TransactionType;
   sender: Customer;
+  occurred_on?: Date;
   receiver?: Customer;
 };
 
 export class Transaction extends AggregateRoot {
   constructor(readonly props: TransactionConstructorProps) {
     super();
+
+    this.props = {
+      ...props,
+      occurred_on: props.occurred_on ?? new Date(),
+    };
+
     this.registerDomainEventHandlers();
     this.applyEvent(new TransactionCreatedEvent());
   }

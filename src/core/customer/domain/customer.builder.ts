@@ -2,7 +2,6 @@ import {
   Customer,
   CustomerConstructorProps,
   CustomerId,
-  DocumentType,
 } from './entity/customer';
 import { CustomerCorporate } from './entity/customer-corporate';
 import { CustomerRegular } from './entity/customer-regular';
@@ -11,6 +10,7 @@ import { Password } from './value-object/password';
 import { Wallet } from './entity/wallet';
 import { Name } from './value-object/name';
 import { DocumentFactory } from './factory/document.factory';
+import { DocumentType } from './document-type';
 
 export type customerBuildProps = {
   firstName: string;
