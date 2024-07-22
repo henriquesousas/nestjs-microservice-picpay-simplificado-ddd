@@ -11,6 +11,10 @@ export class Customer extends ValueObject {
     super();
   }
 
+  getId(): string {
+    return this.customer_id.id;
+  }
+
   getBalance(): number {
     return this.balance;
   }

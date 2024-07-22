@@ -1,5 +1,6 @@
 import { Customer } from './entity/customer';
 import {
+  CustomerId,
   Transaction,
   TransactionId,
   TransactionType,
@@ -8,24 +9,30 @@ import {
 export type TransactionBuilderConstructorProps = {
   transaction_id: TransactionId;
   type: TransactionType;
-  sender: Customer;
-  receiver?: Customer;
+  sender: CustomerId;
+  amount: number;
+  receiver?: CustomerId;
 };
 
 export class TransactionBuilder {
   constructor(private props: TransactionBuilderConstructorProps) {}
 
-  withReceiver(receiver: Customer): TransactionBuilder {
-    this.props.receiver = receiver;
+  withReceiver(receiver?: CustomerId): TransactionBuilder {
+    if (receiver) {
+      this.props.receiver = receiver;
+    }
+
     return this;
   }
 
   build(): Transaction {
-    const { transaction_id, type, sender } = this.props;
+    const { transaction_id, type, amount, sender, receiver } = this.props;
     return new Transaction({
       transaction_id,
-      sender,
       type,
+      sender,
+      receiver,
+      amount,
     });
   }
 }

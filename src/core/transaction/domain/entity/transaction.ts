@@ -11,12 +11,15 @@ export enum TransactionType {
 
 export class TransactionId extends Uuid {}
 
+export class CustomerId extends Uuid {}
+
 export type TransactionConstructorProps = {
   transaction_id: TransactionId;
   type: TransactionType;
-  sender: Customer;
+  amount: number;
+  sender: CustomerId;
+  receiver?: CustomerId;
   occurred_on?: Date;
-  receiver?: Customer;
 };
 
 export class Transaction extends AggregateRoot {

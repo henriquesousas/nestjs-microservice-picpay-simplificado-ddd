@@ -1,5 +1,6 @@
 import { Entity } from '../domain/entity/entity';
 
+//TODO: Unificar esses métodos para que nem todas as classes precisem implementar esses métodos
 export interface Repository<E extends Entity> {
   insert(entity: E): Promise<void>;
   insertMany(entities: E[]): Promise<void>;

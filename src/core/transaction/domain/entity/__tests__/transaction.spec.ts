@@ -22,6 +22,7 @@ describe('Transaction Unit Tests', () => {
     const sut = new Transaction(props);
     expect(sut.props.sender.getBalance()).toBe(100);
     expect(sut.props.receiver!.getBalance()).toBe(0);
+    expect(sut.notification.hasErrors()).toBe(false);
   });
 
   it('should create an transaction with error when not provide an receiver', async () => {

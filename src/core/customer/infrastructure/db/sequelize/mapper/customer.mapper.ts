@@ -1,9 +1,6 @@
 import { CustomerBuilder } from '../../../../domain/customer.builder';
-import {
-  Customer,
-  CustomerId,
-  DocumentType,
-} from '../../../../domain/entity/customer';
+import { DocumentType } from '../../../../domain/document-type';
+import { Customer, CustomerId } from '../../../../domain/entity/customer';
 import { CustomerModel } from '../models/customer.model';
 import { WalletMapper } from './wallet.mapper';
 
