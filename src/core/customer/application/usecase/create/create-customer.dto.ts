@@ -1,4 +1,4 @@
-import { DocumentType } from '../../../domain/entity/customer';
+import { DocumentType } from '../../../domain/document-type';
 
 export class CreateCustomerDto {
   firstName: string;

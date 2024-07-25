@@ -1,8 +1,8 @@
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
-import { DocumentType } from '../entity/customer';
 
 import { Document } from '../document';
 import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
+import { DocumentType } from '../document-type';
 
 export class Cnpj extends ValueObject implements Document {
   constructor(private value: string) {

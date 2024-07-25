@@ -7,6 +7,7 @@ import { CustomerCreatedEvent } from '../events/customer-created.event';
 import { Document } from '../document';
 import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
 import { AggregateRoot } from '../../../../../libs/common/src/core/domain/entity/aggregate_root';
+import { DocumentType } from '../document-type';
 
 export class CustomerId extends Uuid {}
 

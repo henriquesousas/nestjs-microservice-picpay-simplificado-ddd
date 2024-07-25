@@ -6,7 +6,7 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
-import { DocumentType } from '../../../core/customer/domain/entity/customer';
+import { DocumentType } from '../../../core/customer/domain/document-type';
 
 export class CreateCustomerRequestDto {
   @MinLength(3)

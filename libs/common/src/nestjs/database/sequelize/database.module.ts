@@ -6,8 +6,9 @@ import { WalletModel } from '../../../../../../src/core/customer/infrastructure/
 import { UnitOfWorkSequelize } from './unit-of-work.sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { CustomerModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/customer.model';
+import { TransactionModel } from '../../../../../../src/core/transaction/infrastructure/db/sequelize/model/transaction.model';
 
-const models = [CustomerModel, WalletModel];
+const models = [CustomerModel, WalletModel, TransactionModel];
 
 @Global()
 @Module({

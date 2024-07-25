@@ -19,27 +19,7 @@ export class Customer extends ValueObject {
     return this.balance;
   }
 
-  credit(amount: number) {
-    this.balance += Number(amount);
-  }
-
-  debit(amount: number) {
-    if (this.balance < amount) {
-      this.notification.addError('Saldo insuficiente');
-      return;
-    }
-    this.balance -= Number(amount);
-  }
-
-  transference(receiver: Customer, amount: number) {
-    if (!this.canMakeTransference) {
-      this.notification.addError('Transação não autorizada');
-      return;
-    }
-    this.debit(amount);
-
-    if (!this.notification.hasErrors()) {
-      receiver.credit(amount);
-    }
+  getCanMakeTransference(): boolean {
+    return this.canMakeTransference;
   }
 }

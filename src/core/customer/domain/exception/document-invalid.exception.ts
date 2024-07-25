@@ -1,5 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
-import { DocumentType } from '../entity/customer';
+import { DocumentType } from '../document-type';
 
 export class DocumentInvalidException extends BadRequestException {
   constructor(type: DocumentType) {

@@ -1,5 +1,5 @@
 import { Document } from '../document';
-import { DocumentType } from '../entity/customer';
+import { DocumentType } from '../document-type';
 import { Cnpj } from '../value-object/cnpj';
 import { Cpf } from '../value-object/cpf';
 

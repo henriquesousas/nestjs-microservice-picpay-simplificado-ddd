@@ -1,6 +1,6 @@
 import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
 import { Document } from '../document';
-import { DocumentType } from '../entity/customer';
+import { DocumentType } from '../document-type';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 
 export class Cpf extends ValueObject implements Document {

@@ -1,38 +1,63 @@
-import { Customer } from './entity/customer';
 import {
   CustomerId,
   Transaction,
+  TransactionConstructorProps,
   TransactionId,
   TransactionType,
 } from './entity/transaction';
-
-export type TransactionBuilderConstructorProps = {
-  transaction_id: TransactionId;
-  type: TransactionType;
-  sender: CustomerId;
-  amount: number;
-  receiver?: CustomerId;
-};
+import { Uuid } from '../../../../libs/common/src/core/domain/value-object/uuid';
+import { EnumHelper } from '../../../../libs/common/src/core/helper/enum-helper';
 
 export class TransactionBuilder {
-  constructor(private props: TransactionBuilderConstructorProps) {}
+  private sender: CustomerId;
+  private transaction_id?: TransactionId;
+  private occurred_on?: Date;
+  private amount?: number;
+  private receiver?: CustomerId;
+  private type?: TransactionType;
 
-  withReceiver(receiver?: CustomerId): TransactionBuilder {
-    if (receiver) {
-      this.props.receiver = receiver;
+  constructor(sender: string) {
+    this.sender = new CustomerId(sender);
+  }
+
+  withTransactionId(id: string): TransactionBuilder {
+    this.transaction_id = new Uuid(id);
+    return this;
+  }
+
+  withAmount(amount: number): TransactionBuilder {
+    this.amount = amount;
+    return this;
+  }
+
+  withType(type: string): TransactionBuilder {
+    const enumValue = EnumHelper.getEnumValue(TransactionType, type);
+    if (enumValue) {
+      this.type = enumValue as TransactionType;
     }
 
     return this;
   }
 
+  withReceiver(id: string): TransactionBuilder {
+    this.receiver = new CustomerId(id);
+    return this;
+  }
+
+  withOccuredOd(date: Date): TransactionBuilder {
+    this.occurred_on = date;
+    return this;
+  }
+
   build(): Transaction {
-    const { transaction_id, type, amount, sender, receiver } = this.props;
-    return new Transaction({
-      transaction_id,
-      type,
-      sender,
-      receiver,
-      amount,
-    });
+    const props: TransactionConstructorProps = {
+      sender: this.sender,
+      transaction_id: this.transaction_id,
+      occurred_on: this.occurred_on,
+      amount: this.amount,
+      receiver: this.receiver,
+      type: this.type,
+    };
+    return new Transaction(props);
   }
 }

@@ -1,5 +1,6 @@
 import { Document } from '../../domain/document';
-import { Customer, DocumentType } from '../../domain/entity/customer';
+import { DocumentType } from '../../domain/document-type';
+import { Customer } from '../../domain/entity/customer';
 import { Wallet } from '../../domain/entity/wallet';
 
 export type WalleteOutput = {

@@ -7,8 +7,8 @@ import { ConfigService } from '@nestjs/config';
     HttpAxiosModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        timeout: configService.get('HTTP_TIMEOUT'),
-        maxRedirects: configService.get('HTTP_MAX_REDIRECTS'),
+        timeout: 5000,
+        maxRedirects: 5,
       }),
     }),
   ],
