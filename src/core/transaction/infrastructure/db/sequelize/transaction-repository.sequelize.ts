@@ -12,15 +12,16 @@ export class TransactionRepositorySequelize implements TransactionReposytory {
 
   async insert(entity: Transaction): Promise<void> {
     const transactionOrmModel = TransactionMapper.toOrmModel(entity).toJSON();
+    const transaction = this.uow.getTransaction();
     await this.transactionModel.create(transactionOrmModel, {
-      transaction: this.uow.getTransaction(),
+      transaction,
     });
 
     this.uow.addAggregateRoot(entity);
   }
 
   //TODO: Transaction poderia ter um status e ser alterado via fila RMQS
-  update(entity: Transaction): Promise<boolean> {
+  async update(entity: Transaction): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
@@ -29,15 +30,15 @@ export class TransactionRepositorySequelize implements TransactionReposytory {
     return model ? TransactionMapper.toEntity(model) : null;
   }
 
-  delete(entityId: string): Promise<boolean> {
+  async delete(entityId: string): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
-  insertMany(entities: Transaction[]): Promise<void> {
+  async insertMany(entities: Transaction[]): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  findAll(): Promise<Transaction[]> {
+  async findAll(): Promise<Transaction[]> {
     throw new Error('Method not implemented.');
   }
 }

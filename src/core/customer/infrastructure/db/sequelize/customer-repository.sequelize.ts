@@ -21,6 +21,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   async insert(customer: Customer): Promise<void> {
     const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
     const transaction = this.uow.getTransaction();
+
     //cria o cliente
     await this.customerModel.create(customerProps, {
       transaction,

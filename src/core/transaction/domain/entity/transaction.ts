@@ -1,8 +1,6 @@
 import { AggregateRoot } from '../../../../../libs/common/src/core/domain/entity/aggregate_root';
 import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
-import { DidCreditOrDebitEvent } from '../event/did-credit-or-debit.event';
-import { DidTransferenceEvent } from '../event/did-transference.event';
-import { TransactionCreatedEvent } from '../event/transaction-cretated.event';
+import { TransactionCreatedEvent } from '../event/transaction-created.event';
 import { Customer } from './customer';
 
 export enum TransactionType {
@@ -10,14 +8,6 @@ export enum TransactionType {
   DEBIT = 'DEBIT',
   TRANSFERENCE = 'TRANSFERENCE',
 }
-
-//   getStatusFromString(type: string): void {
-// //   if (Object.values(Color).includes(colorString as TransactionType)) {
-// //     return colorString as TransactionType;
-// //   }
-
-// // return undefined;
-// }
 
 export class TransactionId extends Uuid {}
 
@@ -28,11 +18,11 @@ export class CustomerId extends Uuid {
 }
 
 export type TransactionConstructorProps = {
-  readonly sender: CustomerId;
-  readonly transaction_id?: TransactionId;
-  readonly occurred_on?: Date;
+  sender: CustomerId;
+  transaction_id?: TransactionId;
+  occurred_on?: Date;
   amount?: number;
-  receiver?: CustomerId;
+  receiver?: CustomerId | null;
   type?: TransactionType;
 };
 
@@ -52,71 +42,78 @@ export class Transaction extends AggregateRoot {
     return this.props.transaction_id!;
   }
 
-  debit(customer: Customer, value: number) {
-    if (value > customer.getBalance()) {
-      this.notification.addError('Saldo insuficiente');
-      return;
+  debit(customer: Customer, amount: number) {
+    this.validateBalance(customer, amount);
+
+    if (!this.notification.hasErrors()) {
+      this.applyEvent(
+        new TransactionCreatedEvent(
+          this.getUUid().id,
+          this.props.occurred_on!,
+          amount,
+          TransactionType.DEBIT,
+          customer.getId(),
+        ),
+      );
     }
-    this.props.amount = value;
-    this.applyEvent(new DidCreditOrDebitEvent(TransactionType.DEBIT));
   }
 
-  credit(value: number) {
-    this.props.amount = value;
-    this.applyEvent(new DidCreditOrDebitEvent(TransactionType.CREDIT));
+  credit(amount: number) {
+    this.applyEvent(
+      new TransactionCreatedEvent(
+        this.getUUid().id,
+        this.props.occurred_on!,
+        amount,
+        TransactionType.CREDIT,
+        this.props.sender.id,
+      ),
+    );
   }
 
-  transference(sender: Customer, receiver: Customer, value: number): void {
+  transference(sender: Customer, receiver: Customer, amount: number): void {
     if (!sender.getCanMakeTransference()) {
       this.notification.addError('Transação não autorizada');
       return;
     }
 
-    this.debit(sender, value);
+    this.validateBalance(sender, amount);
+
     if (!this.notification.hasErrors()) {
-      this.applyEvent(new DidTransferenceEvent(receiver.getId(), value));
+      this.applyEvent(
+        new TransactionCreatedEvent(
+          this.getUUid().id,
+          this.props.occurred_on!,
+          amount,
+          TransactionType.TRANSFERENCE,
+          this.props.sender.id,
+          receiver.getId(),
+        ),
+      );
     }
+  }
+
+  private validateBalance(customer: Customer, amount: number): boolean {
+    if (amount > customer.getBalance()) {
+      this.notification.addError('Saldo insuficiente');
+      return false;
+    }
+
+    return true;
   }
 
   private registerDomainEventHandlers(): void {
     this.registerHandler(
       TransactionCreatedEvent.name,
-      this.onTransactionCreatedHandle.bind(this),
-    );
-
-    this.registerHandler(
-      DidTransferenceEvent.name,
-      this.onDidTransferenceTransactionEventHandler.bind(this),
-    );
-
-    this.registerHandler(
-      DidCreditOrDebitEvent.name,
-      this.onDidCreditOrDebitTransactionEventHandler.bind(this),
+      this.onTransactionEventHandler.bind(this),
     );
   }
 
-  private onDidTransferenceTransactionEventHandler(
-    event: DidTransferenceEvent,
-  ) {
-    this.props.type = TransactionType.TRANSFERENCE;
-    this.props.amount = event.value;
-    this.props.receiver = new Uuid(event.receiver);
-  }
-
-  private onDidCreditOrDebitTransactionEventHandler(
-    event: DidCreditOrDebitEvent,
-  ) {
+  private onTransactionEventHandler(event: TransactionCreatedEvent) {
+    this.props.amount = event.amount;
     this.props.type = event.type;
-  }
-
-  private onTransactionCreatedHandle() {
-    // if (this.sender.notification.hasErrors()) {
-    //   this.notification.copyErrors(this.sender.notification);
-    // }
-    // if (this.type === TransactionType.TRANSFERENCE && !this.receiver) {
-    //   this.notification.addError(
-    //     'Precisa informar para quem é a transfêrencia',
-    //   );
-    // }
+    this.props.sender = new CustomerId(event.sender);
+    this.props.receiver = !event.receiver
+      ? null
+      : new CustomerId(event.receiver);
   }
 }

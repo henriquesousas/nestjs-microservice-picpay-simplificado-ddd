@@ -10,6 +10,7 @@ export class TransactionMapper {
       sender: entity.props.sender.id,
       receiver: entity.props.receiver?.id,
       occurred_on: entity.props.occurred_on,
+      amount: entity.props.amount ?? 0,
     });
   }
 
@@ -18,7 +19,7 @@ export class TransactionMapper {
       .withTransactionId(model.transaction_id)
       .withAmount(model.amount)
       .withReceiver(model.receiver)
-      .withType(model.type.toString())
+      .withType(model.type)
       .build();
   }
 }

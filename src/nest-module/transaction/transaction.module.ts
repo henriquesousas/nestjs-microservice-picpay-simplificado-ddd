@@ -12,6 +12,11 @@ import { getModelToken } from '@nestjs/sequelize';
 import { TransactionModel } from '../../core/transaction/infrastructure/db/sequelize/model/transaction.model';
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { DatabaseModule } from '../../../libs/common/src/nestjs/database/sequelize/database.module';
+import { ApplicationService } from '../../../libs/common/src/core/application/application.service';
+import { TransactionCreatedIntegrationEvent } from '../../core/transaction/domain/event/transaction-cretated-integration.event';
+import { IMessageBroker } from '../../../libs/common/src/core/message-broker/message-broker.interface';
+import { TransactionCreatedEvent } from '../../core/transaction/domain/event/transaction-created.event';
+import { TransactionCreatedEventHandler } from '../../core/transaction/application/handler/transaction-created-event.handler';
 
 @Module({
   imports: [HttpModule, DatabaseModule.forFeature([TransactionModel])],
@@ -39,10 +44,26 @@ import { DatabaseModule } from '../../../libs/common/src/nestjs/database/sequeli
       useFactory: (
         repository: TransactionReposytory,
         customerService: CustomerService,
+        applicationService: ApplicationService,
       ) => {
-        return new TransferenceUseCase(repository, customerService);
+        return new TransferenceUseCase(
+          repository,
+          customerService,
+          applicationService,
+        );
       },
-      inject: [TransactionRepositorySequelize, CustomerServiceAxios],
+      inject: [
+        TransactionRepositorySequelize,
+        CustomerServiceAxios,
+        ApplicationService,
+      ],
+    },
+    {
+      provide: TransactionCreatedEventHandler,
+      useFactory: (messageBroker: IMessageBroker) => {
+        return new TransactionCreatedEventHandler(messageBroker);
+      },
+      inject: ['IMessageBroker'],
     },
   ],
 })

@@ -20,6 +20,6 @@ export class NotificationConsumer {
    * Este método esta consumindo a fila de noticacao que é uma exchange do tipo topic
    */
   onNotification(message: any) {
-    console.log(message);
+    console.log('Notificaiton consumer', message);
   }
 }

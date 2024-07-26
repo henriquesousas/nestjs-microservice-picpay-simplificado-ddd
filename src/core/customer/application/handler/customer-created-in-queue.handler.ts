@@ -1,8 +1,12 @@
 import { OnEvent } from '@nestjs/event-emitter';
-import { CustomerCreatedIntegrationEvent } from '../../domain/events/customer-created.event';
+import {
+  CustomerCreatedEvent,
+  CustomerCreatedIntegrationEvent,
+} from '../../domain/events/customer-created.event';
 import { IDomainEvenIntegrationtHandler } from '../../../../../libs/common/src/core/event/domain-event.handler';
 import { IMessageBroker } from '../../../../../libs/common/src/core/message-broker/message-broker.interface';
 
+//TODO: Renomear para CustomerCreatedIntegrationInQueueHandler
 export class CustomerCreatedInQueueHandler
   implements IDomainEvenIntegrationtHandler
 {

@@ -12,6 +12,7 @@ export type TransactionModelProps = {
   occurred_on?: Date;
   sender: string;
   receiver?: string;
+  amount: number;
 };
 
 @Table({ tableName: 'transaction', timestamps: false })
@@ -32,6 +33,6 @@ export class TransactionModel extends Model<TransactionModelProps> {
   @Column({ allowNull: true, type: DataType.TEXT })
   declare receiver: string;
 
-  @Column({ type: DataType.REAL })
+  @Column({ allowNull: false, type: DataType.REAL })
   declare amount: number;
 }

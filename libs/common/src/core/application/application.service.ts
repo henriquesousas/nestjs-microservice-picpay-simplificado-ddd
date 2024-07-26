@@ -17,6 +17,8 @@ export class ApplicationService {
       //Não necessariamente esse puslish será em uma fila, pode ser uma regra de negócio, neste caso
       //não podemos dar um commit sem ante se certificar que toda a regra foi executado com sucesso.
       //Para isso foi criado um DomainEventIntegration.
+
+      //Vai chamar um handler (neste caso não tem nenhum handle pra esse evento)
       await this.domainEventMediador.publish(aggregateRoot);
     }
     this.uow.commit();
