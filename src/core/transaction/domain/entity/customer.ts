@@ -22,4 +22,8 @@ export class Customer extends ValueObject {
   getCanMakeTransference(): boolean {
     return this.canMakeTransference;
   }
+
+  getName(): string {
+    return this.name;
+  }
 }

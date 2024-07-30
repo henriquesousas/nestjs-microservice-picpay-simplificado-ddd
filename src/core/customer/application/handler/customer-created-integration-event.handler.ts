@@ -7,7 +7,7 @@ import { IDomainEvenIntegrationtHandler } from '../../../../../libs/common/src/c
 import { IMessageBroker } from '../../../../../libs/common/src/core/message-broker/message-broker.interface';
 
 //TODO: Renomear para CustomerCreatedIntegrationInQueueHandler
-export class CustomerCreatedInQueueHandler
+export class CustomerCreatedIntegrationEventHandler
   implements IDomainEvenIntegrationtHandler
 {
   /**

@@ -3,7 +3,7 @@ import { IDomainEvenIntegrationtHandler } from '../../../../../libs/common/src/c
 import { TransactionCreatedIntegrationEvent } from '../../domain/event/transaction-cretated-integration.event';
 import { IMessageBroker } from '../../../../../libs/common/src/core/message-broker/message-broker.interface';
 
-export class TransactionCreatedEventHandler
+export class TransactionCreatedIntegrationEventHandler
   implements IDomainEvenIntegrationtHandler
 {
   constructor(private readonly messageBroker: IMessageBroker) {}

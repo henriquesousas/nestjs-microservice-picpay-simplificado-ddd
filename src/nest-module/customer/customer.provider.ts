@@ -4,7 +4,7 @@ import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/mod
 import { CustomerRepository } from '../../core/customer/domain/customer.repository';
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
-import { CustomerCreatedInQueueHandler } from '../../core/customer/application/handler/customer-created-in-queue.handler';
+import { CustomerCreatedIntegrationEventHandler } from '../../core/customer/application/handler/customer-created-integration-event.handler';
 
 import { IMessageBroker } from '../../../libs/common/src/core/message-broker/message-broker.interface';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
@@ -73,9 +73,9 @@ export const USECASES = {
 
 export const HANDLERS = {
   CUSTOMER_CREATED_IN_QUEUE_HANDLER: {
-    provide: CustomerCreatedInQueueHandler,
+    provide: CustomerCreatedIntegrationEventHandler,
     useFactory: (messageBroker: IMessageBroker) => {
-      return new CustomerCreatedInQueueHandler(messageBroker);
+      return new CustomerCreatedIntegrationEventHandler(messageBroker);
     },
     inject: ['IMessageBroker'],
   },

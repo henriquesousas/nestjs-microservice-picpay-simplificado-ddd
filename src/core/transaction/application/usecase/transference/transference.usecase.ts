@@ -6,12 +6,7 @@ import { TransactionBuilder } from '../../../domain/transaction.builder';
 import { TrasferenceNotAllowed } from '../../../domain/exception/transference-not-allowed.exception';
 import { CustomerService } from '../../service/customer.service';
 import { ApplicationService } from '../../../../../../libs/common/src/core/application/application.service';
-
-export type TransactionInputDto = {
-  amount: number;
-  sender: string;
-  receiver: string;
-};
+import { TransactionInputDto } from '../transaction-input.dto';
 
 export type TransactionOutputDto = Transaction;
 
@@ -36,7 +31,7 @@ export class TransferenceUseCase
     }
 
     const [receiver, errorReceiver] = (
-      await this.customerService.findOne(dto.receiver)
+      await this.customerService.findOne(dto.receiver!)
     ).asArray();
 
     if (!receiver) {
