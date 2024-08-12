@@ -42,7 +42,7 @@ export class CustomerCreatedIntegrationEvent
       first_name: event.customer.props.name.getfirstName,
       sur_name: event.customer.props.name.getSurName,
       balance: event.customer.props.wallet!.balance,
-      email: event.customer.props.email.getEmail(),
+      email: event.customer.props.email.getValue(),
     };
   }
 }

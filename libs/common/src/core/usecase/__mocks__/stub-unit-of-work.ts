@@ -1,5 +1,5 @@
-import { AggregateRoot } from '../../../domain/entity/aggregate_root';
-import { UnitOfWork } from '../../unit-of-work';
+import { UnitOfWork } from '../../application/unit-of-work';
+import { AggregateRoot } from '../../entity/aggregate_root';
 
 export class StubUnitOfWork implements UnitOfWork {
   async start(): Promise<void> {
@@ -18,11 +18,9 @@ export class StubUnitOfWork implements UnitOfWork {
     return workFn(this);
   }
 
-  addAggregateRoot(aggregateRoot: AggregateRoot): void {
-    throw new Error('Method not implemented.');
-  }
+  addAggregateRoot(aggregateRoot: AggregateRoot): void {}
 
   getAggregateRoots(): AggregateRoot[] {
-    throw new Error('Method not implemented.');
+    return [];
   }
 }

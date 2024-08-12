@@ -10,7 +10,7 @@ export class CustomerMapper {
       customerId: entity.getUUid().id,
       firstName: entity.props.name.getfirstName,
       surName: entity.props.name.getSurName,
-      email: entity.props.email.getEmail(),
+      email: entity.props.email.getValue(),
       password: entity.props.password.getValue(),
       document: entity.props.document.getValue(),
       documentType: entity.props.document.getType(),

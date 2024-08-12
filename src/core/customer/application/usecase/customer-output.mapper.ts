@@ -30,7 +30,7 @@ export class CustomerOutputMapper {
       customer_id: entity.props.customerId?.id!,
       first_name: entity.props.name.getfirstName,
       sur_name: entity.props.name.getSurName,
-      email: entity.props.email.getEmail(),
+      email: entity.props.email.getValue(),
       document: {
         number: entity.props.document.getValue(),
         type: entity.props.document.getType(),

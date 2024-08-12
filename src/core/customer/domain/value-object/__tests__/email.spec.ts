@@ -4,7 +4,7 @@ describe('Email unit test', () => {
   it('should create an email', () => {
     const email = 'test@gmail.com';
     const document = new Email(email);
-    expect(document.getEmail()).toBe(email);
+    expect(document.getValue()).toBe(email);
   });
 
   it('should create notify error when if invalid email', () => {

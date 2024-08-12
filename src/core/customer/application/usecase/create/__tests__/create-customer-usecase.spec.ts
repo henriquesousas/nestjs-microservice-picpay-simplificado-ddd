@@ -1,16 +1,16 @@
 import { faker } from '@faker-js/faker';
-import { CustomerRepository } from '../../../../domain/customer.repository';
-import { DocumentType } from '../../../../domain/entity/customer';
-import { CreateCustomerDto } from '../create-customer.dto';
 import { CreateCustomerUseCase } from '../create-customer.usecase';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { Cpf } from '../../../../domain/value-object/cpf';
-import { CustomerAlreadyExistException } from '../../../../domain/exception/customer-already-exist.exception';
 import { CustomerRepositoryStub } from '../../../../infrastructure/db/sequelize/__tests__/mocks/customer-repository.stub';
-import { StubUnitOfWork } from '../../../../../../../libs/common/src/core/application/usecase/__mocks__/stub-unit-of-work';
-import { ApplicationService } from '../../../../../../../libs/common/src/core/application/usecase/application.service';
 import { DomainEventMediator } from '../../../../../../../libs/common/src/core/event/domain-event.mediator';
 import EventEmitter2 from 'eventemitter2';
+import { ApplicationService } from '../../../../../../../libs/common/src/core/application/application.service';
+import { CustomerRepository } from '../../../../domain/repository/customer.repository';
+import { DocumentType } from '../../../../domain/document';
+import { CreateCustomerDto } from '../create-customer.dto';
+import { StubUnitOfWork } from '../../../../../../../libs/common/src/core/usecase/__mocks__/stub-unit-of-work';
+import { CustomerAlreadyExistException } from '../../../../domain/exception/customer-already-exist.exception';
 
 type sutTypes = {
   sut: CreateCustomerUseCase;
@@ -66,9 +66,9 @@ describe('CreateCustomerUseCase Unit Tests', () => {
     expect(result.isOk()).toBe(true);
     const customer = result.ok;
     expect(customer).toBeInstanceOf(CustomerRegular);
-    expect(customer.props.email).toEqual(dto.email);
-    expect(customer.props.password).toEqual(dto.password);
     expect(customer.props.document).toBeInstanceOf(Cpf);
+    expect(customer.props.email.getValue()).toEqual(dto.email);
+    expect(customer.props.password.getValue()).toEqual(dto.password);
     expect(customer.props.document.getValue()).toEqual(dto.document);
     expect(customer.props.document.getType()).toEqual(dto.documentType);
   });

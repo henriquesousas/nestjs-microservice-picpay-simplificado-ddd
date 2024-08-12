@@ -6,7 +6,7 @@ export class Email extends ValueObject {
     this.validate(value);
   }
 
-  getEmail(): string {
+  getValue(): string {
     return this.value;
   }
 

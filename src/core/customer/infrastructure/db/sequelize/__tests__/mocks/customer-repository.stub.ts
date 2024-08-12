@@ -1,8 +1,8 @@
 import { SearchParam } from '../../../../../../../../libs/common/src/core/database/search-param';
 import { SearchResult } from '../../../../../../../../libs/common/src/core/database/search-result';
-import { CustomerRepository } from '../../../../../domain/customer.repository';
 import { Customer } from '../../../../../domain/entity/customer';
 import { CustomerDataBuilderFake } from '../../../../../domain/customer-data-fake-builder';
+import { CustomerRepository } from '../../../../../domain/repository/customer.repository';
 
 export class CustomerRepositoryStub implements CustomerRepository {
   sortableFields: string[] = [];
@@ -32,7 +32,7 @@ export class CustomerRepositoryStub implements CustomerRepository {
   }
 
   async findByEmail(email: string): Promise<Customer> {
-    return CustomerDataBuilderFake.aCustomer().build();
+    return CustomerDataBuilderFake.aCustomerRegular().build();
   }
 
   search(props: SearchParam<string>): Promise<SearchResult<Customer>> {
