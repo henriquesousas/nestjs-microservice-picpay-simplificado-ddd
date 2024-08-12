@@ -1,12 +1,12 @@
-import { CustomerBuilder } from '../../../../domain/customer.builder';
-import { DocumentType } from '../../../../domain/document-type';
+import { CustomerBuilder } from '../../../../domain/builder/customer.builder';
+import { DocumentType } from '../../../../domain/document';
 import { Customer, CustomerId } from '../../../../domain/entity/customer';
-import { CustomerModel } from '../models/customer.model';
+import { CustomerTypeOrmModel } from '../models/customer-typeorm.model';
 import { WalletMapper } from './wallet.mapper';
 
 export class CustomerMapper {
-  static toOrmModel(entity: Customer): CustomerModel {
-    return CustomerModel.build({
+  static toDatabaseModel(entity: Customer): CustomerTypeOrmModel {
+    return CustomerTypeOrmModel.build({
       customerId: entity.getUUid().id,
       firstName: entity.props.name.getfirstName,
       surName: entity.props.name.getSurName,
@@ -19,7 +19,7 @@ export class CustomerMapper {
     });
   }
 
-  static toEntity(model: CustomerModel): Customer {
+  static toEntity(model: CustomerTypeOrmModel): Customer {
     const wallet = WalletMapper.toEntity(model.wallet);
     return new CustomerBuilder({
       customerId: new CustomerId(model.customerId),

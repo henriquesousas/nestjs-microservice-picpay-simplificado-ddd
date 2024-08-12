@@ -6,7 +6,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { WalletModel } from './wallet.model';
+import { WalletTypeOrmModel } from './wallet-typeorm.model';
 
 export type CustomerModelProps = {
   customerId: string;
@@ -21,7 +21,7 @@ export type CustomerModelProps = {
 };
 
 @Table({ tableName: 'customers', timestamps: false })
-export class CustomerModel extends Model<CustomerModelProps> {
+export class CustomerTypeOrmModel extends Model<CustomerModelProps> {
   @PrimaryKey
   @Column({ type: DataType.UUID })
   declare customerId: string;
@@ -50,6 +50,6 @@ export class CustomerModel extends Model<CustomerModelProps> {
   @Column({ allowNull: false, type: DataType.DATE(3) })
   declare createdAt: Date;
 
-  @HasOne(() => WalletModel)
-  declare wallet: WalletModel;
+  @HasOne(() => WalletTypeOrmModel)
+  declare wallet: WalletTypeOrmModel;
 }

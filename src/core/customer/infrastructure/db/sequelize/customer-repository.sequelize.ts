@@ -1,25 +1,26 @@
 import { Op } from 'sequelize';
-import { CustomerRepository } from '../../../domain/customer.repository';
-import { Customer } from '../../../domain/entity/customer';
-import { WalletModel } from './models/wallet.model';
+
+import { WalletTypeOrmModel } from './models/wallet-typeorm.model';
 import { UnitOfWorkSequelize } from '../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { SearchParam } from '../../../../../../libs/common/src/core/database/search-param';
 import { SearchResult } from '../../../../../../libs/common/src/core/database/search-result';
-import { CustomerModel } from './models/customer.model';
+import { CustomerTypeOrmModel } from './models/customer-typeorm.model';
 import { CustomerMapper } from './mapper/customer.mapper';
 import { WalletMapper } from './mapper/wallet.mapper';
+import { Customer } from '../../../domain/entity/customer';
+import { CustomerRepository } from '../../../domain/repository/customer.repository';
 
 export class CustomerRepositorySequelize implements CustomerRepository {
   sortableFields: string[] = ['firstName', 'createdAt'];
 
   constructor(
-    private customerModel: typeof CustomerModel,
-    private walletModel: typeof WalletModel,
+    private customerModel: typeof CustomerTypeOrmModel,
+    private walletModel: typeof WalletTypeOrmModel,
     private uow: UnitOfWorkSequelize,
   ) {}
 
   async insert(customer: Customer): Promise<void> {
-    const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
+    const customerProps = CustomerMapper.toDatabaseModel(customer).toJSON();
     const transaction = this.uow.getTransaction();
 
     //cria o cliente
@@ -40,7 +41,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
 
   async insertMany(entities: Customer[]): Promise<void> {
     const model = entities.map((entity) => {
-      return CustomerMapper.toOrmModel(entity).toJSON();
+      return CustomerMapper.toDatabaseModel(entity).toJSON();
     });
     await this.customerModel.bulkCreate(model, {
       transaction: this.uow.getTransaction(),
@@ -59,7 +60,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   }
 
   async update(entity: Customer): Promise<boolean> {
-    const model = CustomerMapper.toOrmModel(entity).toJSON();
+    const model = CustomerMapper.toDatabaseModel(entity).toJSON();
     const [affectedRows] = await this.customerModel.update(model, {
       where: { customerId: entity.getUUid().id },
     });
@@ -77,7 +78,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
 
   async findById(customerId: string): Promise<Customer | null> {
     const model = await this.customerModel.findByPk(customerId, {
-      include: [WalletModel],
+      include: [WalletTypeOrmModel],
     });
 
     return model ? CustomerMapper.toEntity(model) : null;
@@ -86,14 +87,14 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   async findByEmail(email: string): Promise<Customer | null> {
     const model = await this.customerModel.findOne({
       where: { email },
-      include: [WalletModel],
+      include: [WalletTypeOrmModel],
     });
     return model ? CustomerMapper.toEntity(model) : null;
   }
 
   async findAll(): Promise<Customer[]> {
     const models = await this.customerModel.findAll({
-      include: [WalletModel],
+      include: [WalletTypeOrmModel],
     });
     const customers = models.map((m) => {
       return CustomerMapper.toEntity(m);
@@ -119,7 +120,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
           }),
       offset,
       limit,
-      include: [WalletModel],
+      include: [WalletTypeOrmModel],
     });
 
     return new SearchResult({

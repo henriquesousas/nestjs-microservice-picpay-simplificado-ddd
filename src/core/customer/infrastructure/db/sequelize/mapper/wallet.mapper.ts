@@ -1,16 +1,16 @@
 import { Wallet, WalletId } from '../../../../domain/entity/wallet';
-import { WalletModel } from '../models/wallet.model';
+import { WalletTypeOrmModel } from '../models/wallet-typeorm.model';
 
 export class WalletMapper {
-  static toOrmModel(entity: Wallet, customerId: string): WalletModel {
-    return WalletModel.build({
+  static toOrmModel(entity: Wallet, customerId: string): WalletTypeOrmModel {
+    return WalletTypeOrmModel.build({
       walletId: entity.getUUid().id,
       balance: entity.balance,
       customerId,
     });
   }
 
-  static toEntity(model: WalletModel): Wallet {
+  static toEntity(model: WalletTypeOrmModel): Wallet {
     return new Wallet({
       walletId: new WalletId(model.walletId),
       balance: model.balance,

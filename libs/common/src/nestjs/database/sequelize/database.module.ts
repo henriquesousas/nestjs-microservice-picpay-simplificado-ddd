@@ -2,13 +2,13 @@ import { DynamicModule, Global, Module, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getConnectionToken, SequelizeModule } from '@nestjs/sequelize';
 
-import { WalletModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/wallet.model';
+import { WalletTypeOrmModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/wallet-typeorm.model';
 import { UnitOfWorkSequelize } from './unit-of-work.sequelize';
 import { Sequelize } from 'sequelize-typescript';
-import { CustomerModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/customer.model';
+import { CustomerTypeOrmModel } from '../../../../../../src/core/customer/infrastructure/db/sequelize/models/customer-typeorm.model';
 import { TransactionModel } from '../../../../../../src/core/transaction/infrastructure/db/sequelize/model/transaction.model';
 
-const models = [CustomerModel, WalletModel, TransactionModel];
+const models = [CustomerTypeOrmModel, WalletTypeOrmModel, TransactionModel];
 
 @Global()
 @Module({

@@ -7,7 +7,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { CustomerModel } from './customer.model';
+import { CustomerTypeOrmModel } from './customer-typeorm.model';
 
 export type WalletModelProps = {
   walletId: string;
@@ -16,18 +16,18 @@ export type WalletModelProps = {
 };
 
 @Table({ tableName: 'wallets', timestamps: false })
-export class WalletModel extends Model<WalletModelProps> {
+export class WalletTypeOrmModel extends Model<WalletModelProps> {
   @PrimaryKey
   @Column({ type: DataType.UUID })
   declare walletId: string;
 
-  @ForeignKey(() => CustomerModel)
+  @ForeignKey(() => CustomerTypeOrmModel)
   @Column({ type: DataType.UUID })
   declare customerId: string;
 
   @Column({ type: DataType.REAL })
   declare balance: number;
 
-  @BelongsTo(() => CustomerModel)
-  declare customer: CustomerModel;
+  @BelongsTo(() => CustomerTypeOrmModel)
+  declare customer: CustomerTypeOrmModel;
 }

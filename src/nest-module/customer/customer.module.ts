@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { CustomerController } from './customer.controller';
 
-import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet.model';
+import { WalletTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet-typeorm.model';
 import { CUSTOMER_PROVIDERS } from './customer.provider';
 import { DatabaseModule } from '../../../libs/common/src/nestjs/database/sequelize/database.module';
 import { MyRabbitMQModule } from '../../../libs/common/src/nestjs/message-broker/rabbitmq/my-rabbitmq.module';
 import { CustomerConsumer } from './customer.consumer';
-import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/models/customer.model';
+import { CustomerTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/customer-typeorm.model';
 
 @Module({
   imports: [
-    DatabaseModule.forFeature([CustomerModel, WalletModel]),
+    DatabaseModule.forFeature([CustomerTypeOrmModel, WalletTypeOrmModel]),
     MyRabbitMQModule.forFeature(),
   ],
   controllers: [CustomerController],

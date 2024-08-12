@@ -1,6 +1,6 @@
 import { getModelToken } from '@nestjs/sequelize';
 import { CustomerRepositorySequelize } from '../../core/customer/infrastructure/db/sequelize/customer-repository.sequelize';
-import { WalletModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet.model';
+import { WalletTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet-typeorm.model';
 import { CustomerRepository } from '../../core/customer/domain/customer.repository';
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
@@ -10,22 +10,22 @@ import { IMessageBroker } from '../../../libs/common/src/core/message-broker/mes
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
 import { ListCustomerUseCase } from '../../core/customer/application/usecase/list-customer/list-customer.usecase';
-import { CustomerModel } from '../../core/customer/infrastructure/db/sequelize/models/customer.model';
+import { CustomerTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/customer-typeorm.model';
 import { ApplicationService } from '../../../libs/common/src/core/application/application.service';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
     provide: CustomerRepositorySequelize,
     useFactory: (
-      customerModel: typeof CustomerModel,
-      walletModel: typeof WalletModel,
+      customerModel: typeof CustomerTypeOrmModel,
+      walletModel: typeof WalletTypeOrmModel,
       uow: UnitOfWorkSequelize,
     ) => {
       return new CustomerRepositorySequelize(customerModel, walletModel, uow);
     },
     inject: [
-      getModelToken(CustomerModel),
-      getModelToken(WalletModel),
+      getModelToken(CustomerTypeOrmModel),
+      getModelToken(WalletTypeOrmModel),
       'UnitOfWork',
     ],
   },
