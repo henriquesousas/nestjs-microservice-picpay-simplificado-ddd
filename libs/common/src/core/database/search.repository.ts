@@ -1,4 +1,4 @@
-import { Entity } from '../domain/entity/entity';
+import { Entity } from '../entity/entity';
 import { SearchParam } from './search-param';
 import { SearchResult } from './search-result';
 

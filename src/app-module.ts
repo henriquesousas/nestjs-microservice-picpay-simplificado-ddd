@@ -19,8 +19,8 @@ import { TransactionModule } from './nest-module/transaction/transaction.module'
     DatabaseModule,
     EventModule,
     CustomerModule,
-    TransactionModule,
-    NotificationModule,
+    // TransactionModule,
+    // NotificationModule,
   ],
   providers: [],
 })

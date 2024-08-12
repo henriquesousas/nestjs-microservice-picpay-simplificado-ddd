@@ -1,4 +1,4 @@
-import { Entity } from '../domain/entity/entity';
+import { Entity } from '../entity/entity';
 
 //TODO: Unificar esses métodos para que nem todas as classes precisem implementar esses métodos
 export interface Repository<E extends Entity> {

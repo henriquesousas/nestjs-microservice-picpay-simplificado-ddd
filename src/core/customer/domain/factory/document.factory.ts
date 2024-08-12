@@ -1,5 +1,4 @@
-import { Document } from '../document';
-import { DocumentType } from '../document-type';
+import { Document, DocumentType } from '../document';
 import { Cnpj } from '../value-object/cnpj';
 import { Cpf } from '../value-object/cpf';
 

@@ -1,4 +1,4 @@
-import { Notification } from '../../application/validator/notification';
+import { Notification } from '../validator/notification';
 import { Uuid } from '../value-object/uuid';
 
 export abstract class Entity {

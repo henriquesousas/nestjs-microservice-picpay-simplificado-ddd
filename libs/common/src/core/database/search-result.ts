@@ -1,4 +1,4 @@
-import { Entity } from '../domain/entity/entity';
+import { Entity } from '../entity/entity';
 
 type SearchResultConstructorProps<E extends Entity> = {
   items: E[];

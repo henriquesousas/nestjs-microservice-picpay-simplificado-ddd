@@ -1,16 +1,16 @@
+import { DocumentType } from '../document';
 import {
   Customer,
   CustomerConstructorProps,
   CustomerId,
-} from './entity/customer';
-import { CustomerCorporate } from './entity/customer-corporate';
-import { CustomerRegular } from './entity/customer-regular';
-import { Email } from './value-object/email';
-import { Password } from './value-object/password';
-import { Wallet } from './entity/wallet';
-import { Name } from './value-object/name';
-import { DocumentFactory } from './factory/document.factory';
-import { DocumentType } from './document-type';
+} from '../entity/customer';
+import { CustomerCorporate } from '../entity/customer-corporate';
+import { CustomerRegular } from '../entity/customer-regular';
+import { Wallet } from '../entity/wallet';
+import { DocumentFactory } from '../factory/document.factory';
+import { Email } from '../value-object/email';
+import { Name } from '../value-object/name';
+import { Password } from '../value-object/password';
 
 export type customerBuildProps = {
   firstName: string;
@@ -67,19 +67,19 @@ export class CustomerBuilder {
       this.props.document,
     );
 
-    const customerProps: CustomerConstructorProps = {
-      customerId: this.props.customerId,
+    const props: CustomerConstructorProps = {
       name,
       email,
       password,
       document,
+      customerId: this.props.customerId,
       wallet: this.props.wallet,
       isActive: this.props.isActive,
       createdAt: this.props.createdAt,
     };
 
     return this.props.documentType == DocumentType.CPF
-      ? new CustomerRegular(customerProps)
-      : new CustomerCorporate(customerProps);
+      ? new CustomerRegular(props)
+      : new CustomerCorporate(props);
   }
 }

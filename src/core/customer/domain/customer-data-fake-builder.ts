@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { CustomerBuilder } from './customer.builder';
+import { DocumentType } from './document';
 import { Customer } from './entity/customer';
-import { DocumentType } from './document-type';
+import { CustomerBuilder } from './builder/customer.builder';
 
 export class CustomerDataBuilderFake {
   private fakeCustomer: CustomerBuilder;
@@ -17,10 +17,12 @@ export class CustomerDataBuilderFake {
     });
   }
 
-  static aCustomer(
-    documentType: DocumentType = DocumentType.CPF,
-  ): CustomerDataBuilderFake {
-    return new CustomerDataBuilderFake(documentType);
+  static aCustomerRegular(): CustomerDataBuilderFake {
+    return new CustomerDataBuilderFake(DocumentType.CPF);
+  }
+
+  static aCustomerCorporate(): CustomerDataBuilderFake {
+    return new CustomerDataBuilderFake(DocumentType.CNPJ);
   }
 
   withFirstName(name: string): CustomerDataBuilderFake {
@@ -48,7 +50,7 @@ export class CustomerDataBuilderFake {
     return this;
   }
 
-  withWallet(value: number): CustomerDataBuilderFake {
+  withBalance(value: number): CustomerDataBuilderFake {
     this.fakeCustomer.withBalance(value);
     return this;
   }

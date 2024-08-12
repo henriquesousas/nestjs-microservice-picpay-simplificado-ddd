@@ -48,17 +48,17 @@ export class Notification {
     return errors;
   }
 
-  toArray(): string[] {
-    const errors: string[] = [];
-    this.errors.forEach((value, key) => {
-      if (typeof value === 'string') {
-        errors.push(value);
-      }
-      for (let errorMessage of value) {
-        errors.push(errorMessage);
-      }
-    });
+  // toArray(): string[] {
+  //   const errors: string[] = [];
+  //   this.errors.forEach((value, key) => {
+  //     if (typeof value === 'string') {
+  //       errors.push(value);
+  //     }
+  //     for (let errorMessage of value) {
+  //       errors.push(errorMessage);
+  //     }
+  //   });
 
-    return errors;
-  }
+  //   return errors;
+  // }
 }

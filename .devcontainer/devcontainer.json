@@ -13,7 +13,7 @@
 
   // The optional 'workspaceFolder' property is the path VS Code should open by default when
   // connected. This is typically a file mount in .devcontainer/docker-compose.yml
-  "workspaceFolder": "/home/node/app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
@@ -22,13 +22,13 @@
     },
     "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
   },
-  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "extensions": [
         "humao.rest-client",
         "esbenp.prettier-vscode",
-        "cweijan.vscode-database-client2"
+        "cweijan.vscode-database-client2",
+        "jebbs.plantuml"
       ]
     }
   }
@@ -47,6 +47,9 @@
 
   // Uncomment the next line to run commands after the container is created.
   // "postCreateCommand": "cat /etc/os-release",
+
+  // Configure tool-specific properties.
+  // "customizations": {},
 
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "devcontainer"

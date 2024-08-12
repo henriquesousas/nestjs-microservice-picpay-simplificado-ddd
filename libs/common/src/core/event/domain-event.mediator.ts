@@ -1,5 +1,5 @@
 import EventEmitter2 from 'eventemitter2';
-import { AggregateRoot } from '../domain/entity/aggregate_root';
+import { AggregateRoot } from '../entity/aggregate_root';
 
 //TODO: Tipar handler
 export class DomainEventMediator {

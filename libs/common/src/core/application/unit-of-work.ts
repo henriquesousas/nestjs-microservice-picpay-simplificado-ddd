@@ -1,4 +1,4 @@
-import { AggregateRoot } from '../domain/entity/aggregate_root';
+import { AggregateRoot } from '../entity/aggregate_root';
 
 export interface UnitOfWork {
   start(): Promise<void>;

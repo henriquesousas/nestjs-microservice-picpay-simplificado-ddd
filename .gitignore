@@ -5,6 +5,8 @@
 rabbitmq-data
 .vscode
 
+out
+
 # Logs
 logs
 *.log
