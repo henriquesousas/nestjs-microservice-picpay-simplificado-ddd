@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
 export class Password extends ValueObject {
   constructor(private readonly value: string) {
@@ -13,7 +13,7 @@ export class Password extends ValueObject {
   private validate(): void {
     const isValid = this.value.length >= 5 && this.value.length <= 10;
     if (!isValid) {
-      this.notification.addError('Senha inválida', 'password');
+      this.notification.addError('Senha inválida');
     }
   }
 }

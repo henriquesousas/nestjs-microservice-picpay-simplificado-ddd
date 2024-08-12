@@ -1,14 +1,14 @@
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
-
-import { Document } from '../document';
-import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
-import { DocumentType } from '../document-type';
+import { Document, DocumentType } from '../document';
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
 export class Cnpj extends ValueObject implements Document {
   constructor(private value: string) {
     super();
     if (!this.validate(value)) {
-      throw new DocumentInvalidException(DocumentType.CNPJ);
+      this.notification.addError(
+        new DocumentInvalidException(DocumentType.CNPJ).message,
+      );
     }
   }
 

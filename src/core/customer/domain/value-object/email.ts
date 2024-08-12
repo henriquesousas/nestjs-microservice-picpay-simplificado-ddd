@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../../../libs/common/src/core/domain/value-object/value-object';
+import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
 export class Email extends ValueObject {
   constructor(private readonly value: string) {
@@ -13,7 +13,7 @@ export class Email extends ValueObject {
   validate(value: string): void {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     if (!isEmail) {
-      this.notification.addError('Email inválido', 'email');
+      this.notification.addError('Email inválido');
     }
   }
 }

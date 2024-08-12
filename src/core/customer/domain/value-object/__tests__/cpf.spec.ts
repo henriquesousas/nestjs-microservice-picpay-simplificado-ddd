@@ -1,17 +1,15 @@
 import { Cpf } from '../cpf';
 
-//TODO: Refazer
 describe('Cpf unit test', () => {
-  // beforeAll(() => console.log('ALL'));
-  // beforeEach(() => console.log('EACH'));
-  it('should create a document', () => {
-    const cpf = '11111111111';
-    const document = new Cpf(cpf);
-    // expect(document.getValue()).toBe(cpf);
+  it('should create a cpf', () => {
+    const number = '11111111111';
+    const cpf = new Cpf(number);
+    expect(cpf.getValue()).toBe(number);
   });
 
-  it('should throw InvalidDocumentException if document invalid', () => {
-    const cpf = '1';
-    expect(() => new Cpf(cpf)).toThrow();
+  it('should throw InvalidDocumentException if cpf invalid', () => {
+    const cpf = new Cpf('1');
+    expect(cpf.notification.hasErrors()).toBe(true);
+    expect(cpf.notification.toJSON()).toEqual(['CPF inválido']);
   });
 });

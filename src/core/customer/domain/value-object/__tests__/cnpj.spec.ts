@@ -2,13 +2,14 @@ import { Cnpj } from '../cnpj';
 
 describe('Cnpj unit test', () => {
   it('should create a document', () => {
-    const cnpj = '1111111111111111';
-    const document = new Cnpj(cnpj);
-    expect(document.getValue).toBe(cnpj);
+    const number = '1111111111111111';
+    const cnpj = new Cnpj(number);
+    expect(cnpj.getValue()).toBe(number);
   });
 
   it('should throw InvalidDocumentException if document invalid', () => {
-    const cnpj = '1';
-    expect(() => new Cnpj(cnpj)).toThrow();
+    const cnpj = new Cnpj('1');
+    expect(cnpj.notification.hasErrors()).toBe(true);
+    expect(cnpj.notification.toJSON()).toEqual(['CNPJ inválido']);
   });
 });
