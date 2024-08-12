@@ -1,4 +1,4 @@
-import { DocumentType } from '../document-type';
+import { DocumentType } from '../document';
 import { Customer } from './customer';
 
 export class CustomerCorporate extends Customer {

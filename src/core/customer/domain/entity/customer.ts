@@ -4,19 +4,18 @@ import { Password } from '../value-object/password';
 import { Wallet } from './wallet';
 import { NameUpdatedEvent } from '../events/name-updated.event';
 import { CustomerCreatedEvent } from '../events/customer-created.event';
-import { Document } from '../document';
-import { Uuid } from '../../../../../libs/common/src/core/domain/value-object/uuid';
-import { AggregateRoot } from '../../../../../libs/common/src/core/domain/entity/aggregate_root';
-import { DocumentType } from '../document-type';
+import { Document, DocumentType } from '../document';
+import { Uuid } from '../../../../../libs/common/src/core/value-object/uuid';
+import { AggregateRoot } from '../../../../../libs/common/src/core/entity/aggregate_root';
 
 export class CustomerId extends Uuid {}
 
 export type CustomerConstructorProps = {
-  readonly customerId?: CustomerId;
   readonly name: Name;
   readonly email: Email;
   readonly password: Password;
   readonly document: Document;
+  readonly customerId?: CustomerId;
   readonly wallet?: Wallet;
   isActive?: boolean;
   createdAt?: Date;
@@ -99,20 +98,4 @@ export abstract class Customer extends AggregateRoot {
       this.notification.copyErrors(this.props.wallet!.notification);
     }
   }
-
-  // transfer(receiver: Customer, value: number): void {
-  //   if (!this.canTransfer) {
-  //     throw new TrasferenceNotAllowed();
-  //   }
-  //   if (this.props.wallet!.balance < value) {
-  //     throw new InsuficientBalanceException();
-  //   }
-  //   this.props.wallet!.debit(value);
-  //   receiver.props.wallet!.credit(value);
-  // }
-
-  // private validate(fields: string[]): boolean {
-  //   const validator = new CustomerValidator();
-  //   return validator.validate(this.notification, this, fields);
-  // }
 }
