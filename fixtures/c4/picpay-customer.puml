@@ -1,0 +1,29 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+AddRelTag("async", $lineStyle = DashedLine())
+
+Person(customer, "Customer", "Acessa recursos")
+
+System_Ext(notification,"Notification","NestJs") 
+System_Ext(transaction,"Transaction","NestJs") 
+ 
+
+System_Boundary(cms,"PicPaySimplificado - clientes") {    
+    ' Conatiner
+    Container(backend,"Backend", "NestJs","Recebe requisições para gerenciar recursos de clientes" )   
+    ContainerDb(mysql,"Banco de dados", "Mysql","Armazena dados dos clientes" )
+    ContainerQueue(rabbitmq,"Message Bus", "RabbitMQ","Dados do cliente" )
+
+    ' Relacoes
+    Rel(customer, backend,"solicita recursos do cliente em", "HTTP/JSON")
+    Rel(backend, rabbitmq,"Envia dados do cliente no [topic: notification] em", "JSON", $tags = "async")
+    Rel(backend, mysql,"Envia dados do cliente para", "Mysql protocol")
+    Rel(rabbitmq, notification,"Consome dados do cliente no [topic:notification] em", "JSON", $tags = "async")
+    Rel(rabbitmq, backend,"Consome dados da carteira (wallet) no [topic:wallet] em", "JSON", $tags = "async")
+    Rel(transaction, rabbitmq,"Envia dados da transação no [topic:wallet] em", "JSON", $tags = "async")
+
+}
+
+@enduml
