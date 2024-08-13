@@ -28,7 +28,12 @@ export class CreateCustomerUseCase
       return Either.fail(error);
     }
 
-    const customerFromDb = await this.customerRepository.findByEmail(dto.email);
+    const { email, document } = dto;
+    const customerFromDb = await this.customerRepository.findBy({
+      email,
+      document,
+    });
+
     if (customerFromDb) {
       return Either.fail(new CustomerAlreadyExistException());
     }
