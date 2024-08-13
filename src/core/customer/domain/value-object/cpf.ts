@@ -2,7 +2,7 @@ import { ValueObject } from '../../../../../libs/common/src/core/value-object/va
 import { Document, DocumentType } from '../document';
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 
-export class Cpf extends ValueObject implements Document {
+export class Cpf extends Document {
   constructor(private value: string) {
     super();
     if (!this.validate(value)) {

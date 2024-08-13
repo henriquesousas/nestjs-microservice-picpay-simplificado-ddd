@@ -1,8 +1,7 @@
 import { DocumentInvalidException } from '../exception/document-invalid.exception';
 import { Document, DocumentType } from '../document';
-import { ValueObject } from '../../../../../libs/common/src/core/value-object/value-object';
 
-export class Cnpj extends ValueObject implements Document {
+export class Cnpj extends Document {
   constructor(private value: string) {
     super();
     if (!this.validate(value)) {
