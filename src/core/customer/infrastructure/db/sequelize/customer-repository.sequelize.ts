@@ -84,9 +84,17 @@ export class CustomerRepositorySequelize implements CustomerRepository {
     return model ? CustomerMapper.toEntity(model) : null;
   }
 
-  async findByEmail(email: string): Promise<Customer | null> {
+  async findBy(dto: {
+    email?: string;
+    document?: string;
+  }): Promise<Customer | null> {
     const model = await this.customerModel.findOne({
-      where: { email },
+      where: {
+        [Op.or]: [
+          dto.email ? { email: dto.email } : {},
+          dto.document ? { document: dto.document } : {},
+        ],
+      },
       include: [WalletTypeOrmModel],
     });
     return model ? CustomerMapper.toEntity(model) : null;

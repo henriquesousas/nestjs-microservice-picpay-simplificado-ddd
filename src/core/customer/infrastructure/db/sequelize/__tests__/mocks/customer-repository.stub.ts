@@ -31,8 +31,11 @@ export class CustomerRepositoryStub implements CustomerRepository {
     throw new Error('Method not implemented.');
   }
 
-  async findByEmail(email: string): Promise<Customer> {
-    return CustomerDataBuilderFake.aCustomerRegular().build();
+  async findBy(dto: {
+    email?: string;
+    document?: string;
+  }): Promise<Customer | null> {
+    return Promise.resolve(CustomerDataBuilderFake.aCustomerRegular().build()!);
   }
 
   search(props: SearchParam<string>): Promise<SearchResult<Customer>> {

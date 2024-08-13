@@ -8,6 +8,7 @@ import { setupSequelize } from '../../../../../../../libs/common/src/core/config
 import { SearchParam } from '../../../../../../../libs/common/src/core/database/search-param';
 import { CustomerTypeOrmModel } from '../models/customer-typeorm.model';
 
+//TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
   let _repository: CustomerRepositorySequelize;
   let _uow: UnitOfWorkSequelize;
@@ -207,7 +208,7 @@ describe('CustomerRepositorySequelize Integration Test', () => {
       expect(data?.dataValues['wallet'].balance).toEqual(0);
     });
 
-    test('should not inser a new customer when roolback', async () => {
+    test('should not insert a new customer when roolback', async () => {
       const customer = CustomerDataBuilderFake.aCustomerRegular().build();
 
       _uow.start();

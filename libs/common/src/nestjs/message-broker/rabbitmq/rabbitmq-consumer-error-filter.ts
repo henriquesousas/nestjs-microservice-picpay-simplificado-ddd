@@ -5,7 +5,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Nack } from '@golevelup/nestjs-rabbitmq';
-import { InvalidUuidError } from '../../../core/domain/exception/invalid-uuid.exception';
+import { InvalidUuidError } from '../../../core/exception/invalid-uuid.exception';
 
 @Catch()
 export class RabbitMQConsumeErrorFilter<T> implements ExceptionFilter {

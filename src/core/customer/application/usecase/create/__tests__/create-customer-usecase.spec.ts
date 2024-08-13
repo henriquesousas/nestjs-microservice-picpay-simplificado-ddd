@@ -50,7 +50,7 @@ const mockImplementationFindByEmail = (
   repository: CustomerRepository,
 ): void => {
   jest
-    .spyOn(repository, 'findByEmail')
+    .spyOn(repository, 'findBy')
     .mockImplementationOnce(() => Promise.resolve(null));
 };
 

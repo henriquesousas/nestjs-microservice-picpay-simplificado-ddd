@@ -4,7 +4,7 @@ import { CustomerService } from '../../../application/service/customer.service';
 import { Customer } from '../../../domain/entity/customer';
 import { ConfigService } from '@nestjs/config';
 import { catchError, lastValueFrom, map } from 'rxjs';
-import { Uuid } from '../../../../../../libs/common/src/core/domain/value-object/uuid';
+import { Uuid } from '../../../../../../libs/common/src/core/value-object/uuid';
 
 export class CustomerServiceAxios implements CustomerService {
   constructor(

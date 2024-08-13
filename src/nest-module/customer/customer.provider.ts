@@ -1,7 +1,6 @@
 import { getModelToken } from '@nestjs/sequelize';
 import { CustomerRepositorySequelize } from '../../core/customer/infrastructure/db/sequelize/customer-repository.sequelize';
 import { WalletTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/wallet-typeorm.model';
-import { CustomerRepository } from '../../core/customer/domain/customer.repository';
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { CustomerCreatedIntegrationEventHandler } from '../../core/customer/application/handler/customer-created-integration-event.handler';
@@ -12,6 +11,7 @@ import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-b
 import { ListCustomerUseCase } from '../../core/customer/application/usecase/list-customer/list-customer.usecase';
 import { CustomerTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/customer-typeorm.model';
 import { ApplicationService } from '../../../libs/common/src/core/application/application.service';
+import { CustomerRepository } from '../../core/customer/domain/repository/customer.repository';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
