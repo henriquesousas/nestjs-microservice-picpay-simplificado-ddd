@@ -88,12 +88,19 @@ export abstract class Customer extends AggregateRoot {
     if (this.props.name.notification.hasErrors()) {
       this.notification.copyErrors(this.props.name.notification);
     }
+
     if (this.props.email.notification.hasErrors()) {
       this.notification.copyErrors(this.props.email.notification);
     }
+
     if (this.props.password.notification.hasErrors()) {
       this.notification.copyErrors(this.props.password.notification);
     }
+
+    if (this.props.document.notification.hasErrors()) {
+      this.notification.copyErrors(this.props.document.notification);
+    }
+
     if (this.props.wallet!.notification.hasErrors()) {
       this.notification.copyErrors(this.props.wallet!.notification);
     }
