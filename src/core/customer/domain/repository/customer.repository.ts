@@ -5,5 +5,5 @@ import { Customer } from '../entity/customer';
 export interface CustomerRepository
   extends Repository<Customer>,
     SearchRepository<Customer> {
-  findByEmail(email: string): Promise<Customer | null>;
+  findBy(dto: { email?: string; document?: string }): Promise<Customer | null>;
 }
