@@ -4,7 +4,7 @@ import { TransactionCreatedIntegrationEvent } from '../../../../../src/core/tran
 export const EVENSTS_MESSAGE_BROKER_CONFIG = {
   [CustomerCreatedIntegrationEvent.name]: {
     exchange: 'amq.topic',
-    routing_key: 'customer-created.notification',
+    routing_key: 'notification',
   },
   [TransactionCreatedIntegrationEvent.name]: {
     exchange: 'amq.topic',
