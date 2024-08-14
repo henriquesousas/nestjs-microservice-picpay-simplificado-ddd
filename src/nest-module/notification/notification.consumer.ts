@@ -7,7 +7,7 @@ import { RabbitMQConsumeErrorFilter } from '../../../libs/common/src/nestjs/mess
 export class NotificationConsumer {
   @RabbitSubscribe({
     exchange: 'amq.topic',
-    routingKey: '*.notification',
+    routingKey: 'notification',
     queue: 'notification',
     allowNonJsonMessages: true,
     // queueOptions: {
