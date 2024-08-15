@@ -1,16 +1,16 @@
-import { DocumentType } from '../document';
+import { DocumentFactory } from '../factory/document.factory';
+import { DocumentType } from '../../domain/document';
 import {
   Customer,
   CustomerConstructorProps,
   CustomerId,
-} from '../entity/customer';
-import { CustomerCorporate } from '../entity/customer-corporate';
-import { CustomerRegular } from '../entity/customer-regular';
-import { Wallet } from '../entity/wallet';
-import { DocumentFactory } from '../factory/document.factory';
-import { Email } from '../value-object/email';
-import { Name } from '../value-object/name';
-import { Password } from '../value-object/password';
+} from '../../domain/entity/customer';
+import { CustomerCorporate } from '../../domain/entity/customer-corporate';
+import { CustomerRegular } from '../../domain/entity/customer-regular';
+import { Wallet } from '../../domain/entity/wallet';
+import { Email } from '../../domain/value-object/email';
+import { Name } from '../../domain/value-object/name';
+import { Password } from '../../domain/value-object/password';
 
 export type customerBuildProps = {
   firstName: string;

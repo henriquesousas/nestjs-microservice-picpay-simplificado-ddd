@@ -1,8 +1,8 @@
 import { Either } from '../../../../../../libs/common/src/core/types/either';
-import { UseCase } from '../../../../../../libs/common/src/core/application/usecase/usecase';
-import { CustomerRepository } from '../../../domain/customer.repository';
+import { UseCase } from '../../../../../../libs/common/src/core/usecase/usecase';
 import { Wallet } from '../../../domain/entity/wallet';
 import { CustomerNotFoundException } from '../../../domain/exception/customer-not-found.exception';
+import { CustomerRepository } from '../../../domain/repository/customer.repository';
 import { WalleteOutput, WalleteOutputMapper } from '../customer-output.mapper';
 
 export class GetBalanceUseCase

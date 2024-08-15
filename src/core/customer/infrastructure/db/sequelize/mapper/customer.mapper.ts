@@ -1,11 +1,11 @@
-import { CustomerBuilder } from '../../../../domain/builder/customer.builder';
+import { CustomerBuilder } from '../../../../application/builder/customer.builder';
 import { DocumentType } from '../../../../domain/document';
 import { Customer, CustomerId } from '../../../../domain/entity/customer';
 import { CustomerTypeOrmModel } from '../models/customer-typeorm.model';
 import { WalletMapper } from './wallet.mapper';
 
 export class CustomerMapper {
-  static toDatabaseModel(entity: Customer): CustomerTypeOrmModel {
+  static toOrmModel(entity: Customer): CustomerTypeOrmModel {
     return CustomerTypeOrmModel.build({
       customerId: entity.getUUid().id,
       firstName: entity.props.name.getfirstName,

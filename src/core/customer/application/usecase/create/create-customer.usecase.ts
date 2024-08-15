@@ -5,7 +5,7 @@ import { Either } from '../../../../../../libs/common/src/core/types/either';
 import { CreateCustomerDto } from './create-customer.dto';
 import { Customer } from '../../../domain/entity/customer';
 import { CustomerRepository } from '../../../domain/repository/customer.repository';
-import { CustomerBuilder } from '../../../domain/builder/customer.builder';
+import { CustomerBuilder } from '../../builder/customer.builder';
 import { CustomerAlreadyExistException } from '../../../domain/exception/customer-already-exist.exception';
 
 export type CustomerOutputDto = Either<Customer>;

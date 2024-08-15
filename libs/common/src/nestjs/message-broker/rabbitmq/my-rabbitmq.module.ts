@@ -31,9 +31,14 @@ export class MyRabbitMQModule {
         RabbitMQModule.forRootAsync(RabbitMQModule, {
           useFactory: (configService: ConfigService) => ({
             uri: configService.get('RABBITMQ_URI') as string,
+
             exchanges: [
               {
                 name: 'dlx.exchange',
+                type: 'topic',
+              },
+              {
+                name: 'amq.topic',
                 type: 'topic',
               },
             ],
@@ -42,6 +47,11 @@ export class MyRabbitMQModule {
                 name: 'dlx.queue',
                 exchange: 'dlx.exchange',
                 routingKey: '#', // aceita qualquer routing key
+              },
+              {
+                name: 'wallet',
+                exchange: 'amq.topic',
+                routingKey: 'wallet',
               },
             ],
           }),

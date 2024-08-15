@@ -1,7 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NotFoundExceptionFilter } from './filter/not-found-exception.filter';
 import { EntityValidationExceptionFilter } from './filter/entity-validation-exception.filter';
-import { TransactionNotAllowedExceptionFilter } from './filter/transaction-not-allowed-exception.filter';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
 
 export function applyGlobalConfig(app: INestApplication) {

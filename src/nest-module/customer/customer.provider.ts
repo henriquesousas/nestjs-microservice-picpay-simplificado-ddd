@@ -4,7 +4,6 @@ import { WalletTypeOrmModel } from '../../core/customer/infrastructure/db/sequel
 import { UnitOfWorkSequelize } from '../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { CreateCustomerUseCase } from '../../core/customer/application/usecase/create/create-customer.usecase';
 import { CustomerCreatedIntegrationEventHandler } from '../../core/customer/application/handler/customer-created-integration-event.handler';
-
 import { IMessageBroker } from '../../../libs/common/src/core/message-broker/message-broker.interface';
 import { GetCustomerByIdUseCase } from '../../core/customer/application/usecase/get-customer/get-customer-by-id.usecase';
 import { GetBalanceUseCase } from '../../core/customer/application/usecase/get-balance/get-balance.usecase';
@@ -12,6 +11,10 @@ import { ListCustomerUseCase } from '../../core/customer/application/usecase/lis
 import { CustomerTypeOrmModel } from '../../core/customer/infrastructure/db/sequelize/models/customer-typeorm.model';
 import { ApplicationService } from '../../../libs/common/src/core/application/application.service';
 import { CustomerRepository } from '../../core/customer/domain/repository/customer.repository';
+import { WalletConsumer } from './message-broker/consumer/wallet.consumer';
+import { WalletRepository } from '../../core/customer/domain/repository/wallet.repository';
+import { WalletRepositorySequelize } from '../../core/customer/infrastructure/db/sequelize/wallet-repository-sequelize';
+import { UnitOfWork } from '../../../libs/common/src/core/application/unit-of-work';
 
 export const REPOSITORIES = {
   CUSTOMER_REPOSITORY_SEQUELIZE: {
@@ -28,6 +31,13 @@ export const REPOSITORIES = {
       getModelToken(WalletTypeOrmModel),
       'UnitOfWork',
     ],
+  },
+  WALLET_REPOSITORY_SEQUELIZE: {
+    provide: WalletRepositorySequelize,
+    useFactory: (walletModel: typeof WalletTypeOrmModel, uow: UnitOfWork) => {
+      return new WalletRepositorySequelize(walletModel, uow);
+    },
+    inject: [getModelToken(WalletTypeOrmModel), 'UnitOfWork'],
   },
 };
 
@@ -81,8 +91,19 @@ export const HANDLERS = {
   },
 };
 
+export const CONSUMERS = {
+  WALLET_CONSUMER: {
+    provide: WalletConsumer,
+    useFactory: (repository: WalletRepository) => {
+      return new WalletConsumer(repository);
+    },
+    inject: [WalletRepositorySequelize],
+  },
+};
+
 export const CUSTOMER_PROVIDERS = {
   REPOSITORIES,
   USECASES,
   HANDLERS,
+  CONSUMERS,
 };

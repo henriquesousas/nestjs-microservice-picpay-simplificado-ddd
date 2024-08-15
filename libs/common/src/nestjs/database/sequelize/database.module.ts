@@ -53,7 +53,6 @@ const models = [CustomerTypeOrmModel, WalletTypeOrmModel, TransactionModel];
         return new UnitOfWorkSequelize(sequelize);
       },
       inject: [getConnectionToken()],
-      scope: Scope.REQUEST,
     },
     {
       provide: 'UnitOfWork',

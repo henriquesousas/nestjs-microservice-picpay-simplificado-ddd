@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { DocumentType } from './document';
 import { Customer } from './entity/customer';
-import { CustomerBuilder } from './builder/customer.builder';
+import { CustomerBuilder } from '../application/builder/customer.builder';
 
 export class CustomerDataBuilderFake {
   private fakeCustomer: CustomerBuilder;

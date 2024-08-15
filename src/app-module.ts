@@ -18,8 +18,8 @@ import { NotificationModule } from './nest-module/notification/notification.modu
     DatabaseModule,
     EventModule,
     CustomerModule,
-    // TransactionModule,
     NotificationModule,
+    // TransactionModule,
   ],
   providers: [],
 })

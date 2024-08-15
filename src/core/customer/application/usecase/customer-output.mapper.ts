@@ -1,5 +1,4 @@
-import { Document } from '../../domain/document';
-import { DocumentType } from '../../domain/document-type';
+import { Document, DocumentType } from '../../domain/document';
 import { Customer } from '../../domain/entity/customer';
 import { Wallet } from '../../domain/entity/wallet';
 

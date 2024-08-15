@@ -1,6 +1,6 @@
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Injectable, UseFilters } from '@nestjs/common';
-import { RabbitMQConsumeErrorFilter } from '../../../libs/common/src/nestjs/message-broker/rabbitmq/rabbitmq-consumer-error-filter';
+import { RabbitMQConsumeErrorFilter } from '../../../../../libs/common/src/nestjs/message-broker/rabbitmq/rabbitmq-consumer-error-filter';
 
 /**
  * Consumer podem receber outros usecases, outras classes que ajudem a completar a

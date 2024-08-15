@@ -1,6 +1,4 @@
-import { UseCase } from '@app/common/core/application/usecase/usecase';
 import { SearchParam } from '@app/common/core/database/search-param';
-import { CustomerRepository } from '../../../domain/customer.repository';
 import { ListCustomerInputDto } from './list-customer-input.dto';
 import {
   CustomerOutput,
@@ -10,7 +8,8 @@ import {
   PaginationOutput,
   PaginationOutputMapper,
 } from '../../../../../../libs/common/src/core/application/pagination-output.mapper';
-import { UseCaseWithPaginationResult } from '../../../../../../libs/common/src/core/application/usecase/usecase-with-pagination-result';
+import { UseCaseWithPaginationResult } from '../../../../../../libs/common/src/core/usecase/usecase-with-pagination-result';
+import { CustomerRepository } from '../../../domain/repository/customer.repository';
 
 export class ListCustomerUseCase
   implements UseCaseWithPaginationResult<ListCustomerInputDto, CustomerOutput>

@@ -1,3 +1,4 @@
+import { CustomerId } from '../../../../domain/entity/customer';
 import { Wallet, WalletId } from '../../../../domain/entity/wallet';
 import { WalletTypeOrmModel } from '../models/wallet-typeorm.model';
 
@@ -13,6 +14,7 @@ export class WalletMapper {
   static toEntity(model: WalletTypeOrmModel): Wallet {
     return new Wallet({
       walletId: new WalletId(model.walletId),
+      customerId: new CustomerId(model.customerId),
       balance: model.balance,
     });
   }

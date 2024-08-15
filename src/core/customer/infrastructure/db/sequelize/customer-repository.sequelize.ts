@@ -20,7 +20,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   ) {}
 
   async insert(customer: Customer): Promise<void> {
-    const customerProps = CustomerMapper.toDatabaseModel(customer).toJSON();
+    const customerProps = CustomerMapper.toOrmModel(customer).toJSON();
     const transaction = this.uow.getTransaction();
 
     //cria o cliente
@@ -41,7 +41,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
 
   async insertMany(entities: Customer[]): Promise<void> {
     const model = entities.map((entity) => {
-      return CustomerMapper.toDatabaseModel(entity).toJSON();
+      return CustomerMapper.toOrmModel(entity).toJSON();
     });
     await this.customerModel.bulkCreate(model, {
       transaction: this.uow.getTransaction(),
@@ -60,7 +60,7 @@ export class CustomerRepositorySequelize implements CustomerRepository {
   }
 
   async update(entity: Customer): Promise<boolean> {
-    const model = CustomerMapper.toDatabaseModel(entity).toJSON();
+    const model = CustomerMapper.toOrmModel(entity).toJSON();
     const [affectedRows] = await this.customerModel.update(model, {
       where: { customerId: entity.getUUid().id },
     });
