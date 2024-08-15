@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@golevelup/nestjs-rabbitmq": "^5.3.0",
+    "@golevelup/nestjs-rabbitmq": "^5.4.0",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.2",
@@ -34,14 +34,12 @@
     "@nestjs/sequelize": "^10.0.1",
     "@nestjs/typeorm": "^10.0.1",
     "@types/chance": "^1.1.6",
-   
     "axios": "^1.6.5",
     "chance": "^1.1.11",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "eventemitter2": "^6.4.9",
-    
     "joi": "^17.13.3",
     "mysql2": "^3.10.1",
     "reflect-metadata": "^0.1.13",
