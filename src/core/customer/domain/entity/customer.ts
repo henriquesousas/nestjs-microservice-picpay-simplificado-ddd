@@ -27,14 +27,15 @@ export abstract class Customer extends AggregateRoot {
 
   constructor(public props: CustomerConstructorProps) {
     super();
+
+    const customerId = props.customerId ?? new CustomerId();
     this.props = {
       ...props,
-      customerId: props.customerId ?? new CustomerId(),
-      wallet: props.wallet ?? new Wallet(),
+      customerId,
+      wallet: this.props.wallet ?? new Wallet({ customerId }),
       isActive: props.isActive ?? true,
       createdAt: props.createdAt ?? new Date(),
     };
-
     this.registerDomainEventHandlers();
 
     this.applyEvent(new CustomerCreatedEvent(this));

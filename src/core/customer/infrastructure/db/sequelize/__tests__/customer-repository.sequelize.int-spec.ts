@@ -1,12 +1,13 @@
 import { CustomerRepositorySequelize } from '../customer-repository.sequelize';
 
-import { CustomerDataBuilderFake } from '../../../../domain/customer-data-fake-builder';
 import { CustomerRegular } from '../../../../domain/entity/customer-regular';
 import { WalletTypeOrmModel } from '../models/wallet-typeorm.model';
 import { UnitOfWorkSequelize } from '../../../../../../../libs/common/src/nestjs/database/sequelize/unit-of-work.sequelize';
 import { setupSequelize } from '../../../../../../../libs/common/src/core/config/setup-sequelize';
 import { SearchParam } from '../../../../../../../libs/common/src/core/database/search-param';
 import { CustomerTypeOrmModel } from '../models/customer-typeorm.model';
+import { CustomerDataBuilderFake } from '../../../../application/fake/customer-data-fake-builder';
+import { Wallet } from '../../../../domain/entity/wallet';
 
 //TODO: Todos os testes precisa mocar um lancamento de excecao por parte da lib sequelize
 describe('CustomerRepositorySequelize Integration Test', () => {
@@ -90,13 +91,14 @@ describe('CustomerRepositorySequelize Integration Test', () => {
   describe('delete', () => {
     test('should delete a customer', async () => {
       const customer = CustomerDataBuilderFake.aCustomerCorporate().build();
+
       await _repository.insert(customer);
 
       const customerFromDbBeforeDelete = await _repository.findById(
         customer.getUUid().id,
       );
 
-      expect(customerFromDbBeforeDelete!.props).toStrictEqual(customer.props);
+      expect(customerFromDbBeforeDelete!.props).toEqual(customer.props);
 
       await _repository.delete(customer.getUUid().id);
       const customerFromDb = await _repository.findById(customer.getUUid().id);

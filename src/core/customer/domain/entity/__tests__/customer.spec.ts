@@ -1,6 +1,6 @@
 import { Cpf } from '../../value-object/cpf';
-import { CustomerDataBuilderFake } from '../../customer-data-fake-builder';
 import { Cnpj } from '../../value-object/cnpj';
+import { CustomerDataBuilderFake } from '../../../application/fake/customer-data-fake-builder';
 describe('Customer unit tests', () => {
   it(`should create a new customer`, async () => {
     let customer = CustomerDataBuilderFake.aCustomerRegular().build();

@@ -21,6 +21,7 @@ export class CustomerMapper {
 
   static toEntity(model: CustomerTypeOrmModel): Customer {
     const wallet = WalletMapper.toEntity(model.wallet);
+
     return new CustomerBuilder({
       customerId: new CustomerId(model.customerId),
       firstName: model.firstName,

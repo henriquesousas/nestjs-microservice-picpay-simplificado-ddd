@@ -1,4 +1,3 @@
-import { TransactionType } from '../../../../../../src/core/transaction/domain/entity/transaction';
 import { EnumHelper } from '../enum-helper';
 
 describe('EnumHelper Unit Test', () => {

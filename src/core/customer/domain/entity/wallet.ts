@@ -14,6 +14,7 @@ export type WalletProps = {
 export class Wallet extends AggregateRoot {
   constructor(private props: WalletProps = {}) {
     super();
+
     this.props = {
       walletId: props.walletId ?? new WalletId(),
       balance: props.balance ?? 0,

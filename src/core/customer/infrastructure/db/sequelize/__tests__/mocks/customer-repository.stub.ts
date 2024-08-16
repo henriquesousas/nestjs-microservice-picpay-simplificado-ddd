@@ -1,7 +1,7 @@
 import { SearchParam } from '../../../../../../../../libs/common/src/core/database/search-param';
 import { SearchResult } from '../../../../../../../../libs/common/src/core/database/search-result';
+import { CustomerDataBuilderFake } from '../../../../../application/fake/customer-data-fake-builder';
 import { Customer } from '../../../../../domain/entity/customer';
-import { CustomerDataBuilderFake } from '../../../../../domain/customer-data-fake-builder';
 import { CustomerRepository } from '../../../../../domain/repository/customer.repository';
 
 export class CustomerRepositoryStub implements CustomerRepository {
@@ -41,34 +41,4 @@ export class CustomerRepositoryStub implements CustomerRepository {
   search(props: SearchParam<string>): Promise<SearchResult<Customer>> {
     throw new Error('Method not implemented.');
   }
-  // async save(customer: Customer): Promise<void> {
-  //   return Promise.resolve();
-  // }
-
-  // async getByEmailOrDocument(
-  //   email: string,
-  //   document: string,
-  // ): Promise<Customer | null> {
-  //   return Promise.resolve(
-  //     new CustomerBuild(
-  //       'any',
-  //       'any',
-  //       'email@gmail.com',
-  //       '111111',
-  //       '11111111111',
-  //       DocumentType.CPF,
-  //     ).build(),
-  //   );
-  // }
-
-  // async getById(id: string): Promise<Customer> {
-  //   return new CustomerBuild(
-  //     'any',
-  //     'any',
-  //     'email@gmail.com',
-  //     '111111',
-  //     '11111111111',
-  //     DocumentType.CPF,
-  //   ).build();
-  // }
 }

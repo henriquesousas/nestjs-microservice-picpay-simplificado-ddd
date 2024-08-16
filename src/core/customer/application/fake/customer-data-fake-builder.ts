@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { DocumentType } from './document';
-import { Customer } from './entity/customer';
-import { CustomerBuilder } from '../application/builder/customer.builder';
+import { CustomerBuilder } from '../builder/customer.builder';
+import { DocumentType } from '../../domain/document';
+import { Customer } from '../../domain/entity/customer';
 
 export class CustomerDataBuilderFake {
-  private fakeCustomer: CustomerBuilder;
+  private customerBuilder: CustomerBuilder;
 
   constructor(type: DocumentType) {
-    this.fakeCustomer = new CustomerBuilder({
+    this.customerBuilder = new CustomerBuilder({
       firstName: faker.internet.userName(),
       surName: faker.internet.domainName(),
       document: type === DocumentType.CPF ? '02346542312' : '1234567890123456',
@@ -26,41 +26,41 @@ export class CustomerDataBuilderFake {
   }
 
   withFirstName(name: string): CustomerDataBuilderFake {
-    this.fakeCustomer.props.firstName = name;
+    this.customerBuilder.props.firstName = name;
     return this;
   }
 
   withFirstNameInvalid(): CustomerDataBuilderFake {
-    this.fakeCustomer.props.firstName = '1';
+    this.customerBuilder.props.firstName = '1';
     return this;
   }
 
   withSurName(name: string): CustomerDataBuilderFake {
-    this.fakeCustomer.props.surName = name;
+    this.customerBuilder.props.surName = name;
     return this;
   }
 
   withEmailInvalid(): CustomerDataBuilderFake {
-    this.fakeCustomer.props.email = 'test';
+    this.customerBuilder.props.email = 'test';
     return this;
   }
 
   withPasswordInvalid(): CustomerDataBuilderFake {
-    this.fakeCustomer.props.password = '1';
+    this.customerBuilder.props.password = '1';
     return this;
   }
 
   withBalance(value: number): CustomerDataBuilderFake {
-    this.fakeCustomer.withBalance(value);
+    this.customerBuilder.withBalance(value);
     return this;
   }
 
   withIsActive(active: boolean): CustomerDataBuilderFake {
-    this.fakeCustomer.withIsActive(active);
+    this.customerBuilder.withIsActive(active);
     return this;
   }
 
   build(): Customer {
-    return this.fakeCustomer.build();
+    return this.customerBuilder.build();
   }
 }
