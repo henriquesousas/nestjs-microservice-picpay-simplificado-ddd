@@ -1,6 +1,8 @@
 @startuml C4_Elements
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+' LAYOUT_TOP_DOWN()
+' LAYOUT__RIGHT()
 
 AddRelTag("async", $lineStyle = DashedLine())
 
@@ -8,9 +10,10 @@ Person(customer, "Customer", "Acessa recursos")
 
 System_Ext(notification,"Notification","NestJs") 
 System_Ext(transaction,"Transaction","NestJs") 
+System_Ext(wallet,"Wallet","NestJs") 
  
 
-System_Boundary(cms,"PicPaySimplificado - clientes") {    
+System_Boundary(cms,"PaymentSimplificado - clientes") {    
     ' Conatiner
     Container(backend,"Backend", "NestJs","Recebe requisições para gerenciar recursos de clientes" )   
     ContainerDb(mysql,"Banco de dados", "Mysql","Armazena dados dos clientes" )
@@ -18,12 +21,18 @@ System_Boundary(cms,"PicPaySimplificado - clientes") {
 
     ' Relacoes
     Rel(customer, backend,"solicita recursos do cliente em", "HTTP/JSON")
-    Rel(backend, rabbitmq,"Envia dados do cliente no [topic: notification] em", "JSON", $tags = "async")
+    
+    Rel(backend, rabbitmq,"Envia dados do cliente no [queue: notification] em", "JSON", $tags = "async")
+    Rel(backend, rabbitmq,"Envia dados da carteira [queue: wallet] em", "JSON", $tags = "async")
     Rel(backend, mysql,"Envia dados do cliente para", "Mysql protocol")
-    Rel(rabbitmq, notification,"Consome dados do cliente no [topic:notification] em", "JSON", $tags = "async")
-    Rel(rabbitmq, backend,"Consome dados da carteira (wallet) no [topic:wallet] em", "JSON", $tags = "async")
-    Rel(transaction, rabbitmq,"Envia dados da transação no [topic:wallet] em", "JSON", $tags = "async")
 
+    Rel(notification,rabbitmq, "Consome dados do cliente no [queue:notification] em", "JSON", $tags = "async")
+    Rel(wallet,rabbitmq, "Consome dados da carteira [queue:wallet] em", "JSON", $tags = "async")
+    
+    Rel(transaction, rabbitmq,"Envia dados da transação [queue:wallet] em", "JSON", $tags = "async")
+    
 }
+
+
 
 @enduml
